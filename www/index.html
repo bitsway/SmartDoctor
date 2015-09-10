@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<!-- Designed and developed by Business Solution Apps team -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>SmartDoctor</title>
+		<link rel="stylesheet" href="static/c.min.css" />
+		<link rel="stylesheet" href="static/jquery.mobile.icons.min.css" />
+		
+		<link rel="stylesheet" href="static/jquery.mobile-1.4.0.min.css" />
+        <script src="static/jquery-1.10.2.min.js"></script>
+        <script src="static/jquery.mobile-1.4.0.min.js"></script>
+		<script src="static/smart_doctor.js"></script>		
+		<script src="static/datetimepicker.js"></script>	
+		
+
+	<style>
+	table.tbl_preview tr td { border:1px solid #5FAFAF; background-color:#EFF8F8;}
+	.ui-radio{ width:50%;}
+	.ui-controlgroup-controls{ width:100%;}
+	.ui-controlgroup-vertical{ width:200%;}
+	
+	</style>
+	<script type="text/javascript">
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+    </script>
+    </head>
+	
+    <body>
+		 <!--===================== pageSync ==================-->
+		<div data-theme="c" data-role="page" id="login">
+            <div data-theme="c" data-role="header" data-position="fixed">				
+				<a  data-role="button" href="#pageHome" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+                <h3>Authorization</h3>
+            </div>
+			
+            <div data-role="content">
+            	<div id="error_login" style="color:#C00"></div>                
+                    <form>					
+                        <input name="user_id" id="user_id"  value="" type="text" placeholder="UserID">
+                        <input type="text" name="user_pass" id="user_pass"  value="" placeholder="Password">
+                    </form>						
+				
+				<a data-role="button" id="loginButton" onClick="check_user();" >Sync</a>
+				<div align="center"><img id="wait_image_login" style="" width="50px;" src="loading.gif" alt=""></div>
+                                
+                <br><br><br><br><br><br><br><br><br><br>
+                
+               <!-- <input name="clear_auth_check" id="clear_auth_check" data-mini="true" type="checkbox" value="Yes">
+                <label for="clear_auth_check">Confirm Clear Authorization</label>
+                
+                <a data-role="button" onClick="clear_autho();" >Clear Authorization</a>-->
+                <!--<a onClick="clear_autho()" href="#login">Clear Authorization</a>    -->          
+                <br><br><br><br><br><br>
+                       
+            </div>
+			
+        <!-- ==========footer====== -->	
+        <div data-theme="c" data-role="footer" data-position="fixed"></div>
+        
+        </div>		
+
+
+
+<!-- =====================Home page=============== -->
+		<div data-theme="c" data-role="page" id="pageHome">
+			<div data-role="panel" id="routePanel" data-display="overlay" style="width:60%; background-color:#FFF">
+				<!-- panel content goes here unilogo1.jpg-->
+				<div align="center">
+                <!--<img style="width:100%" src="lafarge.png" alt="GP" />-->
+                <br>
+				</div>
+                
+				<br><br><br><br>
+                
+				<ul data-role="listview">                    
+                    <br><br>
+                    <div style="background:#008A8A; height:1px"></div>
+                    <li ><div ><a href="#login" ><img src="sync.png"></a></div></li> 
+                    <div style="background:#008A8A; height:1px"></div>
+                </ul>
+                
+				<div style="margin:100%;"></div>
+				<!--<img src="lafarge.png" alt="Grameen Phone" />-->
+			</div><!-- /panel -->
+			
+            <div data-theme="c" data-role="header" data-position="fixed" >			
+				<a  data-role="button" href="#routePanel" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+                <a  data-role="button" onClick="exit();" class="ui-btn-right" style="padding:4px;"><img src="exit.png" style="height:25px; width:25px;"></a>
+                
+                <!--<a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-power ui-btn-icon-notext " onClick="exit();"><img src="exit.png"></a>-->
+                <h3>Smart Doctor</h3>
+            </div>
+			<!--<img style="width:100%; height:40px"  src="images_2.jpg">-->
+            <div data-role="content">                
+                <div data-role="fieldcontain" style="font-size:16px;">
+                
+                    <div class="ui-grid-a" style="text-align:center;">
+							<a data-role="button" id="btnParking1" onClick="chember_show();" style=" color:#008040"><!--<img src="QueList.png">--><img height="100px" src="chamber.png"><br>Chamber</a>
+					</div>
+                    
+					<div class="ui-grid-a" style="text-align:center;">
+							<a data-role="button" id="btnQueue" onClick="page_profile_show();" style="color:#008040"><!--<img src="QueList.png">--><img src="profile.png"><br>Profile</a>
+					</div>
+                    
+		
+                                   
+                </div>
+                 
+                </div>	
+                <div data-theme="c" data-role="footer" data-position="fixed"></div>			
+            </div>
+
+
+
+
+
+
+<!--==================Chamber====================-->
+
+
+<div data-theme="c" data-role="page" id="page_chamber_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Chamber List</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_chamber_list" style="color:#C00"></div>	
+        
+        
+        <div id="chamber_list"></div>
+       
+        <br>
+        <!--<div align="center"><img id="wait_image_parking_1_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
+        
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>			
+ </div><!--/page-->
+
+<!--==========================Profile====================-->
+<div data-theme="c" data-role="page" id="page_profile_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Profile</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_profile_edit" style="color:#C00"></div>	
+        
+        
+         <div id="doc_profile" style="font-size:22px; color:#008040"></div>	
+		 
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td style="width:20%;" ><strong style="font-size:12px; color:#008040">Name</strong></td>
+              <td ><input id="doc_name" name="doc_name" type="text"></td>              
+            </tr>
+            <tr >
+              <td  ><strong style="font-size:12px; color:#008040">Speciality</strong></td>
+              <td  ><input  id="doc_speciality" name="doc_speciality"  type="text"></td>              
+            </tr>
+            <tr >
+              <td  ><strong style="font-size:12px; color:#008040">Des</strong></td>
+              <td  ><input  id="doc_des" name="doc_des"  type="text"></td>              
+            </tr>
+             <tr >
+              <td  ><strong style="font-size:12px; color:#008040">Experience</strong></td>
+              <td s ><input id="experience"  name="experience" type="text"></td>              
+            </tr>
+            </table>
+        <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>
+        <br>
+        <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
+        
+    </div><!--/cont-->
+    <a data-role="button" onClick="page_profile_edit();"><!--<img  src="save.png">-->Update Profile</a>
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>			
+ </div><!--/page-->
+ 
+<!-- ============================Chamber Go=====================-->
+ <div data-theme="c" data-role="page" id="page_chamber_go">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Chamber</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_request_show" style="color:#C00"></div>	
+        
+        <div id="chamber_id"  style="font-size:18px; color:#008040">	</div>
+        
+        </dbr>
+        <a data-role="button" onClick="page_chember_req_show()">Request</a>
+        
+        <a data-role="button" onClick="page_con_appoinment_show()">Confirmed</a>
+        
+        
+        
+        </br>
+         <a data-role="button" onClick="page_settings_show()">Settings</a>
+         <a data-role="button" onClick="page_schedule_show()">Schedule</a>
+         <a data-role="button" onClick="page_OffDay_show()">Off Day</a>
+         
+         
+
+        
+        <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>
+        <br>
+        <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
+        
+    </div><!--/cont-->
+ 
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>			
+ </div><!--/page-->
+
+
+
+<!--======================Request=============-->
+<div data-theme="c" data-role="page" id="page_request_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Request</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_request" style="color:#C00"></div>	
+        <div id="reqChember" style="font-size:18px; color:#008040"></div>
+		
+		
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td style="width:50%;" ><input name="req_search" id="req_search" type="date"></td>
+              <td style="width:20%;" ><a data-role="button" onClick="req_app_search();">Show</a></td>  
+			  <td style="width:20%;" ><a data-role="button" onClick="page_chember_req_show();">All</a></td>              
+            </tr>
+            </table>
+        </br>
+		<!--<input id="demo1" type="text" size="25">
+		<a href="javascript:NewCal('demo1','mmddyyyy')"><img src="cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>-->
+
+ <!--<input type="datetime-local" name="bdaytime">-->
+
+
+
+
+		<div id="reqList"></div>
+	
+        <!--<table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
+              <td style="width:50%;" >Time</td>   
+              <td style="width:50%;" ></td>              
+            </tr>
+            
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
+              <td style="width:50%;" >Time</td>   
+              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a></td>              
+            </tr>
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
+              <td style="width:50%;" >Time</td>   
+              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a>	</td>              
+            </tr>
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
+              <td style="width:50%;" >Time</td>   
+              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a></td>              
+            </tr>
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
+              <td style="width:50%;" >Time</td>   
+              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a></td>              
+            </tr>
+            </table>-->
+        <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>
+        <br>
+        <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
+        
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>			
+ </div><!--/page-->
+
+<!--==========================Appoinment=======================-->
+<div data-theme="c" data-role="page" id="page_con_appoinment_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Confirmed/Appoinment</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_con_list" style="color:#C00"></div>	
+         <div id="reqConChember" style="font-size:18px; color:#008040">asgfdh</div>
+		 
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td style="width:50%;" ><input name="" type="date"></td>
+              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Show</a></td>              
+            </tr>
+            </table>
+        </br>
+		
+        <!--<table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Appoinment</strong></td>
+              <td style="width:50%;" ><a data-role="button" href="#page_appoinment_new">+</a></td>   
+                        
+            </tr>
+			</table>-->
+        <!--    <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
+              <td style="width:50%;" >Time</td>   
+                        
+            </tr>
+            
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
+              <td style="width:50%;" >SL</td>   
+                      
+            </tr>
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
+              <td style="width:50%;" >SL</td>   
+                        
+            </tr>
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
+              <td style="width:50%;" >SL</td>   
+                  
+            </tr>
+             <tr >
+              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
+              <td style="width:50%;" >SL</td>   
+                   
+            </tr>
+            </table>
+-->
+			<div id="reqConList"></div>
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div><!--/page-->
+
+
+
+
+
+<!--===========================Settings=================-->
+<div data-theme="c" data-role="page" id="page_settings_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Settings</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_setings_chamber" style="color:#C00"></div>	
+        
+        
+         
+		<div id="settingsChember" style="font-size:18px; color:#008040"></div>
+        
+        
+        
+        </br>
+		<input id="row_id" name="row_id" type="hidden">
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+              <td style="width:20%; font-size:12px; color:#008040">Assistant Mobile 1</td>
+              <td ><input id="assistant_mobile1" name="assistant_mobile1" type="text"></td>   
+                        
+            </tr>
+            
+             <tr >
+              <td style="font-size:12px; color:#008040">Assistant Mobile 2</td>
+              <td ><input id="assistant_mobile2" name="assistant_mobile2" type="text"></td>   
+                      
+            </tr>
+             <tr >
+              <td style="font-size:12px; color:#008040">Time Between Appointment</td>
+              <td ><input id="visiting_duration" name="visiting_duration" type="text"></td>   
+                        
+            </tr>
+             <tr >
+              <td style="font-size:12px; color:#008040">Auto Serial</td>
+              <td >
+                
+                  <select name="auto_serial" id="auto_serial" >
+                    <option  value="YES">YES</option>
+                    <option  value="NO">NO</option>
+                  </select>
+               </td>   
+                  
+            </tr>
+             <tr >
+              <td  style="font-size:12px; color:#008040">Area</td>
+              <td  ><input id="area" name="area" type="text"></td>   
+                   
+            </tr>
+            
+            <tr >
+              <td style="font-size:12px; color:#008040">Thana</td>
+              <td  ><input id="thana" name="thana" type="text"></td>   
+                   
+            </tr>
+            
+            <tr >
+              <td  style="font-size:12px; color:#008040"> District</td>
+              <td  ><input id="district" name="district" type="text"></td>   
+                   
+            </tr>
+            </table>
+
+		</br>
+        <a  data-role="button" id="btnTruckInfo" onClick="page_settings_edit();" ><!--<img  src="save.png">-->Update Settings</a>
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div><!--/page-->
+ 
+ 
+<!--======================Schedule====================-->
+
+ 
+ 
+
+<!--=========================Schedule===========================-->
+<div data-theme="c" data-role="page" id="page_schedule_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Schedule</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_schedule" style="color:#C00"></div>	
+        
+        
+         
+		<div id="scheduleChember" style="font-size:18px; color:#008040"></div>
+        
+        
+        
+        </br>
+		
+		<div id="" style="overflow:scroll; height:400px;">
+		<input id="row_id_schedule" name="row_id"  type="hidden">
+		   <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+             <tr >
+              <td width="10%"   ><strong style="font-size:18px; color:#008040">Schedule</strong></td>
+              <td width="15%"  ><strong style="font-size:18px; color:#008040">From</strong></td>   
+              <td width="15%" ><strong style="font-size:18px; color:#008040">To</strong></td>
+              <td width="20%"  style="width:20%;" ><strong style="font-size:18px; color:#008040">Max Patient</strong></td>             
+            </tr>
+            <tr >
+              <td  style="font-size:12px; color:#008040">SAT </td>
+              <td >
+              	<select name="sat_mor_from" id="sat_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td  >
+              	<select name="sat_mor_to" id="sat_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td ><input name="sat_max_patient" type="number" id="sat_max_patient"></td>             
+            </tr>
+            
+             <tr >
+               <td  >&nbsp;</td>
+               <td  ><select name="sat_eve_from" id="sat_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td  ><select name="sat_eve_to" id="sat_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td  >&nbsp;</td>
+             </tr>
+             <tr >
+              <td  style="font-size:12px; color:#008040">SUN</td>
+              <td  >
+              	<select name="sun_mor_from" id="sun_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td  >
+              	<select name="sun_mor_to" id="sun_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td  ><input name="sun_max_patient" type="number" id="sun_max_patient"></td>             
+            </tr>
+            
+             <tr >
+               <td  >&nbsp;</td>
+               <td  ><select name="sun_eve_from" id="sun_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td ><select name="sun_eve_to" id="sun_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td >&nbsp;</td>
+             </tr>
+             <tr >
+              <td style="font-size:12px; color:#008040">MON</td>
+              <td  >
+              	<select name="mon_mor_from" id="mon_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td >
+              	<select name="mon_mor_to" id="mon_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td ><input name="mon_max_patient" type="number" id="mon_max_patient"></td>             
+            </tr>
+            
+             <tr >
+               <td >&nbsp;</td>
+               <td ><select name="mon_eve_from" id="mon_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td ><select name="mon_eve_to" id="mon_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td >&nbsp;</td>
+             </tr>
+             <tr >
+              <td style="font-size:12px; color:#008040">TUE</td>
+              <td >
+              	<select name="tue_mor_from" id="tue_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td >
+              	<select name="tue_mor_to" id="tue_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td ><input name="tue_max_patient" type="number" id="tue_max_patient"></td>             
+            </tr>
+            
+             <tr >
+               <td>&nbsp;</td>
+               <td><select name="tue_eve_from" id="tue_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td><select name="tue_eve_to" id="tue_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td>&nbsp;</td>
+             </tr>
+             <tr >
+              <td style="font-size:12px; color:#008040">WED</td>
+              <td>
+              	<select name="wed_mor_from" id="wed_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td>
+              	<select name="wed_mor_to" id="wed_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td><input name="wed_max_patient" type="number" id="wed_max_patient"></td>             
+            </tr>
+            
+             <tr >
+               <td>&nbsp;</td>
+               <td ><select name="wed_eve_from" id="wed_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td><select name="wed_eve_to" id="wed_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td >&nbsp;</td>
+             </tr>
+             
+             <tr >
+              <td style="font-size:12px; color:#008040">THU</td>
+              <td >
+              	<select name="thu_mor_from" id="thu_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td>
+              	<select name="thu_mor_to" id="thu_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td ><input name="thu_max_patient" type="number" id="thu_max_patient"></td>             
+            </tr>
+            
+             <tr >
+               <td >&nbsp;</td>
+               <td ><select name="thu_eve_from" id="thu_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td ><select name="thu_eve_to" id="thu_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td >&nbsp;</td>
+             </tr>
+             <tr >
+              <td style="font-size:12px; color:#008040">FRI</td>
+              <td >
+              	<select name="fri_mor_from" id="fri_mor_from" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>                  </td>   
+              <td >
+              	<select name="fri_mor_to" id="fri_mor_to" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                    <option  value="5">5</option>
+                    <option  value="6">6</option>
+                    <option  value="7">7</option>
+                    <option  value="8">8</option>
+                    <option  value="9">9</option>
+                    <option  value="10">10</option>
+                    <option  value="11">11</option>
+                    <option  value="12">12</option>
+                    <option  value="13">13</option>
+                    <option  value="14">14</option>
+                    <option  value="15">14</option>
+                    <option  value="7">15</option>
+                    <option  value="16">16</option>
+                    <option  value="17">17</option>
+                    <option  value="18">18</option>
+                    <option  value="19">19</option>
+                    <option  value="20">20</option>
+                    <option  value="21">21</option>
+                    <option  value="22">22</option>
+                    <option  value="23">23</option>
+                    <option  value="24">24</option>
+                  </select>              </td>
+              <td ><input name="fri_max_patient" type="number" id="fri_max_patient"></td>             
+            </tr>
+             <tr >
+               <td >&nbsp;</td>
+               <td ><select name="fri_eve_from" id="fri_eve_from" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td ><select name="fri_eve_to" id="fri_eve_to" >
+                 <option  value="1">1</option>
+                 <option  value="2">2</option>
+                 <option  value="3">3</option>
+                 <option  value="4">4</option>
+                 <option  value="5">5</option>
+                 <option  value="6">6</option>
+                 <option  value="7">7</option>
+                 <option  value="8">8</option>
+                 <option  value="9">9</option>
+                 <option  value="10">10</option>
+                 <option  value="11">11</option>
+                 <option  value="12">12</option>
+                 <option  value="13">13</option>
+                 <option  value="14">14</option>
+                 <option  value="15">14</option>
+                 <option  value="7">15</option>
+                 <option  value="16">16</option>
+                 <option  value="17">17</option>
+                 <option  value="18">18</option>
+                 <option  value="19">19</option>
+                 <option  value="20">20</option>
+                 <option  value="21">21</option>
+                 <option  value="22">22</option>
+                 <option  value="23">23</option>
+                 <option  value="24">24</option>
+               </select></td>
+               <td >&nbsp;</td>
+             </tr>
+            </table>
+		</div>
+			
+		</br>
+        <a  data-role="button" id="btnTruckInfo" onClick="page_schedule_edit();" ><!--<img  src="save.png">-->Update Schedule</a>
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div>
+
+<!--=======================Off Day=========================-->
+
+<div data-theme="c" data-role="page" id="page_OffDay_show">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Off Day</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_offday" style="color:#C00"></div>	
+        
+        
+         
+		<div id="offdayChember" style="font-size:18px; color:#008040"></div>
+        </br>
+		
+		
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+             
+              <td style="width:30%;" ><input name="off_date" id="off_date" type="date"></td>   
+              <td  > <a  data-role="button"  onClick="addOffday();" >Save</a></td>   
+                        
+            </tr>
+        </table>
+        </br>
+		<div id="offday" style="font-size:18px; color:#008040"></div>
+        
+
+		</br>
+        
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div>
+<!--===================Appoinment======================-->
+
+<div data-theme="c" data-role="page" id="page_appoinment">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Appoinment</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_to_queue_list" style="color:#C00"></div>	
+        
+        
+         
+		<strong style="font-size:18px; color:#008040">Patient</strong>
+        
+        
+        
+        </br>
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+              <td style="width:50%;" >next Appoinment</td>
+              <td style="width:50%;" >
+              Weeks
+              <select name="jumpMenu" id="jumpMenu" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                  
+                  </select></td>   
+                        
+            </tr>
+            
+             
+            </table>
+
+		</br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Save</a>
+        
+        
+        </br></br></br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled by Patient</a>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Block This Number</a>
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div>
+
+<!--========================New Appoinment==================-->
+     
+<div data-theme="c" data-role="page" id="page_appoinment_new">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+        <h3>Appoinment</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_to_queue_list" style="color:#C00"></div>	
+        
+        
+         
+		<strong style="font-size:18px; color:#008040">Patient</strong>
+        
+        
+        
+        </br>
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+              <td style="width:50%;" >next Appoinment</td>
+              <td style="width:50%;" >
+              Weeks
+              <select name="jumpMenu" id="jumpMenu" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                  
+                  </select></td>   
+                        
+            </tr>
+            
+             
+            </table>
+
+		</br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Save</a>
+        
+        
+        </br></br></br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled by Patient</a>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Block This Number</a>
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div>
+ 
+ 
+    <script type="text/javascript" src="phonegap.js"></script>
+    
+    
+    </body>
+</html>
