@@ -803,7 +803,9 @@ function page_chember_req_show(){
 //	var chamber_id=chamber_showArray[1];
 	
 	//$("#error_request_show").html(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chamber_id);
-			$("#reqChember").html('');							
+			$("#error_request").html('');	
+			
+									
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
@@ -849,15 +851,15 @@ function page_chember_req_show(){
 										}
 										// alert (row_id)
 										
-										reqStrFull = reqStrFull+'<tr ><td style="width:50%;" ><strong style="font-size:18px; color:#008040">'+patinet_name+'</strong></td>'
-													+'<td  ><input width="80px" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-													+'<td  ><input width="80px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-												  if (status == 'SUBMITED'){ 
+										reqStrFull = reqStrFull+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+													+'<td style="width:20%;"  ><input style="font-size:14px; width=60px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+													+'<td  ><input style="font-size:14px;"  width="50px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+												  if (status == 'SUBMITTED'){ 
 												   
-												   reqStrFull = reqStrFull + '<td style="width:50%;" ><input type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
+												   reqStrFull = reqStrFull + '<td  ><input style="width:100px;" type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
 												  }
 												  else{
-													reqStrFull = reqStrFull +'<td style="width:50%;" ><input type="submit" value=" '+status+' " disabled="disabled" ></td>' 
+													reqStrFull = reqStrFull +'<td ><input style="width:100px;" type="submit" value=" '+status+' " disabled="disabled" ></td>' 
 													  }
 													reqStrFull = reqStrFull+'</tr>'  
 													  
@@ -910,6 +912,7 @@ function page_chember_req_show(){
 function req_show(){
 	
 	$("#reqChember").html(localStorage.chamber_show);
+	
 	
 	var reqStr=localStorage.reqStrFull;													
 	var reqStrArray = reqStr.split('<fdrd>');
@@ -1108,9 +1111,9 @@ function page_con_appoinment_show(){
 									var reqStrArray = reqStr.split('<fdrd>');
 									
 									
-									var reqConStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
+									//var reqConStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
 									//alert (reqStrArray.length)
-									
+									var reqConStrFull=''
 									for(i=0; i < reqStrArray.length-1; i++){
 										
 										var reqStrSingle=reqStrArray[i];
@@ -1123,12 +1126,18 @@ function page_con_appoinment_show(){
 										var app_time=reqStrSingleArray[3];
             							
 										var apptime_text=row_id+'time'
-										
-										reqConStrFull = reqConStrFull+'<tr ><td style="width:50%;" ><strong style="font-size:18px; color:#008040">'+patinet_name+'</strong></td>'
-													+'<td style="width:50%;" >  '+app_time +' </td>'
-												    +'<td style="width:50%;" ><input type="button" onClick="cancel_app('+row_id+');" value=" Cancel " ></td></tr>'
-								
+										reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
+													//+'<td style="width:50%; font-size:14px; color:#008040">  '+app_time +' </td>'
+												
+												    //+'<td style="width:50%;" ><input type="button" onClick="cancel_app('+row_id+');" value=" Cancel " ></td></tr>'
+													
+										//reqConStrFull = reqConStrFull+'<tr ><td style="width:50%; font-size:14px; color:#008040"><input type="submit" href="#page_appoinment_new" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'"</td>'
+//													//+'<td style="width:50%; font-size:14px; color:#008040">  '+app_time +' </td>'
+//													+'<td  ></td></tr>'
+												    //+'<td style="width:50%;" ><input type="button" onClick="cancel_app('+row_id+');" value=" Cancel " ></td></tr>'
+									
 									}
+									
 							        reqConStrFull = reqConStrFull + '</table>'
 									localStorage.reqConStrFull=reqConStrFull;
 									
@@ -1264,7 +1273,23 @@ function req_con_show(){
 	
 }
 
-
+function page_appoinment_new(){
+	//$("#next_week").val("");
+	var week_combo_show='<select name="next_week" id="next_week" >'
+        week_combo_show=week_combo_show+'<option  selected value=""></option>'
+        week_combo_show=week_combo_show+'<option  value="1">1</option>'
+        week_combo_show=week_combo_show+'<option  value="2">2</option>'
+        week_combo_show=week_combo_show+'<option  value="3">3</option>'
+        week_combo_show=week_combo_show+'<option  value="4">4</option>'
+        week_combo_show=week_combo_show+'<option  value="4">6</option>'
+        week_combo_show=week_combo_show+'</select>'
+	
+	$("#week_combo").empty();
+	$("#week_combo").append(week_combo_show).trigger('create');
+	
+	var url = "#page_appoinment_new";
+	$.mobile.navigate(url);	
+}
 
 
 //---------------------- Exit Application

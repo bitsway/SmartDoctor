@@ -199,9 +199,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div id="chamber_id"  style="font-size:18px; color:#008040">	</div>
         
         </dbr>
-        <a data-role="button" onClick="page_chember_req_show()">Request</a>
+        <a data-role="button" onClick="page_chember_req_show()">All Request</a>
         
-        <a data-role="button" onClick="page_con_appoinment_show()">Confirmed</a>
+        <a data-role="button" onClick="page_con_appoinment_show()">Confirmed Appoinments</a>
         
         
         
@@ -239,7 +239,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 		
         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
-              <td style="width:50%;" ><input name="req_search" id="req_search" type="date"></td>
+              <td style="width:50%;" ><input name="req_search" style="font-size:14px" id="req_search" type="date"></td>
               <td style="width:20%;" ><a data-role="button" onClick="req_app_search();">Show</a></td>  
 			  <td style="width:20%;" ><a data-role="button" onClick="page_chember_req_show();">All</a></td>              
             </tr>
@@ -298,7 +298,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
     <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
-        <h3>Confirmed/Appoinment</h3>
+        <h3>Confirmed Appoinment</h3>
     </div>
     
     <div data-role="content">
@@ -307,7 +307,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 		 
         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
-              <td style="width:50%;" ><input name="" type="date"></td>
+              <td style="width:50%;" ><input style="font-size:14px;" name="" type="date"></td>
               <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Show</a></td>              
             </tr>
             </table>
@@ -1424,17 +1424,22 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	
             <tr >
-              <td style="width:50%;" >next Appoinment</td>
-              <td style="width:50%;" >
-              Weeks
-              <select name="jumpMenu" id="jumpMenu" >
+              <td style="width:40%; font-size:14px; color:#008040" >Next Appoinment After</td>
+              <td style="width:10%;" >
+             <div id="week_combo">
+              <select name="next_week" id="next_week" >
+                    <option  selected value=""></option>
                     <option  value="1">1</option>
                     <option  value="2">2</option>
                     <option  value="3">3</option>
                     <option  value="4">4</option>
+                    <option  value="4">6</option>
                   
-                  </select></td>   
-                        
+                  </select>
+                  
+                  </div>
+                  </td>   
+             <td style="font-size:14px; color:#008040"  >Weeks</td>           
             </tr>
             
              
@@ -1444,8 +1449,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Save</a>
         
         
-        </br></br></br>
-        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled by Patient</a>
+        </br></br></br> </br></br></br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled / No Show</a>
         <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Block This Number</a>
     </div><!--/cont-->
     
