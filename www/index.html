@@ -50,11 +50,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                 
                 <br><br><br><br><br><br><br><br><br><br>
                 
-               <!-- <input name="clear_auth_check" id="clear_auth_check" data-mini="true" type="checkbox" value="Yes">
-                <label for="clear_auth_check">Confirm Clear Authorization</label>
-                
-                <a data-role="button" onClick="clear_autho();" >Clear Authorization</a>-->
-                <!--<a onClick="clear_autho()" href="#login">Clear Authorization</a>    -->          
+       
                 <br><br><br><br><br><br>
                        
             </div>
@@ -69,9 +65,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <!-- =====================Home page=============== -->
 		<div data-theme="c" data-role="page" id="pageHome">
 			<div data-role="panel" id="routePanel" data-display="overlay" style="width:60%; background-color:#FFF">
-				<!-- panel content goes here unilogo1.jpg-->
 				<div align="center">
-                <!--<img style="width:100%" src="lafarge.png" alt="GP" />-->
                 <br>
 				</div>
                 
@@ -85,26 +79,23 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 </ul>
                 
 				<div style="margin:100%;"></div>
-				<!--<img src="lafarge.png" alt="Grameen Phone" />-->
 			</div><!-- /panel -->
 			
             <div data-theme="c" data-role="header" data-position="fixed" >			
 				<a  data-role="button" href="#routePanel" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
                 <a  data-role="button" onClick="exit();" class="ui-btn-right" style="padding:4px;"><img src="exit.png" style="height:25px; width:25px;"></a>
                 
-                <!--<a data-role="button" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-power ui-btn-icon-notext " onClick="exit();"><img src="exit.png"></a>-->
                 <h3>Smart Doctor</h3>
             </div>
-			<!--<img style="width:100%; height:40px"  src="images_2.jpg">-->
             <div data-role="content">                
                 <div data-role="fieldcontain" style="font-size:16px;">
                 
                     <div class="ui-grid-a" style="text-align:center;">
-							<a data-role="button" id="btnParking1" onClick="chember_show();" style=" color:#008040"><!--<img src="QueList.png">--><img height="100px" src="chamber.png"><br>Chamber</a>
+							<a data-role="button" id="btnParking1" onClick="chember_show();" style=" color:#008040"><img height="100px" src="chamber.png"><br>Chamber</a>
 					</div>
                     
 					<div class="ui-grid-a" style="text-align:center;">
-							<a data-role="button" id="btnQueue" onClick="page_profile_show();" style="color:#008040"><!--<img src="QueList.png">--><img src="profile.png"><br>Profile</a>
+							<a data-role="button" id="btnQueue" onClick="page_profile_show();" style="color:#008040"><img src="profile.png"><br>Profile</a>
 					</div>
                     
 		
@@ -133,17 +124,34 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <div data-role="content">
         <div id="error_chamber_list" style="color:#C00"></div>	
         
+        <a data-role="button" id="btnQueue" onClick="show_chamber_div();" style="color:#008040"> Add New Chamber </a>
+        
+         <div id="add_new_chamber">
+         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td ><strong style="font-size:12px; color:#008040">Name</strong></td>
+              <td ><input id="new_chamber_name" name="new_chamber_name" type="text"></td>  
+               <td ><input  type="submit" value="Add" onClick="add_new_chamber();"></td>               
+            </tr>
+         </table>
+         
+         </div>
+        
+        
+        
+        <br><br><br>
         
         <div id="chamber_list"></div>
        
         <br>
-        <!--<div align="center"><img id="wait_image_parking_1_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
         
     </div><!--/cont-->
     
     <div data-theme="c" data-role="footer" data-position="fixed"></div>			
  </div><!--/page-->
+ 
 
+ 
 <!--==========================Profile====================-->
 <div data-theme="c" data-role="page" id="page_profile_show">
     <div data-theme="c" data-role="header" data-position="fixed">
@@ -165,7 +173,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             </tr>
             <tr >
               <td  ><strong style="font-size:12px; color:#008040">Speciality</strong></td>
-              <td  ><input  id="doc_speciality" name="doc_speciality"  type="text"></td>              
+              <td  >
+			  
+			  <div id="spciality_combo"></div>
+			  
+			  <!--<input  id="doc_speciality" name="doc_speciality"  type="text">-->
+			  
+			  </td>              
             </tr>
             <tr >
               <td  ><strong style="font-size:12px; color:#008040">Des</strong></td>
@@ -173,7 +187,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             </tr>
              <tr >
               <td  ><strong style="font-size:12px; color:#008040">Experience</strong></td>
-              <td s ><input id="experience"  name="experience" type="text"></td>              
+              <td s ><input id="experience"  name="experience" type="number"></td>              
             </tr>
             </table>
         <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>

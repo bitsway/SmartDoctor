@@ -9,7 +9,7 @@ var apipath="http://eapps001.cloudapp.net/smart_doctor/syncmobile/";
 var latitude="";
 var longitude="";
 
-
+var url = "";
 
 function getLocationInfoAch() {	
 	
@@ -36,20 +36,31 @@ function replace_special_char(string_value){
 
 $(document).ready(function(){
 		$("#wait_image_login").hide();
-		$("#loginButton").show();		
+		$("#loginButton").show();	
+		
+		$("#add_new_chamber").hide();	
 
 			$("#q_lat").val("");
 			$("#q_long").val("");
 			$("#wait_image_login").hide();
-			var url = "#pageHome";
-	
-		$.mobile.navigate(url);
+			
+		
+		if (localStorage.sync_code == 0){
+			url = "#login";
+			$.mobile.navigate(url);
+		}
+		else{
+			url = "#pageHome";
+			$.mobile.navigate(url);
+		}
+		//alert  (localStorage.sync_code)
+		
 		
 	});
 
 function menuClick(){
 	
-	var url = "#pageHome";
+	url = "#pageHome";
 	$.mobile.navigate(url);
 	
 }
@@ -57,7 +68,7 @@ function menuClick(){
 
 
 function get_login() {
-	var url = "#login";
+	url = "#login";
 	$.mobile.navigate(url);
 	}
 				
@@ -71,7 +82,7 @@ function check_user() {
 	
 	//-----
 	if (user_id=="" || user_id==undefined || user_pass=="" || user_pass==undefined){
-		var url = "#login";      
+		url = "#login";      
 		$.mobile.navigate(url);
 		$("#error_login").html("Required User ID and Password");	
 	}else{
@@ -104,6 +115,8 @@ function check_user() {
 									localStorage.chamberStr=syncResultArray[2];
 									docProfileStr=syncResultArray[3];
 									
+									localStorage.specialityStr=syncResultArray[4];
+									
 									//Profile
 									//alert (docProfileStr)
 									var profileArray = docProfileStr.split('fdfd');
@@ -112,19 +125,26 @@ function check_user() {
 									localStorage.note=profileArray[2];
 									localStorage.experience=profileArray[3];
 									
+									
+									
+									
 									localStorage.user_id=user_id;
 									localStorage.user_pass=user_pass
 									//alert (localStorage.user_id)
 									
 									//$("#chamber_list").html(localStorage.chamberStr);
 									
-									
 									//----------------
+									//alert (localStorage.doc_name);
+									if ((localStorage.doc_name=='') || (localStorage.speciality=='')){
+										page_profile_show();
+									}
+									else{
+										url = "#pageHome";
+										$.mobile.navigate(url);	
+									}
 									
-									
-									
-									var url = "#pageHome";
-									$.mobile.navigate(url);								
+																
 									
 									$(".errorChk").html("Sync Successful");
 									//alert('aa');
@@ -147,7 +167,7 @@ function check_user() {
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
@@ -180,10 +200,19 @@ function chember_show(){
 	}
 	
 	// $("#chamber_list").html(chamberStrCreate);
-	$("#chamber_list").empty();
-	 $("#chamber_list").append(chamberStrCreate).trigger('create');
-	 var url = "#page_chamber_show";
-	 $.mobile.navigate(url);
+	if ((localStorage.doc_name=='') || (localStorage.speciality=='')){
+		page_profile_show();
+	}
+	else{
+		 
+		  $("#error_chamber_list").html('');
+		 $("#chamber_list").empty();
+		 $("#chamber_list").append(chamberStrCreate).trigger('create');
+		 url = "#page_chamber_show";
+		 $.mobile.navigate(url);
+	}
+	
+	
 	
 }
 
@@ -191,15 +220,37 @@ function chember_show(){
 function page_profile_show(){
 	$("#error_profile_edit").html(" ");
 	$("#doc_name").val(localStorage.doc_name);
-	$("#doc_speciality").val(localStorage.speciality);
+	//$("#doc_speciality").val(localStorage.speciality);
 	$("#doc_des").val(localStorage.note);
 	$("#experience").val(localStorage.experience);
 	
-	// alert (localStorage.speciality);
+	//alert (localStorage.speciality)
+	var speciality_show=localStorage.specialityStr;
+	var doc_speciality='<select name="doc_speciality" id="doc_speciality" >'
+	doc_speciality= doc_speciality+'<option  value="'+localStorage.speciality+'">'+localStorage.speciality+'</option>'
+                   
+	var specialityStrArray=speciality_show.split('fdfd')
+	
+	
+	for(i=0; i < specialityStrArray.length-1; i++){
+		
+		doc_speciality= doc_speciality+'<option  value="'+specialityStrArray[i]+'">'+specialityStrArray[i]+'</option>'
+		
+		
+	}
+	doc_speciality=doc_speciality+'</select>'
+	
+	
+	
+	$("#spciality_combo").empty();
+	$("#spciality_combo").append(doc_speciality).trigger('create');
+	
+	
+	// alert (doc_speciality);
 	 $("#doc_profile").html(localStorage.doc_name +'|' +localStorage.user_id);
 	
 
-	 var url = "#page_profile_show";
+	 url = "#page_profile_show";
 	$.mobile.navigate(url);
 }
 
@@ -238,7 +289,7 @@ function page_profile_edit(){
 																
 									
 									$("#error_profile_edit").html("Updated Successfully");
-									//var url = "#pageHome";
+									//url = "#pageHome";
 //									$.mobile.navigate(url);	
 			
 								}else {
@@ -259,7 +310,7 @@ function page_profile_edit(){
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
@@ -306,10 +357,12 @@ function page_chamber_go(chambers_id){
 									localStorage.scheduleStr=scheduleStr;
 									localStorage.offdayStr=offdayStr;
 									
-									//alert (localStorage.offdayStr);						
-									
-									var url = "#page_chamber_go";
+
+
+									url = "#page_chamber_go";
 									$.mobile.navigate(url);
+
+									
 			
 								}else {
 									 
@@ -329,7 +382,7 @@ function page_chamber_go(chambers_id){
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
@@ -380,7 +433,7 @@ function page_settings_show(){
 	$("#district").val(district);
 	//alert("2")
 	
-	var url = "#page_settings_show";
+	url = "#page_settings_show";
 	$.mobile.navigate(url);
 	
 }
@@ -413,7 +466,7 @@ function page_settings_edit(){
 									localStorage.settingsStr=settingsStr;
 									
 									$("#error_setings_chamber").html('Settings Updated Succesfully');								
-										//var url = "#page_settings_show";
+										//url = "#page_settings_show";
 										//$.mobile.navigate(url);							
 									
 
@@ -436,7 +489,7 @@ function page_settings_edit(){
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
@@ -554,7 +607,7 @@ function page_schedule_show(){
 	$("#fri_max_patient").val(fri_max_patient);
 	//alert("2")
 	
-	var url = "#page_schedule_show";
+	url = "#page_schedule_show";
 	$.mobile.navigate(url);
 	
 }
@@ -633,7 +686,7 @@ function page_schedule_edit(){
 									localStorage.scheduleStr=submit_string;
 									
 									$("#error_schedule").html('Schedule Updated Succesfully');								
-										//var url = "#page_settings_show";
+										//url = "#page_settings_show";
 										//$.mobile.navigate(url);							
 									
 
@@ -656,7 +709,7 @@ function page_schedule_edit(){
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
@@ -688,7 +741,7 @@ function page_OffDay_show(){
 	offdayStr_create=offdayStr_create+'</table>'
 
 	$("#offday").html(offdayStr_create);
-	var url = "#page_OffDay_show";
+	url = "#page_OffDay_show";
 	$.mobile.navigate(url);
 	
 }
@@ -732,17 +785,13 @@ function deleteOffday(row_id_off){
 				  $("#loginButton").show();
 				//  $("#error_login").html('Invalid Request');
 				  
-				  var url = "#login";
+				  url = "#login";
 				  $.mobile.navigate(url);	
 			  }
 		  });//end ajax
 	
 }
-function addOffday(){
-	//var chamber_show=localStorage.chamber_show;
-//	var chamber_id=chamber_show.split('|')[1]
-	
-	
+function addOffday(){	
 	var off_date=$("#off_date").val();
 	
 	//$("#error_offday").html(apipath+'addOffday?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&off_date='+off_date+'&chamber_id='+chamber_id);
@@ -781,7 +830,7 @@ function addOffday(){
 					  $("#loginButton").show();
 					//  $("#error_login").html('Invalid Request');
 					  
-					  var url = "#login";
+					  url = "#login";
 					  $.mobile.navigate(url);	
 				  }
 			  });//end ajax
@@ -795,17 +844,8 @@ function addOffday(){
 
 
 
-function page_chember_req_show(){
-	
-	//var chamber_show=localStorage.chamber_show
-//	var chamber_showArray = chamber_show.split('|');
-//	
-//	var chamber_id=chamber_showArray[1];
-	
-	//$("#error_request_show").html(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chamber_id);
+function page_chember_req_show(){	//$("#error_request_show").html(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chamber_id);
 			$("#error_request").html('');	
-			
-									
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
@@ -877,7 +917,7 @@ function page_chember_req_show(){
 									$("#reqChember").html(localStorage.chamber_show);	
 									$("#reqList").empty();
 									$("#reqList").append(localStorage.reqStrFull).trigger('create');
-									var url = "#page_request_show";
+									url = "#page_request_show";
 									$.mobile.navigate(url);								
 									
 
@@ -900,12 +940,12 @@ function page_chember_req_show(){
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
 	
-	    var url = "#page_request_show";
+	    url = "#page_request_show";
 		$.mobile.navigate(url);
 	
 }
@@ -964,23 +1004,30 @@ function req_show(){
 	localStorage.reqStrFull=reqStrFull;	
 	$("#reqList").empty();
 	$("#reqList").append(localStorage.reqStrFull).trigger('create');
-	var url = "#page_request_show";
+	url = "#page_request_show";
 	$.mobile.navigate(url);			
 	
 }
 
 function confirm_app(row_id){
-	//var chamber_show=localStorage.chamber_show;
-//	var chamber_id=chamber_show.split('|')[1]
+	var apptime_date=row_id+'date'
+	var apptime_time=row_id+'time'
 	
+	var apptime_date_val=$("#"+apptime_date).val()
+	var apptime_time_val=$("#"+apptime_time).val()
 	
+	var apptime=apptime_date_val+" "+apptime_time_val
 	
+	//alert (apptime);
 	
-	//$("#error_request").html(apipath+'confirm_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&chamber_id='+localStorage.chamber_id);
+	var chamber_show=localStorage.chamber_show;
+	var chamber_id=chamber_show.split('|')[1]
+	
+//$("#error_request").html(apipath+'confirm_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&chamber_id='+localStorage.chamber_id+'&apptime='+apptime);
 										
 	$.ajax({
 			 type: 'POST',
-			 url: apipath+'confirm_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&chamber_id='+localStorage.chamber_id,
+			 url: apipath+'confirm_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&chamber_id='+localStorage.chamber_id+'&apptime='+apptime,
 			 
 			 success: function(result) {											
 					if (result==''){
@@ -995,7 +1042,7 @@ function confirm_app(row_id){
 
 							$("#error_request").html('Confirmed Succesfully');	
 							
-							 //var url = "#page_request_show";
+							 //url = "#page_request_show";
 //							 $.mobile.navigate(url);
 						}else {
 							 
@@ -1015,7 +1062,7 @@ function confirm_app(row_id){
 				  $("#loginButton").show();
 				//  $("#error_login").html('Invalid Request');
 				//  alert ("sdfdsg")
-				  var url = "#login";
+				  url = "#login";
 				  $.mobile.navigate(url);	
 			  }
 		  });//end ajax
@@ -1027,14 +1074,6 @@ function confirm_app(row_id){
 
 
 function req_app_search(){
-	//var chamber_show=localStorage.chamber_show
-//	var chamber_showArray = chamber_show.split('|');
-//	
-//	var chamber_id=chamber_showArray[1];
-	
-
-	
-	
 	var req_search=$("#req_search").val()
 	
 	
@@ -1059,7 +1098,7 @@ function req_app_search(){
 
 							//$("#error_request").html('Confirmed Succesfully');	
 							
-							 //var url = "#page_request_show";
+							 //url = "#page_request_show";
 //							 $.mobile.navigate(url);
 						}else {
 							 
@@ -1079,7 +1118,7 @@ function req_app_search(){
 				  $("#loginButton").show();
 				//  $("#error_login").html('Invalid Request');
 				//  alert ("sdfdsg")
-				  var url = "#login";
+				  url = "#login";
 				  $.mobile.navigate(url);	
 			  }
 		  });//end ajax
@@ -1110,9 +1149,7 @@ function page_con_appoinment_show(){
 									
 									var reqStrArray = reqStr.split('<fdrd>');
 									
-									
-									//var reqConStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
-									//alert (reqStrArray.length)
+
 									var reqConStrFull=''
 									for(i=0; i < reqStrArray.length-1; i++){
 										
@@ -1127,14 +1164,7 @@ function page_con_appoinment_show(){
             							
 										var apptime_text=row_id+'time'
 										reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
-													//+'<td style="width:50%; font-size:14px; color:#008040">  '+app_time +' </td>'
-												
-												    //+'<td style="width:50%;" ><input type="button" onClick="cancel_app('+row_id+');" value=" Cancel " ></td></tr>'
-													
-										//reqConStrFull = reqConStrFull+'<tr ><td style="width:50%; font-size:14px; color:#008040"><input type="submit" href="#page_appoinment_new" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'"</td>'
-//													//+'<td style="width:50%; font-size:14px; color:#008040">  '+app_time +' </td>'
-//													+'<td  ></td></tr>'
-												    //+'<td style="width:50%;" ><input type="button" onClick="cancel_app('+row_id+');" value=" Cancel " ></td></tr>'
+
 									
 									}
 									
@@ -1145,7 +1175,7 @@ function page_con_appoinment_show(){
 									$("#reqConList").empty();
 									$("#reqConList").append(localStorage.reqConStrFull).trigger('create');
 																
-									var url = "#page_con_appoinment_show";
+									url = "#page_con_appoinment_show";
 									$.mobile.navigate(url);								
 									
 
@@ -1168,12 +1198,12 @@ function page_con_appoinment_show(){
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
 						  
-						  var url = "#login";
+						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
 	
-	    var url = "#page_con_appoinment_show";
+	    url = "#page_con_appoinment_show";
 		$.mobile.navigate(url);
 	
 }
@@ -1203,7 +1233,7 @@ function cancel_app(row_id){
 
 							$("#error_request").html('Cancelled Succesfully');	
 							
-							 //var url = "#page_request_show";
+							 //url = "#page_request_show";
 //							 $.mobile.navigate(url);
 						}else {
 							 
@@ -1223,7 +1253,7 @@ function cancel_app(row_id){
 				  $("#loginButton").show();
 				//  $("#error_login").html('Invalid Request');
 				//  alert ("sdfdsg")
-				  var url = "#login";
+				  url = "#login";
 				  $.mobile.navigate(url);	
 			  }
 		  });//end ajax
@@ -1268,7 +1298,7 @@ function req_con_show(){
 	localStorage.reqConStrFull=reqConStrFull;	
 	$("#reqConList").empty();
 	$("#reqConList").append(localStorage.reqConStrFull).trigger('create');
-	var url = "#page_con_appoinment_show";
+	url = "#page_con_appoinment_show";
 	$.mobile.navigate(url);			
 	
 }
@@ -1287,11 +1317,81 @@ function page_appoinment_new(){
 	$("#week_combo").empty();
 	$("#week_combo").append(week_combo_show).trigger('create');
 	
-	var url = "#page_appoinment_new";
+	url = "#page_appoinment_new";
 	$.mobile.navigate(url);	
 }
 
-
+function show_chamber_div(){
+	$("#add_new_chamber").show();
+}
+function add_new_chamber(){
+	var new_chamber_name = $("#new_chamber_name").val();
+	//$("#error_chamber_list").html(apipath+'add_chamber?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_name='+new_chamber_name);
+	//alert (new_chamber_name.replace(/ /g,'').length);
+	
+	if ((new_chamber_name.replace(/ /g,'')).length == 0){
+		$("#error_chamber_list").html("Please Enter Chamber Name.");
+	}
+	else{
+		$.ajax({
+				 type: 'POST',
+				 url: apipath+'add_chamber?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_name='+new_chamber_name,
+				 
+				 success: function(result) {											
+						if (result==''){
+							$("#error_chamber_list").html('Sorry Network not available');
+							
+						}else{
+							 
+							if (result.split('rdrd')[0]=='Saved Successfully'){													
+								
+								localStorage.chamberStr=result.split('rdrd')[1]
+	
+						
+								 chember_show();
+								 $("#error_chamber_list").html(result.split('rdrd')[0]);
+								 
+								 url = "#page_chamber_show";
+								 $.mobile.navigate(url);
+							}else if (result.split('rdrd')[0]=='Already Exist'){													
+								
+								localStorage.chamberStr=result.split('rdrd')[1]
+								
+	
+								chember_show();
+								$("#error_chamber_list").html(result.split('rdrd')[0]);	
+								
+								 url = "#page_chamber_show";
+								 $.mobile.navigate(url);
+							}else {
+								 
+								//$("#wait_image_login").hide();
+	//									$("#loginButton").show();
+								//$("#error_login").html('Server Error');													
+								
+								$("#error_chamber_list").html("Sync Failed. Authorization or Network Error.");
+								//$('#syncBasic').show();
+							}
+												
+							
+						}
+					  },
+				  error: function(result) {					 
+					  $("#wait_image_login").hide();
+					  $("#loginButton").show();
+					//  $("#error_login").html('Invalid Request');
+					//  alert ("sdfdsg")
+					  url = "#login";
+					  $.mobile.navigate(url);	
+				  }
+		});//end ajax
+		$("#add_new_chamber").hide();
+	}
+	
+	
+	
+	
+}
 //---------------------- Exit Application
 function exit() {	
 	navigator.app.exitApp();
