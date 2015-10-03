@@ -87,7 +87,9 @@ function check_user() {
 		$("#error_login").html("Required User ID and Password");	
 	}else{
 		//-----------------
-					
+			$("#wait_image_login").show();
+			$("#loginButton").hide();
+									
 			if(localStorage.sync_code==undefined || localStorage.sync_code==""){
 				localStorage.sync_code=0
 			}
@@ -98,6 +100,7 @@ function check_user() {
 					 type: 'POST',
 					 url: apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code,
 					 success: function(result) {											
+							
 							if (result==''){
 								$("#wait_image_login").hide();
 								$("#loginButton").show();
@@ -116,7 +119,9 @@ function check_user() {
 									docProfileStr=syncResultArray[3];
 									
 									localStorage.specialityStr=syncResultArray[4];
+									localStorage.areaStr=syncResultArray[5];
 									
+									//alert (localStorage.areaStr)
 									//Profile
 									//alert (docProfileStr)
 									var profileArray = docProfileStr.split('fdfd');
@@ -130,12 +135,9 @@ function check_user() {
 									
 									localStorage.user_id=user_id;
 									localStorage.user_pass=user_pass
-									//alert (localStorage.user_id)
-									
-									//$("#chamber_list").html(localStorage.chamberStr);
+
 									
 									//----------------
-									//alert (localStorage.doc_name);
 									if ((localStorage.doc_name=='') || (localStorage.speciality=='')){
 										page_profile_show();
 									}
@@ -147,16 +149,13 @@ function check_user() {
 																
 									
 									$(".errorChk").html("Sync Successful");
-									//alert('aa');
 			
 								}else {
 									
 									$("#wait_image_login").hide();
 									$("#loginButton").show();
-									//$("#error_login").html('Server Error');													
 									
 									$("#error_login").html("Sync Failed. Authorization or Network Error.");
-									//$('#syncBasic').show();
 								}
 													
 								
@@ -165,7 +164,6 @@ function check_user() {
 					  error: function(result) {					 
 						  $("#wait_image_login").hide();
 						  $("#loginButton").show();
-						//  $("#error_login").html('Invalid Request');
 						  
 						  url = "#login";
 						  $.mobile.navigate(url);	
@@ -179,9 +177,13 @@ function check_user() {
 
 
 function chember_show(){
-	//alert (localStorage.chamberStr)
 	var chamberStr= localStorage.chamberStr;
 	var chamberArray = chamberStr.split('<fdrd>');
+	$("#chamber_list").show();
+	$("#wait_image_chamber").hide();
+	
+	$("#all_button").show();
+	$("#wait_image_chamber_info").hide();
 	
 	
 	chamberStrCreate=''
@@ -219,6 +221,11 @@ function chember_show(){
 
 function page_profile_show(){
 	$("#error_profile_edit").html(" ");
+	$("#wait_image_profile").hide();
+	$("#profile_edit").show();
+	
+	
+	
 	$("#doc_name").val(localStorage.doc_name);
 	//$("#doc_speciality").val(localStorage.speciality);
 	$("#doc_des").val(localStorage.note);
@@ -265,6 +272,9 @@ function page_profile_edit(){
 	doc_des=replace_special_char(doc_des);
 	experience=replace_special_char(experience);
 	
+	$("#wait_image_profile").show();
+	$("#profile_edit").hide();
+	
 	//$("#error_profile_edit").html(apipath+'profileEdit?cid='+localStorage.user_id+'&doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&doc_name='+doc_name+'&doc_speciality='+doc_speciality+'&doc_des='+doc_des+'&experience='+experience);
 										
 			$.ajax({
@@ -273,8 +283,8 @@ function page_profile_edit(){
 					 success: function(result) {
 						    //alert (result);
 							if (result==''){
-								//$("#wait_image_login").hide();
-//								$("#loginButton").show();
+								$("#wait_image_profile").hide();
+								$("#profile_edit").show()
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
@@ -289,16 +299,18 @@ function page_profile_edit(){
 																
 									
 									$("#error_profile_edit").html("Updated Successfully");
+									$("#wait_image_profile").hide();
+									$("#profile_edit").show();
 									//url = "#pageHome";
 //									$.mobile.navigate(url);	
 			
 								}else {
 									
-									$("#wait_image_login").hide();
-									$("#loginButton").show();
+									$("#wait_image_profile").hide();
+									$("#profile_edit").show();
 									//$("#error_login").html('Server Error');													
 									
-									$("#error_login").html("Sync Failed. Authorization or Network Error.");
+									$("#error_profile_edit").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
 								}
 													
@@ -306,8 +318,8 @@ function page_profile_edit(){
 							}
 						  },
 					  error: function(result) {					 
-						  $("#wait_image_login").hide();
-						  $("#loginButton").show();
+						  $("#wait_image_profile").hide();
+						  $("#profile_edit").show();
 						//  $("#error_login").html('Invalid Request');
 						  
 						  url = "#login";
@@ -333,6 +345,11 @@ function page_chamber_go(chambers_id){
 		var chamber_id=chamber_show.split('|')[1]
 		localStorage.chamber_id=chamber_id
 		
+		
+		$("#chamber_list").hide();
+		$("#wait_image_chamber").show();
+		
+		
 		//Settings, schedule and off day ready
 		//$("#error_chamber_list").html(apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id);
 										
@@ -342,6 +359,8 @@ function page_chamber_go(chambers_id){
 					 
 					 success: function(result) {											
 							if (result==''){
+								$("#chamber_list").show();
+								$("#wait_image_chamber").hide();
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
@@ -358,7 +377,8 @@ function page_chamber_go(chambers_id){
 									localStorage.offdayStr=offdayStr;
 									
 
-
+									$("#chamber_list").show();
+									$("#wait_image_chamber").hide();
 									url = "#page_chamber_go";
 									$.mobile.navigate(url);
 
@@ -366,11 +386,10 @@ function page_chamber_go(chambers_id){
 			
 								}else {
 									 
-									//$("#wait_image_login").hide();
-//									$("#loginButton").show();
-									//$("#error_login").html('Server Error');													
+									$("#chamber_list").show();
+									$("#wait_image_chamber").hide();													
 									
-									$("#error_login").html("Sync Failed. Authorization or Network Error.");
+									$("#error_chamber_list").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
 								}
 													
@@ -378,8 +397,8 @@ function page_chamber_go(chambers_id){
 							}
 						  },
 					  error: function(result) {					 
-						  $("#wait_image_login").hide();
-						  $("#loginButton").show();
+						  $("#chamber_list").show();
+						  $("#wait_image_chamber").hide();
 						//  $("#error_login").html('Invalid Request');
 						  
 						  url = "#login";
@@ -406,6 +425,13 @@ function page_settings_show(){
 	$("#error_setings_chamber").html("");
 	$("#settingsChember").html(localStorage.chamber_show);
 	
+	$("#btnSettings").show();
+	$("#wait_image_setting_edit").hide();
+	
+	$("#all_button").hide();
+	$("#wait_image_chamber_info").show();
+	
+	
 	var settingsStr=localStorage.settingsStr;
 	var settingsArray = settingsStr.split('fdfd');
 	
@@ -429,9 +455,37 @@ function page_settings_show(){
 	$("#visiting_duration").val(visiting_duration);
 	$("#auto_serial").val(auto_serial);
 	$("#area").val(area);
-	$("#thana").val(thana);
-	$("#district").val(district);
+	//$("#thana").val(thana);
+	//$("#district").val(district);
 	//alert("2")
+	
+	
+	
+	
+	var area_show=localStorage.areaStr;
+	var doc_area='<select name="area" id="area" >'
+	doc_area= doc_area+'<option  value="'+area +" | "+district+'">'+area +" | "+district+'</option>'
+                   
+	var areaStrArray=area_show.split('fdfd')
+	
+	
+	for(i=0; i < areaStrArray.length-1; i++){
+		
+		doc_area= doc_area+'<option  value="'+areaStrArray[i]+'">'+areaStrArray[i]+'</option>'
+		
+		
+	}
+	doc_area=doc_area+'</select>'
+	
+	
+	
+	$("#area_combo").empty();
+	$("#area_combo").append(doc_area).trigger('create');
+	
+	
+	
+	$("#all_button").show();
+	$("#wait_image_chamber_info").hide();
 	
 	url = "#page_settings_show";
 	$.mobile.navigate(url);
@@ -444,18 +498,32 @@ function page_settings_edit(){
 	var assistant_mobile2=$("#assistant_mobile2").val();
 	var visiting_duration=$("#visiting_duration").val();
 	var auto_serial=$("#auto_serial").val();
-	var area=$("#area").val();
-	var thana=$("#thana").val();
-	var district=$("#district").val();
+	var areaDistrict=$("#area").val();
+	//var thana=$("#thana").val();
+//	var district=$("#district").val();
+	var blockedSL=$("#blockedSL").val();
+	
+	var thana="";
+	var area=areaDistrict.split('|')[1]
+	var district=areaDistrict.split('|')[0]
+	
+	
+	
+	//alert (areaDistrict.length)
+	if (areaDistrict.length > 3){
+		$("#btnSettings").hide();
+		$("#wait_image_setting_edit").show();
 	//alert("2")
-	//$("#error_setings_chamber").html(apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district);
+	//$("#error_setings_chamber").html(apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district+'&blockedSL='+blockedSL);
 										
 			$.ajax({
 					 type: 'POST',
-					 url: apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district,
+					 url: apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district+'&blockedSL='+blockedSL,
 					 
 					 success: function(result) {											
 							if (result==''){
+								$("#btnSettings").show();
+								$("#wait_image_setting_edit").hide();
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
@@ -465,19 +533,19 @@ function page_settings_edit(){
 									var settingsStr=row_id+'fdfd'+assistant_mobile1+'fdfd'+assistant_mobile2+'fdfd'+visiting_duration+'fdfd'+auto_serial+'fdfd'+area+'fdfd'+thana+'fdfd'+district;
 									localStorage.settingsStr=settingsStr;
 									
-									$("#error_setings_chamber").html('Settings Updated Succesfully');								
-										//url = "#page_settings_show";
-										//$.mobile.navigate(url);							
+									$("#error_setings_chamber").html('Settings Updated Succesfully');	
+									$("#btnSettings").show();
+									$("#wait_image_setting_edit").hide();
+							
 									
 
 			
 								}else {
 									 
-									//$("#wait_image_login").hide();
-//									$("#loginButton").show();
-									//$("#error_login").html('Server Error');													
+									$("#btnSettings").show();
+									$("#wait_image_setting_edit").hide();												
 									
-									$("#error_login").html("Sync Failed. Authorization or Network Error.");
+									$("#error_setings_chamber").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
 								}
 													
@@ -494,13 +562,27 @@ function page_settings_edit(){
 					  }
 				  });//end ajax
 	
-
+	}//end if
+	else{
+		 
+		
+		$("#error_setings_chamber").html("Please Select Area.");
+	}
 	
 
 	
 }
 
 function page_schedule_show(){
+	$("#btnScheduleEdit").show();
+	$("#wait_image_sch_edit").hide();
+	
+	
+	
+	$("#all_button").hide();
+	$("#wait_image_chamber_info").show();
+	
+	
 	
 	$("#error_schedule").html("");
 	
@@ -607,11 +689,19 @@ function page_schedule_show(){
 	$("#fri_max_patient").val(fri_max_patient);
 	//alert("2")
 	
+	$("#all_button").show();
+	$("#wait_image_chamber_info").hide();
+	
 	url = "#page_schedule_show";
 	$.mobile.navigate(url);
 	
 }
 function page_schedule_edit(){
+	$("#btnScheduleEdit").hide();
+	$("#wait_image_sch_edit").show();
+	
+	
+	
 	var row_id=$("#row_id_schedule").val();
 	
 	var sat_mor_from=$("#sat_mor_from").val();
@@ -668,7 +758,7 @@ function page_schedule_edit(){
             +'fdfd'+thu_mor_from+'fdfd'+thu_mor_to+'fdfd'+thu_eve_from+'fdfd'+thu_eve_to+'fdfd'+thu_max_patient
             +'fdfd'+fri_mor_from+'fdfd'+fri_mor_to+'fdfd'+fri_eve_from+'fdfd'+fri_eve_to+'fdfd'+fri_max_patient
 	//alert(submit_string)
-//	$("#error_schedule").html(apipath+'scheduleUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&submit_string='+submit_string);
+	//$("#error_schedule").html(apipath+'scheduleUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&submit_string='+submit_string);
 										
 			$.ajax({
 					 type: 'POST',
@@ -676,28 +766,31 @@ function page_schedule_edit(){
 					 
 					 success: function(result) {											
 							if (result==''){
+								$("#btnScheduleEdit").show();
+								$("#wait_image_sch_edit").hide();
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
 								
 								if (result=='Success'){													
-									//alert ()
-									var settingsStr=row_id+'fdfd'+assistant_mobile1+'fdfd'+assistant_mobile2+'fdfd'+visiting_duration+'fdfd'+auto_serial+'fdfd'+area+'fdfd'+thana+'fdfd'+district;
+									//alert (result)
+									//var settingsStr=row_id+'fdfd'+assistant_mobile1+'fdfd'+assistant_mobile2+'fdfd'+visiting_duration+'fdfd'+auto_serial+'fdfd'+area+'fdfd'+thana+'fdfd'+district;
+								//	alert ("NN")
 									localStorage.scheduleStr=submit_string;
 									
 									$("#error_schedule").html('Schedule Updated Succesfully');								
-										//url = "#page_settings_show";
-										//$.mobile.navigate(url);							
 									
-
+									$("#btnScheduleEdit").show();
+									$("#wait_image_sch_edit").hide();
+									
+									
 			
 								}else {
 									 
-									//$("#wait_image_login").hide();
-//									$("#loginButton").show();
-									//$("#error_login").html('Server Error');													
+									$("#btnScheduleEdit").show();
+									$("#wait_image_sch_edit").hide();													
 									
-									$("#error_login").html("Sync Failed. Authorization or Network Error.");
+									$("#error_schedule").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
 								}
 													
@@ -705,9 +798,8 @@ function page_schedule_edit(){
 							}
 						  },
 					  error: function(result) {					 
-						  $("#wait_image_login").hide();
-						  $("#loginButton").show();
-						//  $("#error_login").html('Invalid Request');
+						  $("#btnScheduleEdit").show();
+						  $("#wait_image_sch_edit").hide();
 						  
 						  url = "#login";
 						  $.mobile.navigate(url);	
@@ -723,6 +815,11 @@ function page_schedule_edit(){
 
 function page_OffDay_show(){
 	$("#error_offday").html("");
+	
+	
+	$("#all_button").hide();
+	$("#wait_image_chamber_info").show();
+	
 	
 	$("#offdayChember").html(localStorage.chamber_show);
 	
@@ -741,14 +838,18 @@ function page_OffDay_show(){
 	offdayStr_create=offdayStr_create+'</table>'
 
 	$("#offday").html(offdayStr_create);
+	
+	
+	$("#all_button").show();
+	$("#wait_image_chamber_info").hide();
+	
 	url = "#page_OffDay_show";
 	$.mobile.navigate(url);
 	
 }
 
 function deleteOffday(row_id_off){
-	//var chamber_show=localStorage.chamber_show;
-//	var chamber_id=chamber_show.split('|')[1]
+
 	
 	//$("#error_offday").html(apipath+'deleteOffday?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id_off='+row_id_off+'&chamber_id='+chamber_id);
 										
@@ -845,6 +946,9 @@ function addOffday(){
 
 
 function page_chember_req_show(){	//$("#error_request_show").html(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chamber_id);
+			$("#all_button").hide();
+			$("#wait_image_chamber_info").show();
+			
 			$("#error_request").html('');	
 			$.ajax({
 					 type: 'POST',
@@ -891,15 +995,16 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										}
 										// alert (row_id)
 										
-										reqStrFull = reqStrFull+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
-													+'<td style="width:20%;"  ><input style="font-size:14px; width=60px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-													+'<td  ><input style="font-size:14px;"  width="50px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+										reqStrFull = reqStrFull+'<tr ><td colspan="3" style="font-size:14px; color:#008040">'+patinet_name+'</td></tr>'
+													+'<tr >'
+													+'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+													+'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
 												  if (status == 'SUBMITTED'){ 
 												   
-												   reqStrFull = reqStrFull + '<td  ><input style="width:100px;" type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
+												   reqStrFull = reqStrFull + '<td ><input  type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
 												  }
 												  else{
-													reqStrFull = reqStrFull +'<td ><input style="width:100px;" type="submit" value=" '+status+' " disabled="disabled" ></td>' 
+													reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" ></td>' 
 													  }
 													reqStrFull = reqStrFull+'</tr>'  
 													  
@@ -917,6 +1022,9 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									$("#reqChember").html(localStorage.chamber_show);	
 									$("#reqList").empty();
 									$("#reqList").append(localStorage.reqStrFull).trigger('create');
+									
+									$("#all_button").show();
+									$("#wait_image_chamber_info").hide();
 									url = "#page_request_show";
 									$.mobile.navigate(url);								
 									
@@ -924,11 +1032,10 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 			
 								}else {
 									 
-									//$("#wait_image_login").hide();
-//									$("#loginButton").show();
-									//$("#error_login").html('Server Error');													
+									$("#all_button").show();
+									$("#wait_image_chamber_info").hide();													
 									
-									$("#error_login").html("Sync Failed. Authorization or Network Error.");
+									$("#error_request_show").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
 								}
 													
@@ -936,8 +1043,8 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 							}
 						  },
 					  error: function(result) {					 
-						  $("#wait_image_login").hide();
-						  $("#loginButton").show();
+						$("#all_button").show();
+						$("#wait_image_chamber_info").hide();
 						//  $("#error_login").html('Invalid Request');
 						  
 						  url = "#login";
@@ -950,7 +1057,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 	
 }
 function req_show(){
-	
+	$("#error_request_show").html("");
 	$("#reqChember").html(localStorage.chamber_show);
 	
 	
@@ -982,10 +1089,11 @@ function req_show(){
 		}
 		// alert (row_id)
 		
-		reqStrFull = reqStrFull+'<tr ><td style="width:50%;" ><strong style="font-size:18px; color:#008040">'+patinet_name+'</strong></td>'
-					+'<td  ><input width="80px" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-					+'<td  ><input width="80px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-				  if (status == 'SUBMITED'){ 
+		reqStrFull = reqStrFull = reqStrFull+'<tr ><td colspan="3" style=" font-size:14px; color:#008040">'+patinet_name+'</td></tr>'
+													+'<tr >'
+													+'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+													+'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+				  if (status == 'SUBMITTED'){ 
 				   
 				   reqStrFull = reqStrFull + '<td style="width:50%;" ><input type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
 				  }
@@ -1074,6 +1182,7 @@ function confirm_app(row_id){
 
 
 function req_app_search(){
+	$("#error_request").html("");
 	var req_search=$("#req_search").val()
 	
 	
@@ -1129,12 +1238,130 @@ function req_app_search(){
 function page_con_appoinment_show(){
 	
 	$("#reqConChember").html(localStorage.chamber_show);
+	$("#error_con_list").html("")
 	
+	$("#all_button").hide();
+	$("#wait_image_chamber_info").show();
 	//$("#error_request_show").html(apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
 										
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
+					 
+					 success: function(result) {											
+							if (result==''){
+								$("#error_profile_edit").html('Sorry Network not available');
+								
+							}else{
+								var resultArray = result.split('rdrd');
+								if (resultArray[0]=='Success'){													
+
+									//Profile
+									var reqStr=resultArray[1];													
+									
+									var reqStrArray = reqStr.split('<fdrd>');
+									
+
+									var reqConStrFull=''
+									
+									
+									for(i=0; i < reqStrArray.length-1; i++){
+										
+										var reqStrSingle=reqStrArray[i];
+										
+										var reqStrSingleArray = reqStrSingle.split('fdfd');
+										
+										var row_id=reqStrSingleArray[0];
+										var patinet_name=reqStrSingleArray[1];
+										var patinet_mobile=reqStrSingleArray[2];
+										var app_time=reqStrSingleArray[3];
+            							
+										var apptime_text=row_id+'time'
+										
+										var date_get="";
+										var time_get="";
+										if (app_time.length > 10){
+											date_get=app_time.split(' ')[0]
+											time_get=app_time.split(' ')[1]
+										}
+										
+										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
+										+'<table  border="0" >'
+										
+										+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+													
+										+'<td  ><input style="font-size:14px; width=50px;color:#666"  type="date" value="'+date_get+'" ></td>'									
+										+'<td   ><input style="font-size:14px;width=40px; color:#666"  type="time" value="'+time_get+'" ></td>'
+										
+										+'</tr></table></li>'
+//													
+//													+'</tr></table></li>'
+										
+										//reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
+
+									
+									}
+									
+							        reqConStrFull = reqConStrFull 
+									localStorage.reqConStrFull=reqConStrFull;
+									
+									
+									$("#reqConList").empty();
+									$("#reqConList").append(localStorage.reqConStrFull).trigger('create');
+											
+									$("#all_button").show();
+									$("#wait_image_chamber_info").hide();
+
+									url = "#page_con_appoinment_show";
+									$.mobile.navigate(url);								
+									
+
+			
+								}else {
+									 
+									$("#all_button").show();
+									$("#wait_image_chamber_info").hide();
+									//$("#error_login").html('Server Error');													
+									
+									$("#error_request").html('Appoinment not Available.');
+									//$('#syncBasic').show();
+								}
+													
+								
+							}
+						  },
+					  error: function(result) {					 
+						 $("#all_button").show();
+						 $("#wait_image_chamber_info").hide();
+						//  $("#error_login").html('Invalid Request');
+						  
+						  url = "#login";
+						  $.mobile.navigate(url);	
+					  }
+				  });//end ajax
+	
+	    url = "#page_con_appoinment_show";
+		$.mobile.navigate(url);
+	
+}
+
+
+function page_con_appoinment_search(){
+	
+	$("#reqConChember").html(localStorage.chamber_show);
+	var searchConfirm = $("#searchConfirm").val();
+	
+	if (searchConfirm.length < 10){
+		$("#error_con_list").html("Please Enter a Date")
+	}
+	else{
+	//alert ("NNN");
+	
+	//$("#error_con_list").html(apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+searchConfirm);
+										
+			$.ajax({
+					 type: 'POST',
+					 url: apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+searchConfirm,
 					 
 					 success: function(result) {											
 							if (result==''){
@@ -1163,12 +1390,36 @@ function page_con_appoinment_show(){
 										var app_time=reqStrSingleArray[3];
             							
 										var apptime_text=row_id+'time'
-										reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
-
+										//reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
+//
+//									
+//									
+//									
+//							        reqConStrFull = reqConStrFull + '</table>'
+									
+									
+									
+									
+									
+									    var date_get="";
+										var time_get="";
+										if (app_time.length > 10){
+											date_get=app_time.split(' ')[0]
+											time_get=app_time.split(' ')[1]
+										}
+										
+										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
+										+'<table  border="0" >'
+										
+										+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+													
+										+'<td  ><input style="font-size:14px; width=50px;color:#666"  type="date" value="'+date_get+'" ></td>'									
+										+'<td   ><input style="font-size:14px;width=40px; color:#666"  type="time" value="'+time_get+'" ></td>'
+										
+										+'</tr></table></li>'
 									
 									}
 									
-							        reqConStrFull = reqConStrFull + '</table>'
 									localStorage.reqConStrFull=reqConStrFull;
 									
 									
@@ -1202,11 +1453,13 @@ function page_con_appoinment_show(){
 						  $.mobile.navigate(url);	
 					  }
 				  });//end ajax
-	
+			}//End else
 	    url = "#page_con_appoinment_show";
 		$.mobile.navigate(url);
 	
 }
+
+
 function cancel_app(row_id){
 	//var chamber_show=localStorage.chamber_show;
 //	var chamber_id=chamber_show.split('|')[1]

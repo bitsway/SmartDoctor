@@ -39,7 +39,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             </div>
 			
             <div data-role="content">
-            	<div id="error_login" style="color:#C00"></div>                
+            	<div id="error_login" style="color:#900"></div>                
                     <form>					
                         <input name="user_id" id="user_id"  value="" type="text" placeholder="UserID">
                         <input type="text" name="user_pass" id="user_pass"  value="" placeholder="Password">
@@ -106,7 +106,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <div data-theme="c" data-role="footer" data-position="fixed"></div>			
             </div>
 
-
+			
 
 
 
@@ -117,34 +117,33 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_chamber_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Chamber List</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_chamber_list" style="color:#C00"></div>	
-        
-        <a data-role="button" id="btnQueue" onClick="show_chamber_div();" style="color:#008040"> Add New Chamber </a>
-        
-         <div id="add_new_chamber">
-         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+ 
+        <div id="chamber_list"></div>
+       
+        <br>
+        <div align="center"><img id="wait_image_chamber" style="" width="50px;" src="loading.gif" alt=""></div>
+         <div id="error_chamber_list" style="color:#900"></div>	
+         <br><br><br>
+         <a data-role="button" id="btnQueue" onClick="show_chamber_div();" style="color:#008040"> Add New Chamber </a>
+        <div id="add_new_chamber">
+         <table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
-              <td ><strong style="font-size:12px; color:#008040">Name</strong></td>
-              <td ><input id="new_chamber_name" name="new_chamber_name" type="text"></td>  
+              <td ><strong style="font-size:12px; color:#008040">Chamber Nme</strong></td>
+              </tr >
+              <tr >
+              <td ><input id="new_chamber_name" name="new_chamber_name" type="text"  placeholder="Chamber Nme"></td>  
+              </tr >
+              <tr >
                <td ><input  type="submit" value="Add" onClick="add_new_chamber();"></td>               
             </tr>
          </table>
          
          </div>
-        
-        
-        
-        <br><br><br>
-        
-        <div id="chamber_list"></div>
-       
-        <br>
-        
     </div><!--/cont-->
     
     <div data-theme="c" data-role="footer" data-position="fixed"></div>			
@@ -156,12 +155,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_profile_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Profile</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_profile_edit" style="color:#C00"></div>	
+        
         
         
          <div id="doc_profile" style="font-size:22px; color:#008040"></div>	
@@ -182,12 +181,13 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 			  </td>              
             </tr>
             <tr >
-              <td  ><strong style="font-size:12px; color:#008040">Des</strong></td>
+              <td  ><strong style="font-size:12px; color:#008040">Description</strong></td>
               <td  ><input  id="doc_des" name="doc_des"  type="text"></td>              
             </tr>
              <tr >
               <td  ><strong style="font-size:12px; color:#008040">Experience</strong></td>
-              <td s ><input id="experience"  name="experience" type="number"></td>              
+              <td  ><input id="experience"  name="experience" type="number"></td>  
+              <td  ><strong style="font-size:12px; color:#008040">Years</strong></td>            
             </tr>
             </table>
         <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>
@@ -195,7 +195,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
         
     </div><!--/cont-->
-    <a data-role="button" onClick="page_profile_edit();"><!--<img  src="save.png">-->Update Profile</a>
+    <a data-role="button" id="profile_edit" onClick="page_profile_edit();"><!--<img  src="save.png">-->Update Profile</a>
+	<div id="error_profile_edit" style="color:#900"></div>	
+	<div align="center"><img id="wait_image_profile" style="" width="50px;" src="loading.gif" alt=""></div>
+	
     <div data-theme="c" data-role="footer" data-position="fixed"></div>			
  </div><!--/page-->
  
@@ -203,16 +206,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
  <div data-theme="c" data-role="page" id="page_chamber_go">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Chamber</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_request_show" style="color:#C00"></div>	
+        <div id="error_request_show" style="color:#900"></div>	
         
         <div id="chamber_id"  style="font-size:18px; color:#008040">	</div>
         
-        </dbr>
+        
+		 <div id="all_button">
         <a data-role="button" onClick="page_chember_req_show()">All Request</a>
         
         <a data-role="button" onClick="page_con_appoinment_show()">Confirmed Appoinments</a>
@@ -220,16 +224,19 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         
         
         </br>
-         <a data-role="button" onClick="page_settings_show()">Settings</a>
+         
+		
+		 <a data-role="button" onClick="page_settings_show()">Settings</a>
          <a data-role="button" onClick="page_schedule_show()">Schedule</a>
          <a data-role="button" onClick="page_OffDay_show()">Off Day</a>
+		 
+         </div>
          
-         
-
+		<div align="center"><img id="wait_image_chamber_info" style="" width="50px;" src="loading.gif" alt=""></div>
         
-        <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>
+        
         <br>
-        <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
+        
         
     </div><!--/cont-->
  
@@ -242,62 +249,28 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_request_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Request</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_request" style="color:#C00"></div>	
+        <div id="error_request" style="color:#900"></div>	
         <div id="reqChember" style="font-size:18px; color:#008040"></div>
 		
 		
         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
               <td style="width:50%;" ><input name="req_search" style="font-size:14px" id="req_search" type="date"></td>
-              <td style="width:20%;" ><a data-role="button" onClick="req_app_search();">Show</a></td>  
-			  <td style="width:20%;" ><a data-role="button" onClick="page_chember_req_show();">All</a></td>              
+              <td style="width:20%;" ><a data-role="button" onClick="req_app_search();">Search</a></td>  
+			  <td style="width:20%;" ><a data-role="button" onClick="page_chember_req_show();">Show All</a></td>              
             </tr>
             </table>
         </br>
-		<!--<input id="demo1" type="text" size="25">
-		<a href="javascript:NewCal('demo1','mmddyyyy')"><img src="cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>-->
-
- <!--<input type="datetime-local" name="bdaytime">-->
-
-
 
 
 		<div id="reqList"></div>
 	
-        <!--<table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
-        	
-            <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
-              <td style="width:50%;" >Time</td>   
-              <td style="width:50%;" ></td>              
-            </tr>
-            
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
-              <td style="width:50%;" >Time</td>   
-              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a></td>              
-            </tr>
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
-              <td style="width:50%;" >Time</td>   
-              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a>	</td>              
-            </tr>
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
-              <td style="width:50%;" >Time</td>   
-              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a></td>              
-            </tr>
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
-              <td style="width:50%;" >Time</td>   
-              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Confirm</a></td>              
-            </tr>
-            </table>-->
+
         <table id="tbl_show_to_queue"  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999"></table>
         <br>
         <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
@@ -311,57 +284,24 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_con_appoinment_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Confirmed Appoinment</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_con_list" style="color:#C00"></div>	
-         <div id="reqConChember" style="font-size:18px; color:#008040">asgfdh</div>
+        <div id="error_con_list" style="color:#900"></div>	
+         <div id="reqConChember" style="font-size:18px; color:#008040"></div>
 		 
         <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
-              <td style="width:50%;" ><input style="font-size:14px;" name="" type="date"></td>
-              <td style="width:50%;" ><a data-role="button" onClick="queueListPage();">Show</a></td>              
+              <td style="width:50%;" ><input style="font-size:14px;" name="searchConfirm" id="searchConfirm" type="date"></td>
+              <td style="width:50%;" ><a data-role="button" onClick="page_con_appoinment_search();">Search	</a></td> 
+			  <td style="width:50%;" ><a data-role="button" onClick="page_con_appoinment_show();">Show All</a></td>              
             </tr>
             </table>
         </br>
 		
-        <!--<table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
-        	<tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Appoinment</strong></td>
-              <td style="width:50%;" ><a data-role="button" href="#page_appoinment_new">+</a></td>   
-                        
-            </tr>
-			</table>-->
-        <!--    <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
-              <td style="width:50%;" >Time</td>   
-                        
-            </tr>
-            
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
-              <td style="width:50%;" >SL</td>   
-                      
-            </tr>
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
-              <td style="width:50%;" >SL</td>   
-                        
-            </tr>
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040"><a data-role="button" href="#page_appoinment">patient</a></strong></td>
-              <td style="width:50%;" >SL</td>   
-                  
-            </tr>
-             <tr >
-              <td style="width:50%;" ><strong style="font-size:18px; color:#008040">Patient</strong></td>
-              <td style="width:50%;" >SL</td>   
-                   
-            </tr>
-            </table>
--->
+
 			<div id="reqConList"></div>
     </div><!--/cont-->
     
@@ -373,16 +313,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
 
 
+
 <!--===========================Settings=================-->
 <div data-theme="c" data-role="page" id="page_settings_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Settings</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_setings_chamber" style="color:#C00"></div>	
+        	
         
         
          
@@ -397,51 +338,45 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             <tr >
               <td style="width:20%; font-size:12px; color:#008040">Assistant Mobile 1</td>
               <td ><input id="assistant_mobile1" name="assistant_mobile1" type="text"></td>   
-                        
             </tr>
             
              <tr >
               <td style="font-size:12px; color:#008040">Assistant Mobile 2</td>
               <td ><input id="assistant_mobile2" name="assistant_mobile2" type="text"></td>   
-                      
             </tr>
              <tr >
               <td style="font-size:12px; color:#008040">Time Between Appointment</td>
               <td ><input id="visiting_duration" name="visiting_duration" type="text"></td>   
-                        
             </tr>
              <tr >
-              <td style="font-size:12px; color:#008040">Auto Serial</td>
+              <td style="font-size:12px; color:#008040">Auto Confirmation</td>
               <td >
                 
                   <select name="auto_serial" id="auto_serial" >
                     <option  value="YES">YES</option>
                     <option  value="NO">NO</option>
-                  </select>
-               </td>   
-                  
+                  </select>               </td>   
             </tr>
-             <tr >
-              <td  style="font-size:12px; color:#008040">Area</td>
-              <td  ><input id="area" name="area" type="text"></td>   
-                   
-            </tr>
-            
             <tr >
-              <td style="font-size:12px; color:#008040">Thana</td>
-              <td  ><input id="thana" name="thana" type="text"></td>   
-                   
+              <td  style="font-size:12px; color:#008040">Area <font color="#990000"> * </font></td>
+              <td  ><div id="area_combo"></div><!--<input id="area" name="area" type="text">--></td>   
             </tr>
-            
-            <tr >
-              <td  style="font-size:12px; color:#008040"> District</td>
-              <td  ><input id="district" name="district" type="text"></td>   
-                   
+             
+			 
+
+              <td  style="font-size:12px; color:#008040">Block Serial</td>
+              <td  ><input id="blockedSL" name="blockedSL" type="text">
+              <font color="#990000" style="font-size:10px">Please type reserve serial no separated by coma (,).</br>Example: 1,3,4,11	 </font>
+              </td>
             </tr>
             </table>
 
 		</br>
-        <a  data-role="button" id="btnTruckInfo" onClick="page_settings_edit();" ><!--<img  src="save.png">-->Update Settings</a>
+        <a  data-role="button" id="btnSettings" onClick="page_settings_edit();" >Update Settings</a>
+		<div align="center"><img id="wait_image_setting_edit" style="" width="50px;" src="loading.gif" alt=""></div>
+        <div id="error_setings_chamber" style="color:#900"></div>
+		
+		
     </div><!--/cont-->
     
     <div data-theme="c" data-role="footer" data-position="fixed"></div>		
@@ -458,12 +393,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_schedule_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Schedule</h3>
     </div>
     
-    <div data-role="content">
-        <div id="error_schedule" style="color:#C00"></div>	
+    <div data-role="content" style="overflow:scroll">
+        <div id="error_schedule" style="color:#900"></div>	
         
         
          
@@ -473,609 +408,327 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         
         </br>
 		
-		<div id="" style="overflow:scroll; height:400px;">
+		<!--<div id="" style="overflow:scroll; height:400px;">-->
 		<input id="row_id_schedule" name="row_id"  type="hidden">
 		   <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	
              <tr >
-              <td width="10%"   ><strong style="font-size:18px; color:#008040">Schedule</strong></td>
+              <td width="10%"   ><strong style="font-size:18px; color:#008040">Day</strong></td>
               <td width="15%"  ><strong style="font-size:18px; color:#008040">From</strong></td>   
               <td width="15%" ><strong style="font-size:18px; color:#008040">To</strong></td>
-              <td width="20%"  style="width:20%;" ><strong style="font-size:18px; color:#008040">Max Patient</strong></td>             
-            </tr>
+              <td width="20%"  style="width:20%;" ><strong style="font-size:18px; color:#008040">Max</strong></td>
+              <td width="20%"  style="width:20%;" >&nbsp;</td>             
+             </tr>
             <tr >
               <td  style="font-size:12px; color:#008040">SAT </td>
               <td >
               	<select name="sat_mor_from" id="sat_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>                  </td>   
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                  </select>                  
+				  </td>   
               <td  >
               	<select name="sat_mor_to" id="sat_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td ><input name="sat_max_patient" type="number" id="sat_max_patient"></td>             
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                     <option  value="14">2 PM</option>
+                     <option  value="15">3 PM</option>
+                  </select>             
+				   </td>
+              <td ><input name="sat_max_patient" type="number" id="sat_max_patient"></td>
+              <td >&nbsp;</td>             
             </tr>
             
              <tr >
                <td  >&nbsp;</td>
                <td  ><select name="sat_eve_from" id="sat_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
-               </select></td>
+                 <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
+               </select>
+			   </td>
                <td  ><select name="sat_eve_to" id="sat_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
+               <td  >&nbsp;</td>
                <td  >&nbsp;</td>
              </tr>
              <tr >
               <td  style="font-size:12px; color:#008040">SUN</td>
               <td  >
               	<select name="sun_mor_from" id="sun_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
                   </select>                  </td>   
               <td  >
               	<select name="sun_mor_to" id="sun_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td  ><input name="sun_max_patient" type="number" id="sun_max_patient"></td>             
-            </tr>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                     <option  value="14">2 PM</option>
+                     <option  value="15">3 PM</option>
+                  </select>              
+				  </td>
+              <td  ><input name="sun_max_patient" type="number" id="sun_max_patient"></td>
+              <td  >&nbsp;</td>             
+             </tr>
             
              <tr >
                <td  >&nbsp;</td>
                <td  ><select name="sun_eve_from" id="sun_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
                <td ><select name="sun_eve_to" id="sun_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
+               <td >&nbsp;</td>
                <td >&nbsp;</td>
              </tr>
              <tr >
               <td style="font-size:12px; color:#008040">MON</td>
               <td  >
               	<select name="mon_mor_from" id="mon_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>                  </td>   
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    </select>                  
+					</td>   
               <td >
               	<select name="mon_mor_to" id="mon_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td ><input name="mon_max_patient" type="number" id="mon_max_patient"></td>             
-            </tr>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                     <option  value="14">2 PM</option>
+                     <option  value="15">3 PM</option>
+                  </select>             
+				  </td>
+              <td ><input name="mon_max_patient" type="number" id="mon_max_patient"></td>
+              <td >&nbsp;</td>             
+             </tr>
             
              <tr >
                <td >&nbsp;</td>
                <td ><select name="mon_eve_from" id="mon_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
-               </select></td>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
+               </select>
+			   </td>
                <td ><select name="mon_eve_to" id="mon_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
-               </select></td>
+                 <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
+               </select>
+			   </td>
+               <td >&nbsp;</td>
                <td >&nbsp;</td>
              </tr>
              <tr >
               <td style="font-size:12px; color:#008040">TUE</td>
               <td >
               	<select name="tue_mor_from" id="tue_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>                  </td>   
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                  </select>                 
+				  </td>   
               <td >
               	<select name="tue_mor_to" id="tue_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td ><input name="tue_max_patient" type="number" id="tue_max_patient"></td>             
-            </tr>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                  </select>             
+				   </td>
+              <td ><input name="tue_max_patient" type="number" id="tue_max_patient"></td>
+              <td >&nbsp;</td>             
+             </tr>
             
              <tr >
                <td>&nbsp;</td>
                <td><select name="tue_eve_from" id="tue_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                 <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
                <td><select name="tue_eve_to" id="tue_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
+               <td>&nbsp;</td>
                <td>&nbsp;</td>
              </tr>
              <tr >
               <td style="font-size:12px; color:#008040">WED</td>
               <td>
               	<select name="wed_mor_from" id="wed_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>                  </td>   
+                   <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                  </select>                 
+				  </td>   
               <td>
               	<select name="wed_mor_to" id="wed_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td><input name="wed_max_patient" type="number" id="wed_max_patient"></td>             
-            </tr>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                     <option  value="14">2 PM</option>
+                     <option  value="15">3 PM</option>
+                  </select>              
+				  </td>
+              <td><input name="wed_max_patient" type="number" id="wed_max_patient"></td>
+              <td>&nbsp;</td>             
+             </tr>
             
              <tr >
                <td>&nbsp;</td>
                <td ><select name="wed_eve_from" id="wed_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
                <td><select name="wed_eve_to" id="wed_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
+               <td >&nbsp;</td>
                <td >&nbsp;</td>
              </tr>
              
@@ -1083,244 +736,134 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               <td style="font-size:12px; color:#008040">THU</td>
               <td >
               	<select name="thu_mor_from" id="thu_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>                  </td>   
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                  </select>                  
+				  </td>   
               <td>
               	<select name="thu_mor_to" id="thu_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td ><input name="thu_max_patient" type="number" id="thu_max_patient"></td>             
-            </tr>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                     <option  value="14">2 PM</option>
+                     <option  value="15">3 PM</option>
+                  </select>              
+				  </td>
+              <td ><input name="thu_max_patient" type="number" id="thu_max_patient"></td>
+              <td >&nbsp;</td>             
+             </tr>
             
              <tr >
                <td >&nbsp;</td>
                <td ><select name="thu_eve_from" id="thu_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                  <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
                <td ><select name="thu_eve_to" id="thu_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                 <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
+               <td >&nbsp;</td>
                <td >&nbsp;</td>
              </tr>
              <tr >
               <td style="font-size:12px; color:#008040">FRI</td>
               <td >
               	<select name="fri_mor_from" id="fri_mor_from" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>                  </td>   
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                  </select>                  
+				  </td>   
               <td >
               	<select name="fri_mor_to" id="fri_mor_to" >
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                    <option  value="6">6</option>
-                    <option  value="7">7</option>
-                    <option  value="8">8</option>
-                    <option  value="9">9</option>
-                    <option  value="10">10</option>
-                    <option  value="11">11</option>
-                    <option  value="12">12</option>
-                    <option  value="13">13</option>
-                    <option  value="14">14</option>
-                    <option  value="15">14</option>
-                    <option  value="7">15</option>
-                    <option  value="16">16</option>
-                    <option  value="17">17</option>
-                    <option  value="18">18</option>
-                    <option  value="19">19</option>
-                    <option  value="20">20</option>
-                    <option  value="21">21</option>
-                    <option  value="22">22</option>
-                    <option  value="23">23</option>
-                    <option  value="24">24</option>
-                  </select>              </td>
-              <td ><input name="fri_max_patient" type="number" id="fri_max_patient"></td>             
-            </tr>
+                    <option  value="6">6 AM</option>
+                    <option  value="7">7 AM</option>
+                    <option  value="8">8 AM</option>
+                    <option  value="9">9 AM</option>
+                    <option  value="10">10 AM</option>
+                    <option  value="11">11 AM</option>
+                    <option  value="12">12 AM</option>
+                    <option  value="13">1 PM</option>
+                     <option  value="14">2 PM</option>
+                     <option  value="15">3 PM</option>
+                  </select>              
+				  </td>
+              <td ><input name="fri_max_patient" type="number" id="fri_max_patient"></td>
+              <td >&nbsp;</td>             
+             </tr>
              <tr >
                <td >&nbsp;</td>
                <td ><select name="fri_eve_from" id="fri_eve_from" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                 <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
                </select></td>
                <td ><select name="fri_eve_to" id="fri_eve_to" >
-                 <option  value="1">1</option>
-                 <option  value="2">2</option>
-                 <option  value="3">3</option>
-                 <option  value="4">4</option>
-                 <option  value="5">5</option>
-                 <option  value="6">6</option>
-                 <option  value="7">7</option>
-                 <option  value="8">8</option>
-                 <option  value="9">9</option>
-                 <option  value="10">10</option>
-                 <option  value="11">11</option>
-                 <option  value="12">12</option>
-                 <option  value="13">13</option>
-                 <option  value="14">14</option>
-                 <option  value="15">14</option>
-                 <option  value="7">15</option>
-                 <option  value="16">16</option>
-                 <option  value="17">17</option>
-                 <option  value="18">18</option>
-                 <option  value="19">19</option>
-                 <option  value="20">20</option>
-                 <option  value="21">21</option>
-                 <option  value="22">22</option>
-                 <option  value="23">23</option>
-                 <option  value="24">24</option>
+                 <option  value="13">1 PM</option>
+                 <option  value="14">2 PM</option>
+                 <option  value="15">3 PM</option>
+                 <option  value="16">4 PM</option>
+                 <option  value="17">5 PM</option>
+                 <option  value="18">6 PM</option>
+                 <option  value="19">7 PM</option>
+                 <option  value="20">8 PM</option>
+                 <option  value="21">9 PM</option>
+                 <option  value="22">10 PM</option>
+                 <option  value="23">11 PM</option>
+                 
                </select></td>
+               <td >&nbsp;</td>
                <td >&nbsp;</td>
              </tr>
             </table>
-		</div>
+		<!--</div>-->
 			
 		</br>
-        <a  data-role="button" id="btnTruckInfo" onClick="page_schedule_edit();" ><!--<img  src="save.png">-->Update Schedule</a>
+        <a  data-role="button" id="btnScheduleEdit" onClick="page_schedule_edit();" >Update Schedule</a>
+		
+		<div align="center"><img id="wait_image_sch_edit" style="" width="50px;" src="loading.gif" alt=""></div>
+		
     </div><!--/cont-->
     
     <div data-theme="c" data-role="footer" data-position="fixed"></div>		
@@ -1332,12 +875,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_OffDay_show">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Off Day</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_offday" style="color:#C00"></div>	
+        <div id="error_offday" style="color:#900"></div>	
         
         
          
@@ -1349,12 +892,20 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         	
             <tr >
              
-              <td style="width:30%;" ><input name="off_date" id="off_date" type="date"></td>   
-              <td  > <a  data-role="button"  onClick="addOffday();" >Save</a></td>   
+              <td style="width:30%;" >
+              <input  name="off_date" id="off_date" type="date">
+             
+              
+              </td>   
+              <td  > 
+              <a id="btn_offAdd" name="btn_offAdd"  data-role="button"  onClick="addOffday();" >Save</a>
+             <!--  <img id="wait_image_off_add" style="" width="50px;" src="loading.gif" alt="">-->
+              </td>   
                         
             </tr>
         </table>
         </br>
+        
 		<div id="offday" style="font-size:18px; color:#008040"></div>
         
 
@@ -1370,12 +921,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_appoinment">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Appoinment</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_to_queue_list" style="color:#C00"></div>	
+        <div id="error_to_queue_list" style="color:#900"></div>	
         
         
          
@@ -1421,12 +972,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 <div data-theme="c" data-role="page" id="page_appoinment_new">
     <div data-theme="c" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
-    <a data-role="button" data-rel="back"  data-icon="arrow-l" data-iconpos="left" class="ui-btn-right">Back</a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
         <h3>Appoinment</h3>
     </div>
     
     <div data-role="content">
-        <div id="error_to_queue_list" style="color:#C00"></div>	
+        <div id="error_to_queue_list" style="color:#900"></div>	
         
         
          
