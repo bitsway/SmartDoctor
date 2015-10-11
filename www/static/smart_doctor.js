@@ -503,6 +503,7 @@ function page_settings_show(){
 	area=settingsArray[5];
 	thana=settingsArray[6];
 	district=settingsArray[7];
+	address=settingsArray[7];
 	
 	
 	
@@ -519,7 +520,7 @@ function page_settings_show(){
 	//$("#thana").val(thana);
 	//$("#district").val(district);
 	//alert("2")
-	
+	$("#address").val(address);
 	
 	
 	
