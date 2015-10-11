@@ -44,8 +44,8 @@ $(document).ready(function(){
 			$("#q_long").val("");
 			$("#wait_image_login").hide();
 			
-		
-		if (localStorage.sync_code == 0){
+		//alert (localStorage.sync_code)
+		if ((localStorage.sync_code == "undefined") || (localStorage.sync_code == undefined)){
 			url = "#login";
 			$.mobile.navigate(url);
 		}
@@ -53,6 +53,7 @@ $(document).ready(function(){
 			url = "#pageHome";
 			$.mobile.navigate(url);
 		}
+		
 		//alert  (localStorage.sync_code)
 		
 		
@@ -84,7 +85,7 @@ function check_user() {
 	if (user_id=="" || user_id==undefined || user_pass=="" || user_pass==undefined){
 		url = "#login";      
 		$.mobile.navigate(url);
-		$("#error_login").html("Required User ID and Password");	
+		$("#error_login").html('Required User ID and PIN <br> '+'<font style="color:#0072A8">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');	
 	}else{
 		//-----------------
 			$("#wait_image_login").show();
@@ -94,8 +95,8 @@ function check_user() {
 				localStorage.sync_code=0
 			}
 			
-			//$("#error_login").html(apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code);
-										
+		//	$("#error_login").html(apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code);
+			//							
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code,
@@ -121,6 +122,10 @@ function check_user() {
 									localStorage.specialityStr=syncResultArray[4];
 									localStorage.areaStr=syncResultArray[5];
 									
+									localStorage.doctorProfileFlagOk=syncResultArray[6];
+									
+									//alert (localStorage.doctorProfileFlagOk)
+									
 									//alert (localStorage.areaStr)
 									//Profile
 									//alert (docProfileStr)
@@ -142,20 +147,22 @@ function check_user() {
 										page_profile_show();
 									}
 									else{
+										$("#error_login").html('Sorry Network not available');
 										url = "#pageHome";
 										$.mobile.navigate(url);	
 									}
 									
-																
+									$("#wait_image_login").hide();
+									$("#loginButton").show();							
 									
-									$(".errorChk").html("Sync Successful");
+									$("#error_login").html("Synced Successfully");
 			
 								}else {
 									
 									$("#wait_image_login").hide();
 									$("#loginButton").show();
 									
-									$("#error_login").html("Sync Failed. Authorization or Network Error.");
+									$("#error_login").html('Sync Failed. Invalid UserID or PIN'+'<br><font style="color:#0072A8">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');
 								}
 													
 								
@@ -164,7 +171,7 @@ function check_user() {
 					  error: function(result) {					 
 						  $("#wait_image_login").hide();
 						  $("#loginButton").show();
-						  
+						  $("#error_login").html('Connection Timeout.'+'<br><font style="color:#0072A8">Please check you have active Internet Connection. </font>')
 						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
@@ -177,43 +184,55 @@ function check_user() {
 
 
 function chember_show(){
-	var chamberStr= localStorage.chamberStr;
-	var chamberArray = chamberStr.split('<fdrd>');
-	$("#chamber_list").show();
-	$("#wait_image_chamber").hide();
-	
-	$("#all_button").show();
-	$("#wait_image_chamber_info").hide();
-	
-	
-	chamberStrCreate=''
-	for(i=0; i < chamberArray.length-1; i++){
+	if (localStorage.doctorProfileFlagOk==1){	
+		var chamberStr= localStorage.chamberStr;
+		var chamberArray = chamberStr.split('<fdrd>');
+		$("#chamber_list").show();
+		$("#wait_image_chamber").hide();
+		
+		$("#all_button").show();
+		$("#wait_image_chamber_info").hide();
 		
 		
-		var chamberStrSingle=chamberArray[i];
 		
-		var chambers_id=chamberStrSingle.split('fdfd')[0];
-		var chamber_name=chamberStrSingle.split('fdfd')[1];
-
-		chamberStrCreate =chamberStrCreate
-		+'<input style="border-bottom-style:solid; border-color:#CBE4E4;border-bottom-width:thin" type="submit" onClick="page_chamber_go('+chambers_id+');" value="'+chamber_name +'|' +chambers_id+'">'
-		+'<input id="'+chambers_id+'" name="'+chambers_id+'" type="hidden" value="'+chamber_name +'|' +chambers_id+'">'
 		
-	}
-	
-	// $("#chamber_list").html(chamberStrCreate);
-	if ((localStorage.doc_name=='') || (localStorage.speciality=='')){
-		page_profile_show();
-	}
+		
+		
+		chamberStrCreate=''
+		for(i=0; i < chamberArray.length-1; i++){
+			
+			
+			var chamberStrSingle=chamberArray[i];
+			
+			var chambers_id=chamberStrSingle.split('fdfd')[0];
+			var chamber_name=chamberStrSingle.split('fdfd')[1];
+			var address=chamberStrSingle.split('fdfd')[2];
+			
+			//alert (address)
+			chamberStrCreate =chamberStrCreate
+			+'<input style="border-bottom-style:solid; border-color:#CBE4E4;border-bottom-width:thin" type="submit" onClick="page_chamber_go('+chambers_id+');" value="'+chamber_name +'|' +chambers_id+'">'
+			+'<input id="'+chambers_id+'" name="'+chambers_id+'" type="hidden" value="'+chamber_name +' | ' +chambers_id +'<br>' + address+ '">'
+			
+		}
+		
+		//alert (chamberStrCreate);
+		if ((localStorage.doc_name=='') || (localStorage.speciality=='')){
+			page_profile_show();
+		}
+		else{
+			 
+			  $("#error_chamber_list").html('');
+			 $("#chamber_list").empty();
+			 $("#chamber_list").append(chamberStrCreate).trigger('create');
+			 url = "#page_chamber_show";
+			 $.mobile.navigate(url);
+		}
+	}//end if profile data
 	else{
-		 
-		  $("#error_chamber_list").html('');
-		 $("#chamber_list").empty();
-		 $("#chamber_list").append(chamberStrCreate).trigger('create');
-		 url = "#page_chamber_show";
+		 $("#error_home").html('Please first complete Profile Information.');
+		 url = "#pageHome";
 		 $.mobile.navigate(url);
 	}
-	
 	
 	
 }
@@ -231,6 +250,10 @@ function page_profile_show(){
 	$("#doc_des").val(localStorage.note);
 	$("#experience").val(localStorage.experience);
 	
+	
+	if ((localStorage.doc_name=="") & (localStorage.experience==0)){
+		$("#experience").val("");
+	}
 	//alert (localStorage.speciality)
 	var speciality_show=localStorage.specialityStr;
 	var doc_speciality='<select name="doc_speciality" id="doc_speciality" >'
@@ -275,6 +298,18 @@ function page_profile_edit(){
 	$("#wait_image_profile").show();
 	$("#profile_edit").hide();
 	
+	if  ((doc_name !='') & (doc_speciality !='') & (doc_des !='') & (experience !='')){
+		localStorage.doctorProfileFlagOk=1
+	}
+	else{
+		localStorage.doctorProfileFlagOk=0
+		$("#error_profile_edit").html("Please complete all required information.");
+		$("#wait_image_profile").hide();
+		$("#profile_edit").show();
+	}
+	
+	
+	if (localStorage.doctorProfileFlagOk==1){	
 	//$("#error_profile_edit").html(apipath+'profileEdit?cid='+localStorage.user_id+'&doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&doc_name='+doc_name+'&doc_speciality='+doc_speciality+'&doc_des='+doc_des+'&experience='+experience);
 										
 			$.ajax({
@@ -327,7 +362,7 @@ function page_profile_edit(){
 					  }
 				  });//end ajax
 	
-	
+	}
 	
 }
 
@@ -339,34 +374,50 @@ function page_chamber_go(chambers_id){
 		var chamber_show =$("#"+chambers_id).val();
 		$('#chamber_id').html(chamber_show);
 		
+		//localStorage.chamber_show=chamber_show
+//		var chamber_show=localStorage.chamber_show;
+		var chamber_id_get=chamber_show.split('<br>')[0]
+		var chamber_id=chamber_id_get.split(' | ')[1]
+		var chamber_name=chamber_id_get.split(' | ')[0]
+		localStorage.chamber_id=chamber_id
+		localStorage.chamber_name=chamber_name
+		
+		
+		chamber_show=localStorage.doc_name+'<br>'+localStorage.chamber_name+'<br>'+chamber_show.split('<br>')[1]+'<br>'+'ChamberCode: '+localStorage.user_id+localStorage.chamber_id
 		localStorage.chamber_show=chamber_show
 		
-		var chamber_show=localStorage.chamber_show;
-		var chamber_id=chamber_show.split('|')[1]
-		localStorage.chamber_id=chamber_id
 		
+		//alert (chamber_show)
 		
 		$("#chamber_list").hide();
 		$("#wait_image_chamber").show();
 		
+		$("#new_chamber_add").hide();
+		
 		
 		//Settings, schedule and off day ready
-		//$("#error_chamber_list").html(apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id);
+	//	$("#error_chamber_list").html(apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id);
 										
 			$.ajax({
 					 type: 'POST',
-					 url: apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
-					 
-					 success: function(result) {											
+					 url:apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id,
+					
+					 success: function(result) {
+						 // alert (result)
 							if (result==''){
 								$("#chamber_list").show();
 								$("#wait_image_chamber").hide();
+								$("#new_chamber_add").show();
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
 								var resultArray = result.split('rdrd');
+								//alert (result);
 								if (resultArray[0]=='Success'){													
-
+									
+									
+									
+									
 									//Profile
 									var settingsStr=resultArray[1];
 									var scheduleStr=resultArray[2];
@@ -379,6 +430,10 @@ function page_chamber_go(chambers_id){
 
 									$("#chamber_list").show();
 									$("#wait_image_chamber").hide();
+									$("#new_chamber_add").show();
+									
+									$("#chamber_id_all").html(localStorage.chamber_show);
+									
 									url = "#page_chamber_go";
 									$.mobile.navigate(url);
 
@@ -387,7 +442,8 @@ function page_chamber_go(chambers_id){
 								}else {
 									 
 									$("#chamber_list").show();
-									$("#wait_image_chamber").hide();													
+									$("#wait_image_chamber").hide();	
+									$("#new_chamber_add").show();
 									
 									$("#error_chamber_list").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
@@ -399,7 +455,10 @@ function page_chamber_go(chambers_id){
 					  error: function(result) {					 
 						  $("#chamber_list").show();
 						  $("#wait_image_chamber").hide();
+						  $("#new_chamber_add").show();
 						//  $("#error_login").html('Invalid Request');
+						
+						
 						  
 						  url = "#login";
 						  $.mobile.navigate(url);	
@@ -421,7 +480,7 @@ function page_chamber_go(chambers_id){
 	
 }
 function page_settings_show(){
-	
+	$("#error_setings_chamber_1").html("");
 	$("#error_setings_chamber").html("");
 	$("#settingsChember").html(localStorage.chamber_show);
 	
@@ -450,6 +509,8 @@ function page_settings_show(){
 	//alert(assistant_mobile1)
 	
 	$("#row_id").val(row_id);
+	$("#chamber_name_old").val(localStorage.chamber_name);
+	
 	$("#assistant_mobile1").val(assistant_mobile1);
 	$("#assistant_mobile2").val(assistant_mobile2);
 	$("#visiting_duration").val(visiting_duration);
@@ -494,6 +555,7 @@ function page_settings_show(){
 
 function page_settings_edit(){
 	var row_id=$("#row_id").val();
+	var chamber_name=$("#chamber_name_old").val();
 	var assistant_mobile1=$("#assistant_mobile1").val();
 	var assistant_mobile2=$("#assistant_mobile2").val();
 	var visiting_duration=$("#visiting_duration").val();
@@ -502,6 +564,9 @@ function page_settings_edit(){
 	//var thana=$("#thana").val();
 //	var district=$("#district").val();
 	var blockedSL=$("#blockedSL").val();
+	var address=$("#address").val();
+	
+	
 	
 	var thana="";
 	var area=areaDistrict.split('|')[1]
@@ -514,30 +579,31 @@ function page_settings_edit(){
 		$("#btnSettings").hide();
 		$("#wait_image_setting_edit").show();
 	//alert("2")
-	//$("#error_setings_chamber").html(apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district+'&blockedSL='+blockedSL);
-										
+//	$("#error_setings_chamber_1").html(apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district+'&blockedSL='+blockedSL+'&address='+address+'&chamber_name='+chamber_name);
+									
 			$.ajax({
 					 type: 'POST',
-					 url: apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district+'&blockedSL='+blockedSL,
+					 url: apipath+'settingsUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&assistant_mobile1='+assistant_mobile1+'&assistant_mobile2='+assistant_mobile2+'&visiting_duration='+visiting_duration+'&auto_serial='+auto_serial+'&area='+area+'&thana='+thana+'&district='+district+'&blockedSL='+blockedSL+'&address='+address+'&chamber_name='+chamber_name,
 					 
-					 success: function(result) {											
+					 success: function(result) {	
+					// alert (result);	
 							if (result==''){
 								$("#btnSettings").show();
 								$("#wait_image_setting_edit").hide();
-								$("#error_profile_edit").html('Sorry Network not available');
+								$("#error_setings_chamber_1").html('Sorry Network not available');
 								
 							}else{
 								
 								if (result=='Success'){													
-									//alert ()
+									
 									var settingsStr=row_id+'fdfd'+assistant_mobile1+'fdfd'+assistant_mobile2+'fdfd'+visiting_duration+'fdfd'+auto_serial+'fdfd'+area+'fdfd'+thana+'fdfd'+district;
 									localStorage.settingsStr=settingsStr;
 									
-									$("#error_setings_chamber").html('Settings Updated Succesfully');	
+									$("#error_setings_chamber_1").html('Settings Updated Succesfully');	
 									$("#btnSettings").show();
 									$("#wait_image_setting_edit").hide();
-							
 									
+									//alert ('asfsdf')
 
 			
 								}else {
@@ -545,7 +611,7 @@ function page_settings_edit(){
 									$("#btnSettings").show();
 									$("#wait_image_setting_edit").hide();												
 									
-									$("#error_setings_chamber").html("Failed. Authorization or Network Error.");
+									$("#error_setings_chamber_1").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
 								}
 													
@@ -837,8 +903,9 @@ function page_OffDay_show(){
 	}
 	offdayStr_create=offdayStr_create+'</table>'
 
-	$("#offday").html(offdayStr_create);
-	
+	//$("#offday").html(offdayStr_create);
+	$("#offday").empty();
+	$("#offday").append(offdayStr_create).trigger('create');
 	
 	$("#all_button").show();
 	$("#wait_image_chamber_info").hide();
@@ -949,13 +1016,27 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 			$("#all_button").hide();
 			$("#wait_image_chamber_info").show();
 			
+			
+			
+			//alert ('ttttt')
+			
+			
+			
+			
+			
+			
 			$("#error_request").html('');	
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
 					 
-					 success: function(result) {											
+					 success: function(result) {
+						 	
+
 							if (result==''){
+								$("#btn_req_search").show();
+								$("#btn_req_all").show();
+								$("#wait_req_image").hide();
 								$("#reqChember").html('Sorry Network not available');
 								
 							}else{
@@ -968,7 +1049,8 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									var reqStrArray = reqStr.split('<fdrd>');
 									
 									
-									var reqStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
+									//var reqStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
+									var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
 									//alert (reqStrArray.length)
 									
 									for(i=0; i < reqStrArray.length-1; i++){
@@ -995,18 +1077,42 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										}
 										// alert (row_id)
 										
-										reqStrFull = reqStrFull+'<tr ><td colspan="3" style="font-size:14px; color:#008040">'+patinet_name+'</td></tr>'
-													+'<tr >'
-													+'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-													+'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-												  if (status == 'SUBMITTED'){ 
-												   
-												   reqStrFull = reqStrFull + '<td ><input  type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
+										reqStrFull = reqStrFull+'<tr ><td colspan="2" style="font-size:16px;">'+patinet_name+'</td>'
+										if (status == 'SUBMITTED'){ 
+												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
+												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+												  }
+												  else if (status == 'CONFIRMED'){ 
+												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30x" src="confirmed.png"></td>'
+												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
 												  }
 												  else{
-													reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" ></td>' 
+													 // reqStrFull = reqStrFull +'<td  width="50px" ><input  type="submit"  disabled="disabled" style="background: url(ok.png);"></td>' 														
+													reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30px" src="cancel.png"></td>'
+													//reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" src="ok.png"></td>' 
 													  }
-													reqStrFull = reqStrFull+'</tr>'  
+										
+										
+										
+										            reqStrFull = reqStrFull + ' </tr>'
+													
+													 reqStrFull = reqStrFull +'<tr >'
+													 reqStrFull = reqStrFull +'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+													 reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+												  //if (status == 'SUBMITTED'){ 
+//												   reqStrFull = reqStrFull + '<td width="25px" ><a   data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
+//												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+//												  }
+//												  else if (status == 'CONFIRMED'){ 
+//												   reqStrFull = reqStrFull + '<td width="25px" ><a height="20px" width="25x" data-role="button" ><img height="25px" width="25x" src="confirmed.png"></a></td>'
+//												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+//												  }
+//												  else{
+//													 // reqStrFull = reqStrFull +'<td  width="50px" ><input  type="submit"  disabled="disabled" style="background: url(ok.png);"></td>' 														
+//													reqStrFull = reqStrFull + '<td width="25px" ><a height="20px" width="25x" data-role="button" ><img height="25px" width="25px" src="cancel.png"></a></td>'
+//													//reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" src="ok.png"></td>' 
+//													  }
+													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#008A8A; font-size:1px" ><td>&nbsp;</td><td></td><td></td></tr>'  
 													  
 									  
 										}
@@ -1025,6 +1131,13 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									
 									$("#all_button").show();
 									$("#wait_image_chamber_info").hide();
+									
+									
+									$("#btn_req_search").show();
+									$("#btn_req_all").show();
+									$("#wait_req_image").hide();
+									
+									
 									url = "#page_request_show";
 									$.mobile.navigate(url);								
 									
@@ -1033,7 +1146,11 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 								}else {
 									 
 									$("#all_button").show();
-									$("#wait_image_chamber_info").hide();													
+									$("#wait_image_chamber_info").hide();	
+									
+									$("#btn_req_search").show();
+									$("#btn_req_all").show();
+									$("#wait_req_image").hide();
 									
 									$("#error_request_show").html("Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
@@ -1089,29 +1206,66 @@ function req_show(){
 		}
 		// alert (row_id)
 		
-		reqStrFull = reqStrFull = reqStrFull+'<tr ><td colspan="3" style=" font-size:14px; color:#008040">'+patinet_name+'</td></tr>'
-													+'<tr >'
-													+'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-													+'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-				  if (status == 'SUBMITTED'){ 
-				   
-				   reqStrFull = reqStrFull + '<td style="width:50%;" ><input type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
-				  }
-				  else{
-					reqStrFull = reqStrFull +'<td style="width:50%;" ><input type="submit" value=" '+status+' " disabled="disabled" ></td>' 
-					  }
-					reqStrFull = reqStrFull+'</tr>'  
-					  
-	  
-		}
-	
-	
-	reqStrFull = reqStrFull + '</table>'
+		reqStrFull = reqStrFull+'<tr ><td colspan="2" style="font-size:16px;">'+patinet_name+'</td>'
+										if (status == 'SUBMITTED'){ 
+												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
+												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+												  }
+												  else if (status == 'CONFIRMED'){ 
+												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30x" src="confirmed.png"></td>'
+												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+												  }
+												  else{
+													 // reqStrFull = reqStrFull +'<td  width="50px" ><input  type="submit"  disabled="disabled" style="background: url(ok.png);"></td>' 														
+													reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30px" src="cancel.png"></td>'
+													//reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" src="ok.png"></td>' 
+													  }
+										
+										
+										
+										            reqStrFull = reqStrFull + ' </tr>'
+													
+													 reqStrFull = reqStrFull +'<tr >'
+													 reqStrFull = reqStrFull +'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+													 reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+
+													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#008A8A; font-size:1px" ><td>&nbsp;</td><td></td><td></td></tr>'  
+													  
+									  
+										}
+							        
+									
+									reqStrFull = reqStrFull + '</table>'
+		
+		//reqStrFull = reqStrFull = reqStrFull+'<tr ><td colspan="3" style=" font-size:14px; color:#008040">'+patinet_name+'</td></tr>'
+//													+'<tr >'
+//													+'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+//													+'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+//				  if (status == 'SUBMITTED'){ 
+//				   
+//				   reqStrFull = reqStrFull + '<td style="width:50%;" ><input type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
+//				  }
+//				  else{
+//					reqStrFull = reqStrFull +'<td style="width:50%;" ><input type="submit" value=" '+status+' " disabled="disabled" ></td>' 
+//					  }
+//					reqStrFull = reqStrFull+'</tr>'  
+//					  
+//	  
+//		}
+//	
+//	
+//	reqStrFull = reqStrFull + '</table>'
 	
 	//alert (localStorage.reqStrFull);
 	localStorage.reqStrFull=reqStrFull;	
 	$("#reqList").empty();
 	$("#reqList").append(localStorage.reqStrFull).trigger('create');
+	
+	$("#btn_req_search").show();
+	$("#btn_req_all").show();
+	$("#wait_req_image").hide();
+	
+
 	url = "#page_request_show";
 	$.mobile.navigate(url);			
 	
@@ -1177,7 +1331,12 @@ function confirm_app(row_id){
 	
 }
 
-
+function req_app_search_all(){
+		$("#btn_req_search").hide();
+		$("#btn_req_all").hide();
+		$("#wait_req_image").show();
+		 page_chember_req_show();
+}
 
 
 
@@ -1186,51 +1345,69 @@ function req_app_search(){
 	var req_search=$("#req_search").val()
 	
 	
+	
 	//$("#error_request").html(apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id);
-										
-	$.ajax({
-			 type: 'POST',
-			 url: apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id,
-			 
-			 success: function(result) {											
-					if (result==''){
-						$("#error_request").html('Sorry Network not available');
-						
-					}else{
-						 
-						if (result.split('rdrd')[0]=='Success'){													
+	if (req_search.length < 10){
+		$("#error_request").html('Please select a date.');
+		
+	}
+	else{	
+		$("#btn_req_search").hide();
+		$("#btn_req_all").hide();
+		$("#wait_req_image").show();
+		
+		$.ajax({
+				 type: 'POST',
+				 url: apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id,
+				 
+				 success: function(result) {											
+						if (result==''){
+							$("#btn_req_search").show();
+							$("#btn_req_all").show();
+							$("#wait_req_image").hide();
+							$("#error_request").html('Sorry Network not available');
 							
-							localStorage.reqStrFull=result.split('rdrd')[1]
-							
-							//alert (localStorage.chamber_show);
-							req_show();
-
-							//$("#error_request").html('Confirmed Succesfully');	
-							
-							 //url = "#page_request_show";
-//							 $.mobile.navigate(url);
-						}else {
+						}else{
 							 
-							//$("#wait_image_login").hide();
-//									$("#loginButton").show();
-							$("#error_request").html('Appoinment not Available.');													
+							if (result.split('rdrd')[0]=='Success'){													
+								$("#error_request").html('');
+								localStorage.reqStrFull=result.split('rdrd')[1]
+								
+								//alert (localStorage.chamber_show);
+								req_show();
+	
+								$("#btn_req_search").show();
+								$("#btn_req_all").show();
+								$("#wait_req_image").hide();
+								
+							}else {
+								 
+								$("#btn_req_search").show();
+								$("#btn_req_all").show();
+								$("#wait_req_image").hide();
+								$("#error_request").html('Appoinment not Available.');													
+								
+							//	$("#error_request").html(result.split('rdrd')[0]);
+								//$('#syncBasic').show();
+							}
+												
 							
-						//	$("#error_request").html(result.split('rdrd')[0]);
-							//$('#syncBasic').show();
 						}
-											
-						
-					}
-				  },
-			  error: function(result) {					 
-				  $("#wait_image_login").hide();
-				  $("#loginButton").show();
-				//  $("#error_login").html('Invalid Request');
-				//  alert ("sdfdsg")
-				  url = "#login";
-				  $.mobile.navigate(url);	
-			  }
-		  });//end ajax
+					  },
+				  error: function(result) {					 
+					  $("#wait_image_login").hide();
+					  $("#loginButton").show();
+					
+					  $("#btn_req_search").show();
+					  $("#btn_req_all").show();
+					  $("#wait_req_image").hide();
+							
+					  url = "#login";
+					  $.mobile.navigate(url);	
+				  }
+			  });//end ajax
+		
+	}
 	
 }
 
@@ -1242,6 +1419,11 @@ function page_con_appoinment_show(){
 	
 	$("#all_button").hide();
 	$("#wait_image_chamber_info").show();
+	
+	
+	
+	
+	
 	//$("#error_request_show").html(apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
 										
 			$.ajax({
@@ -1250,6 +1432,9 @@ function page_con_appoinment_show(){
 					 
 					 success: function(result) {											
 							if (result==''){
+								$("#btn_con_search").show();
+								$("#btn_con_all").show();
+								$("#wait_con_image").hide();
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
@@ -1284,14 +1469,15 @@ function page_con_appoinment_show(){
 											date_get=app_time.split(' ')[0]
 											time_get=app_time.split(' ')[1]
 										}
+										var date_get_new=new Date(date_get)
 										
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+										+'<tr ><td style="width:60%; font-size:16px; color:#008040">'+patinet_name+'</td>'
 													
-										+'<td  ><input style="font-size:14px; width=50px;color:#666"  type="date" value="'+date_get+'" ></td>'									
-										+'<td   ><input style="font-size:14px;width=40px; color:#666"  type="time" value="'+time_get+'" ></td>'
+										+'<td  style="width:60%; font-size:14px; color:#008040" >'+date_get_new.toString().substring(0, 10)+'</td>'									
+										+'<td   ><input style="font-size:14px;width=40px; color:#1D5C30;  background-color:#7BCCD2"  type="time" value="'+time_get+'" readonly="readonly"></td>'
 										
 										+'</tr></table></li>'
 //													
@@ -1311,6 +1497,10 @@ function page_con_appoinment_show(){
 											
 									$("#all_button").show();
 									$("#wait_image_chamber_info").hide();
+									
+									$("#btn_con_search").show();
+									$("#btn_con_all").show();
+									$("#wait_con_image").hide();
 
 									url = "#page_con_appoinment_show";
 									$.mobile.navigate(url);								
@@ -1323,6 +1513,10 @@ function page_con_appoinment_show(){
 									$("#wait_image_chamber_info").hide();
 									//$("#error_login").html('Server Error');													
 									
+									$("#btn_con_search").show();
+									$("#btn_con_all").show();
+									$("#wait_con_image").hide();
+									
 									$("#error_request").html('Appoinment not Available.');
 									//$('#syncBasic').show();
 								}
@@ -1334,6 +1528,10 @@ function page_con_appoinment_show(){
 						 $("#all_button").show();
 						 $("#wait_image_chamber_info").hide();
 						//  $("#error_login").html('Invalid Request');
+						
+						  $("#btn_con_search").show();
+						  $("#btn_con_all").show();
+						  $("#wait_con_image").hide();
 						  
 						  url = "#login";
 						  $.mobile.navigate(url);	
@@ -1344,7 +1542,12 @@ function page_con_appoinment_show(){
 		$.mobile.navigate(url);
 	
 }
-
+function page_con_appoinment_search_all(){
+	$("#btn_con_search").hide();
+	$("#btn_con_all").hide();
+	$("#wait_con_image").show();
+	page_con_appoinment_show();
+}
 
 function page_con_appoinment_search(){
 	
@@ -1358,7 +1561,11 @@ function page_con_appoinment_search(){
 	//alert ("NNN");
 	
 	//$("#error_con_list").html(apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+searchConfirm);
-										
+			
+			$("#btn_con_search").hide();
+			$("#btn_con_all").hide();
+			$("#wait_con_image").show();
+			
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+searchConfirm,
@@ -1368,9 +1575,10 @@ function page_con_appoinment_search(){
 								$("#error_profile_edit").html('Sorry Network not available');
 								
 							}else{
+								$("#error_con_list").html("")
 								var resultArray = result.split('rdrd');
 								if (resultArray[0]=='Success'){													
-
+									
 									//Profile
 									var reqStr=resultArray[1];													
 									
@@ -1407,14 +1615,27 @@ function page_con_appoinment_search(){
 											date_get=app_time.split(' ')[0]
 											time_get=app_time.split(' ')[1]
 										}
+										var date_get_new=new Date(date_get)
+										//alert (date_get_new.toString().substring(0, 10))
+
+										
+										
+										
+										
+										
 										
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
 										+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
-													
-										+'<td  ><input style="font-size:14px; width=50px;color:#666"  type="date" value="'+date_get+'" ></td>'									
-										+'<td   ><input style="font-size:14px;width=40px; color:#666"  type="time" value="'+time_get+'" ></td>'
+										
+										
+										//+'<td  >'+date_get+'</td>'									
+//										+'<td   ><input style="font-size:14px;width=40px; color:#1D5C30; background-color:#EAF4F4"  type="time" value="'+time_get+'" readonly="readonly""></td>'
+//										
+//										+'</tr></table></li>'			
+										+'<td  ><input style="font-size:14px;width=40px; color:#1D5C30; background-color:#EAF4F4"  type="text" value="'+date_get_new.toString().substring(0, 10)+'" readonly="readonly"></td>'									
+										+'<td   ><input style="font-size:14px;width=40px; color:#1D5C30; background-color:#EAF4F4"  type="time" value="'+time_get+'" readonly="readonly""></td>'
 										
 										+'</tr></table></li>'
 									
@@ -1426,6 +1647,10 @@ function page_con_appoinment_search(){
 									$("#reqConList").empty();
 									$("#reqConList").append(localStorage.reqConStrFull).trigger('create');
 																
+									
+									$("#btn_con_search").show();
+									$("#btn_con_all").show();
+									$("#wait_con_image").hide();
 									url = "#page_con_appoinment_show";
 									$.mobile.navigate(url);								
 									
@@ -1433,9 +1658,9 @@ function page_con_appoinment_search(){
 			
 								}else {
 									 
-									//$("#wait_image_login").hide();
-//									$("#loginButton").show();
-									//$("#error_login").html('Server Error');													
+									$("#btn_con_search").show();
+									$("#btn_con_all").show();
+									$("#wait_con_image").hide();													
 									
 									$("#error_login").html("Sync Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
@@ -1448,6 +1673,11 @@ function page_con_appoinment_search(){
 						  $("#wait_image_login").hide();
 						  $("#loginButton").show();
 						//  $("#error_login").html('Invalid Request');
+						  
+						  
+						   $("#btn_con_search").show();
+							$("#btn_con_all").show();
+							$("#wait_con_image").hide();
 						  
 						  url = "#login";
 						  $.mobile.navigate(url);	
@@ -1558,6 +1788,7 @@ function req_con_show(){
 
 function page_appoinment_new(){
 	//$("#next_week").val("");
+	$("#error_new_app").html('');
 	var week_combo_show='<select name="next_week" id="next_week" >'
         week_combo_show=week_combo_show+'<option  selected value=""></option>'
         week_combo_show=week_combo_show+'<option  value="1">1</option>'
@@ -1575,20 +1806,62 @@ function page_appoinment_new(){
 }
 
 function show_chamber_div(){
-	$("#add_new_chamber").show();
+	var area_show=localStorage.areaStr;
+	var doc_area='<select name="area_new" id="area_new" >'
+	doc_area= doc_area+'<option  value=""></option>'
+	
+	var areaStrArray=area_show.split('fdfd')
+	for(i=0; i < areaStrArray.length-1; i++){
+		doc_area= doc_area+'<option  value="'+areaStrArray[i]+'">'+areaStrArray[i]+'</option>'
+	}
+	doc_area=doc_area+'</select>'
+	
+	
+	$("#area_combo_new").empty();
+	$("#area_combo_new").append(doc_area).trigger('create');
+	
+	
+	
+	$("#wait_image_new_chamber").hide();
+	url = "#page_new_Chamber";
+	$.mobile.navigate(url);
+	
+	//$("#add_new_chamber").show();
 }
 function add_new_chamber(){
-	var new_chamber_name = $("#new_chamber_name").val();
-	//$("#error_chamber_list").html(apipath+'add_chamber?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_name='+new_chamber_name);
+	var area_new = $("#area_new").val();
+	var chamber_name_new = $("#chamber_name_new").val();
+	var chamber_address_new = $("#chamber_address_new").val();
+	var assistant_mobile1_new = $("#assistant_mobile1_new").val();
+	var assistant_mobile2_new = $("#assistant_mobile2_new").val();
+	var visiting_duration_new = $("#visiting_duration_new").val();
+	var auto_serial_new = $("#auto_serial_new").val();
+	var blockedSL_new = $("#blockedSL_new").val();
+	
+	//alert (area_new);
+	var area=area_new.split('|')[1]
+	var district=area_new.split('|')[0]
+	//alert (district)
+	
+	
+	//$("#settingsChember_new").html(apipath+'add_chamber?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_name_new='+chamber_name_new+'&area='+area+'&district='+district+'&chamber_address_new='+chamber_address_new+'&assistant_mobile1_new='+assistant_mobile1_new+'&assistant_mobile2_new='+assistant_mobile2_new+'&visiting_duration_new='+visiting_duration_new+'&auto_serial_new='+auto_serial_new+'&blockedSL_new='+blockedSL_new);
+	
+	if ((chamber_name_new.replace(/ /g,'')).length == 0){
+		//$("#error_chamber_list").html(area_new);
+		chamber_name_new=area;
+	}
+	
+	
 	//alert (new_chamber_name.replace(/ /g,'').length);
 	
-	if ((new_chamber_name.replace(/ /g,'')).length == 0){
-		$("#error_chamber_list").html("Please Enter Chamber Name.");
+	if ((chamber_name_new.replace(/ /g,'')).length == 0){
+		$("#settingsChember_new").html("Please Enter Chamber Name.");
+		
 	}
 	else{
 		$.ajax({
 				 type: 'POST',
-				 url: apipath+'add_chamber?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_name='+new_chamber_name,
+				 url: apipath+'add_chamber?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_name_new='+chamber_name_new+'&area='+area+'&district='+district+'&chamber_address_new='+chamber_address_new+'&assistant_mobile1_new='+assistant_mobile1_new+'&assistant_mobile2_new='+assistant_mobile2_new+'&visiting_duration_new='+visiting_duration_new+'&auto_serial_new='+auto_serial_new+'&blockedSL_new='+blockedSL_new,
 				 
 				 success: function(result) {											
 						if (result==''){
@@ -1645,6 +1918,38 @@ function add_new_chamber(){
 	
 	
 }
+function newapptSave(){
+	//alert ("ADASD")
+	var next_week= $("#next_week").val();
+	if (next_week!=''){
+		$("#error_new_app").html('Saved Successfully');
+	}
+	else{
+		$("#error_new_app").html('Select Week');
+	}
+}
+//-------------Blank error msg
+function blank_error_msg(){
+	$("#error_login").html('');
+	$("#error_home").html('');
+	
+	$("#error_chamber_list").html('');
+	$("#error_profile_edit").html('');
+	$("#error_request_show").html('');
+	$("#error_request").html('');
+	$("#error_con_list").html('');
+	$("#error_setings_chamber").html('');
+	$("#error_setings_chamber_1").html('');
+	$("#error_schedule").html('');
+	$("#error_offday").html('');
+	
+	$("#error_new_app").html('');
+	
+	
+	
+
+}
+
 //---------------------- Exit Application
 function exit() {	
 	navigator.app.exitApp();

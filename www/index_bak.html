@@ -40,20 +40,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 			
             <div data-role="content">
             	<div id="error_login" style="color:#900"></div>                
-                <br>
-
-                    
-                     <font style="font-size:15px; color:#008040">UserID</font>					
+                    <form>					
                         <input name="user_id" id="user_id"  value="" type="text" placeholder="UserID">
-                       <font style="font-size:15px; color:#008040">PIN</font>
                         <input type="text" name="user_pass" id="user_pass"  value="" placeholder="PIN">
-                   					
+                    </form>						
 				
 				<a data-role="button" id="loginButton" onClick="check_user();" >Sync</a>
 				<div align="center"><img id="wait_image_login" style="" width="50px;" src="loading.gif" alt=""></div>
                                 
-                <br><br><br><br>
-                <font style="color:#0072A8">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>
+                <br><br><br><br><br><br><br><br><br><br>
+                For PIN Code: Send SMS SD to 2765 
        
                 <br><br><br><br><br><br>
                        
@@ -73,17 +69,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <br>
 				</div>
                 
-				
+				<br><br><br><br>
                 
-                <div align="center">
-                <font style="font-size:25px; color:#00A6A6; font-family:Arial, Helvetica, sans-serif"> SMART DOCTOR <br> <br> </font>
-                
-                <img src="doctor.png"></div>
-               
 				<ul data-role="listview">                    
                     <br><br>
                     <div style="background:#008A8A; height:1px"></div>
-                    <li style="background-color:#C2E1E2" ><div align="center" ><a href="#login" ><img src="sync.png"></a></div></li> 
+                    <li ><div ><a href="#login" ><img src="sync.png"></a></div></li> 
                     <div style="background:#008A8A; height:1px"></div>
                 </ul>
                 
@@ -100,8 +91,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 <div data-role="fieldcontain" style="font-size:16px;">
                  <div id="error_home" style="color:#900"></div>	
                  
-                 	
-					
+                 
                     <div class="ui-grid-a" style="text-align:center;">
 							<a data-role="button" id="btnParking1" onClick="chember_show();" style=" color:#008040"><img height="100px" src="chamber.png"><br>Chamber</a>
 					</div>
@@ -141,7 +131,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <div align="center"><img id="wait_image_chamber" style="" width="50px;" src="loading.gif" alt=""></div>
          <div id="error_chamber_list" style="color:#900"></div>	
          <br><br><br>
-         <a id="new_chamber_add" data-role="button" id="btnQueue" onClick="show_chamber_div();" style="color:#008040"> Add New Chamber </a>
+         <a data-role="button" id="btnQueue" onClick="show_chamber_div();" style="color:#008040"> Add New Chamber </a>
         <div id="add_new_chamber">
          <table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
@@ -199,7 +189,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
              <tr >
               <td  >
               <strong style="font-size:12px; color:#008040">Experience (Years) </strong>
-              <input id="experience"  name="experience" type="number" >
+              <input id="experience"  name="experience" type="number">
             </tr>
             </table>
 
@@ -225,7 +215,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <div data-role="content">
         <div id="error_request_show" style="color:#900"></div>	
         
-        <div id="chamber_id_all"  style="font-size:18px; color:#008040">	</div>
+        <div id="chamber_id"  style="font-size:18px; color:#008040">	</div>
         
         
 		 <div id="all_button">
@@ -266,18 +256,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </div>
     
     <div data-role="content">
-        
+        <div id="error_request" style="color:#900"></div>	
         <div id="reqChember" style="font-size:18px; color:#008040"></div>
 		
-		<br>
-		<div id="error_request" style="color:#900"></div>	
-         <strong style="font-size:12px; color:#008040">Select Date</strong>
-         <input name="req_search" style="font-size:14px" id="req_search" type="date">
-              <a id="btn_req_search" data-role="button" onClick="req_app_search();">Search</a>
-			  <a id="btn_req_all" data-role="button" onClick="req_app_search_all();">Show All</a>  
-			  <img id="wait_req_image" style="" width="50px;" src="loading.gif" alt="">
-			        
-            
+		
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td style="width:50%;" ><input name="req_search" style="font-size:14px" id="req_search" type="date"></td>
+              <td style="width:20%;" ><a data-role="button" onClick="req_app_search();">Search</a></td>  
+			  <td style="width:20%;" ><a data-role="button" onClick="page_chember_req_show();">Show All</a></td>              
+            </tr>
+            </table>
         </br>
 
 
@@ -302,17 +291,16 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </div>
     
     <div data-role="content">
-        
-        
+        <div id="error_con_list" style="color:#900"></div>	
          <div id="reqConChember" style="font-size:18px; color:#008040"></div>
-		 <br>
-		 <div id="error_con_list" style="color:#900"></div>	
-         <strong style="font-size:12px; color:#008040">Select Date</strong>
-         <input style="font-size:14px;" name="searchConfirm" id="searchConfirm" type="date">
-         <a id="btn_con_search" data-role="button" onClick="page_con_appoinment_search();">Search	</a>
-         <a id="btn_con_all" data-role="button" onClick="page_con_appoinment_search_all();">Show All</a>
-		 <img id="wait_con_image" style="" width="50px;" src="loading.gif" alt="">
 		 
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	<tr >
+              <td style="width:50%;" ><input style="font-size:14px;" name="searchConfirm" id="searchConfirm" type="date"></td>
+              <td style="width:50%;" ><a data-role="button" onClick="page_con_appoinment_search();">Search	</a></td> 
+			  <td style="width:50%;" ><a data-role="button" onClick="page_con_appoinment_show();">Show All</a></td>              
+            </tr>
+            </table>
         </br>
 
 
@@ -322,6 +310,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     <div data-theme="c" data-role="footer" data-position="fixed"></div>		
     	
  </div><!--/page-->
+
+
 
 <!--===========================Add New Chamber=================-->
 <div data-theme="c" data-role="page" id="page_new_Chamber">
@@ -338,8 +328,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
          
 		
         
- 
-
+        
         
         </br>
 		
@@ -353,31 +342,31 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             <tr >
               <td style="font-size:12px; color:#008040">
               Chamber Name
-              <input id="chamber_name_new" name="chamber_name_new" type="text" maxlength="100">
+              <input id="chamber_name_new" name="chamber_name_new" type="text">
               <font color="#990000" style="font-size:10px">(If blank then will be same as chamber location)</font>
               </td>   
             </tr>
             <tr >
               <td style="font-size:12px; color:#008040">
               Address
-              <input id="chamber_address_new" name="chamber_address_new" type="text" maxlength="150">
+              <input id="chamber_address_new" name="chamber_address_new" type="text">
               </td>   
             </tr>
             <tr >
               <td style="font-size:12px; color:#008040">
               Assistant Mobile 1
-              <input id="assistant_mobile1_new" name="assistant_mobile1_new" type="number" maxlength="13" ></td>   
+              <input id="assistant_mobile1_new" name="assistant_mobile1_new" type="text"></td>   
             </tr>
             
              <tr >
               <td style="font-size:12px; color:#008040">
               Assistant Mobile 2
-              <input id="assistant_mobile2_new" name="assistant_mobile2_new" type="number" maxlength="13"></td>   
+              <input id="assistant_mobile2_new" name="assistant_mobile2_new" type="text"></td>   
             </tr>
              <tr >
               <td style="font-size:12px; color:#008040">
-              Time Between Appointment (in<font style="font-weight:bold "> munites </font>)
-              <input id="visiting_duration_new" name="visiting_duration_new" type="number" maxlength="2"></td>   
+              Time Between Appointment
+              <input id="visiting_duration_new" name="visiting_duration_new" type="number"></td>   
             </tr>
              <tr >
               <td style="font-size:12px; color:#008040">Auto Confirmation
@@ -392,8 +381,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 			 <tr>
 
               <td  style="font-size:12px; color:#008040">
-              Reserved Serial Numbers
-              <input id="blockedSL_new" name="blockedSL_new" type="text" maxlength="20">
+              Block Serial
+              <input id="blockedSL_new" name="blockedSL_new" type="text">
               <font color="#990000" style="font-size:10px">Please type reserve serial no separated by coma (,).</br>Example: 1,3,4,11	 </font>
               </td>
             </tr>
@@ -407,7 +396,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               </td>
             </tr>
             
-      </table>
+            </table>
 
 		</br>
         
@@ -443,25 +432,17 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	
             <tr >
-              <td style="width:20%; font-size:12px; color:#008040">Chamber Name
-			  <input id="chamber_name_old" name="chamber_name_old" type="text" maxlength="150"></td>   
-            </tr>
-            <tr >
-              <td style="width:20%; font-size:12px; color:#008040">Address
-			  <input id="address" name="address" type="text" maxlength="150"></td>   
-            </tr>
-            <tr >
               <td style="width:20%; font-size:12px; color:#008040">Assistant Mobile 1
-			  <input id="assistant_mobile1" name="assistant_mobile1" type="number" maxlength="13"></td>   
+			  <input id="assistant_mobile1" name="assistant_mobile1" type="text"></td>   
             </tr>
             
              <tr >
               <td style="font-size:12px; color:#008040">Assistant Mobile 2
-			  <input id="assistant_mobile2" name="assistant_mobile2" type="number" maxlength="150"></td>   
+			  <input id="assistant_mobile2" name="assistant_mobile2" type="text"></td>   
             </tr>
              <tr >
               <td style="font-size:12px; color:#008040">Time Between Appointment
-			  <input id="visiting_duration" name="visiting_duration" type="number" maxlength="2"></td>   
+			  <input id="visiting_duration" name="visiting_duration" type="text"></td>   
             </tr>
              <tr >
               <td style="font-size:12px; color:#008040">Auto Confirmation
@@ -479,7 +460,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 			 
 
               <td  style="font-size:12px; color:#008040">Block Serial
-			  <input id="blockedSL" name="blockedSL" type="text" maxlength="20">
+			  <input id="blockedSL" name="blockedSL" type="text">
               <font color="#990000" style="font-size:10px">Please type reserve serial no separated by coma (,).</br>Example: 1,3,4,11	 </font>
               </td>
             </tr>
@@ -488,7 +469,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 		</br>
         <a  data-role="button" id="btnSettings" onClick="page_settings_edit();" >Update Settings</a>
 		<div align="center"><img id="wait_image_setting_edit" style="" width="50px;" src="loading.gif" alt=""></div>
-        <div id="error_setings_chamber_1" style="color:#900"></div>
+        <div id="error_setings_chamber_1" style="color:#900">asdfsgfsd</div>
 		
 		
     </div><!--/cont-->
@@ -511,7 +492,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <h3>Schedule</h3>
     </div>
     
-    <div data-role="content" style="overflow:scroll; height:90%" >
+    <div data-role="content" style="overflow:scroll">
        
         
         
@@ -530,10 +511,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               <td width="10%"   ><strong style="font-size:18px; color:#008040">Day</strong></td>
               <td width="15%"  ><strong style="font-size:18px; color:#008040">From</strong></td>   
               <td width="15%" ><strong style="font-size:18px; color:#008040">To</strong></td>
-                         
+              <td width="20%"  style="width:20%;" ><strong style="font-size:18px; color:#008040">Max</strong></td>
+              <td width="20%"  style="width:20%;" >&nbsp;</td>             
              </tr>
             <tr >
-              <td  style="font-size:15px; color:#008040">SAT </td>
+              <td  style="font-size:12px; color:#008040">SAT </td>
               <td >
               	<select name="sat_mor_from" id="sat_mor_from" >
 					<option  value="0"></option>
@@ -559,9 +541,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>       <input name="sat_max_patient" type="hidden" id="sat_max_patient">      
+                  </select>             
 				   </td>
-                           
+              <td ><input name="sat_max_patient" type="number" id="sat_max_patient"></td>
+              <td >&nbsp;</td>             
             </tr>
             
              <tr >
@@ -595,10 +578,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-              
+               <td  >&nbsp;</td>
+               <td  >&nbsp;</td>
              </tr>
              <tr >
-              <td  style="font-size:15px; color:#008040">SUN</td>
+              <td  style="font-size:12px; color:#008040">SUN</td>
               <td  >
               	<select name="sun_mor_from" id="sun_mor_from" >
 					<option  value="0"></option>
@@ -623,9 +607,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>     <input name="sun_max_patient" type="hidden" id="sun_max_patient">         
+                  </select>              
 				  </td>
-                        
+              <td  ><input name="sun_max_patient" type="number" id="sun_max_patient"></td>
+              <td  >&nbsp;</td>             
              </tr>
             
              <tr >
@@ -658,10 +643,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-              
+               <td >&nbsp;</td>
+               <td >&nbsp;</td>
              </tr>
              <tr >
-              <td style="font-size:15px; color:#008040">MON</td>
+              <td style="font-size:12px; color:#008040">MON</td>
               <td  >
               	<select name="mon_mor_from" id="mon_mor_from" >
 					<option  value="0"></option>
@@ -687,10 +673,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>   <input name="mon_max_patient" type="hidden" id="mon_max_patient">          
+                  </select>             
 				  </td>
-             
-                       
+              <td ><input name="mon_max_patient" type="number" id="mon_max_patient"></td>
+              <td >&nbsp;</td>             
              </tr>
             
              <tr >
@@ -725,10 +711,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="23">11 PM</option>
                </select>
 			   </td>
-              
+               <td >&nbsp;</td>
+               <td >&nbsp;</td>
              </tr>
              <tr >
-              <td style="font-size:15px; color:#008040">TUE</td>
+              <td style="font-size:12px; color:#008040">TUE</td>
               <td >
               	<select name="tue_mor_from" id="tue_mor_from" >
 					<option  value="0"></option>
@@ -754,9 +741,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
                  <option  value="15">3 PM</option>
-                  </select>     <input name="tue_max_patient" type="hidden" id="tue_max_patient">        
+                  </select>             
 				   </td>
-                         
+              <td ><input name="tue_max_patient" type="number" id="tue_max_patient"></td>
+              <td >&nbsp;</td>             
              </tr>
             
              <tr >
@@ -789,10 +777,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-              
+               <td>&nbsp;</td>
+               <td>&nbsp;</td>
              </tr>
              <tr >
-              <td style="font-size:15px; color:#008040">WED</td>
+              <td style="font-size:12px; color:#008040">WED</td>
               <td>
               	<select name="wed_mor_from" id="wed_mor_from" >
 					<option  value="0"></option>
@@ -818,9 +807,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>              <input name="wed_max_patient" type="hidden" id="wed_max_patient">
+                  </select>              
 				  </td>
-                          
+              <td><input name="wed_max_patient" type="number" id="wed_max_patient"></td>
+              <td>&nbsp;</td>             
              </tr>
             
              <tr >
@@ -853,11 +843,12 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-               
+               <td >&nbsp;</td>
+               <td >&nbsp;</td>
              </tr>
              
              <tr >
-              <td style="font-size:15px; color:#008040">THU</td>
+              <td style="font-size:12px; color:#008040">THU</td>
               <td >
               	<select name="thu_mor_from" id="thu_mor_from" >
 					<option  value="0"></option>
@@ -883,9 +874,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>    <input name="thu_max_patient" type="hidden" id="thu_max_patient"   >       
+                  </select>              
 				  </td>
-                          
+              <td ><input name="thu_max_patient" type="number" id="thu_max_patient"></td>
+              <td >&nbsp;</td>             
              </tr>
             
              <tr >
@@ -918,10 +910,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-         
+               <td >&nbsp;</td>
+               <td >&nbsp;</td>
              </tr>
              <tr >
-              <td style="font-size:15px; color:#008040">FRI</td>
+              <td style="font-size:12px; color:#008040">FRI</td>
               <td >
               	<select name="fri_mor_from" id="fri_mor_from" >
 					<option  value="0"></option>
@@ -947,11 +940,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>      
-                  <input name="fri_max_patient" type="hidden" id="fri_max_patient">        
+                  </select>              
 				  </td>
-              
-                         
+              <td ><input name="fri_max_patient" type="number" id="fri_max_patient"></td>
+              <td >&nbsp;</td>             
              </tr>
              <tr >
                <td >&nbsp;</td>
@@ -984,8 +976,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                  <option  value="23">11 PM</option>
                  
                </select></td>
-               
-              
+               <td >&nbsp;</td>
+               <td >&nbsp;</td>
              </tr>
             </table>
 		<!--</div>-->
@@ -1019,21 +1011,81 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 		<div id="offdayChember" style="font-size:18px; color:#008040"></div>
         </br>
 		
-
+		
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+             
+              <td style="width:30%;" >
               <input  name="off_date" id="off_date" type="date">
              
-
+              
+              </td>   
+              <td  > 
 			  <div id="error_offday" style="color:#900"></div>	
               <a id="btn_offAdd" name="btn_offAdd"  data-role="button"  onClick="addOffday();" >Save</a>
              <!--  <img id="wait_image_off_add" style="" width="50px;" src="loading.gif" alt="">-->
-             
+              </td>   
+                        
+            </tr>
+        </table>
         </br>
         
-		<div id="offday" style="font-size:18px; color:#008040"></div>
+		<div id=" " style="font-size:18px; color:#008040"></div>
         
 
 		</br>
         
+    </div><!--/cont-->
+    
+    <div data-theme="c" data-role="footer" data-position="fixed"></div>		
+    	
+ </div>
+<!--===================Appoinment======================-->
+
+<div data-theme="c" data-role="page" id="page_appoinment">
+    <div data-theme="c" data-role="header" data-position="fixed">
+    <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right" onClick="blank_error_msg()"><img src="back.png"></a>
+        <h3>Appoinment</h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="error_to_queue_list" style="color:#900"></div>	
+        
+        
+         
+		<strong style="font-size:18px; color:#008040">Patient</strong>
+        
+        
+        
+        </br>
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+              <td style="width:50%;" >next Appoinment</td>
+              <td style="width:50%;" >
+              Weeks
+              <select name="jumpMenu" id="jumpMenu" >
+                    <option  value="1">1</option>
+                    <option  value="2">2</option>
+                    <option  value="3">3</option>
+                    <option  value="4">4</option>
+                  
+                  </select></td>   
+                        
+            </tr>
+            
+             
+            </table>
+
+		</br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Save</a>
+        
+        
+        </br></br></br>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled by Patient</a>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Block This Number</a>
     </div><!--/cont-->
     
     <div data-theme="c" data-role="footer" data-position="fixed"></div>		
@@ -1049,8 +1101,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         <h3>Appoinment</h3>
     </div>
     
-    <div data-role="content" style="height:90%">
-        <div id="error_new_app" style="color:#900"></div>	
+    <div data-role="content">
+        <div id="error_to_queue_list" style="color:#900"></div>	
         
         
          
@@ -1059,7 +1111,11 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
         
         
         </br>
-       <font style="font-size:12px; color:#008040"> Next Appoinment After ( Weeks )</font> 
+        <table  border="1" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
+        	
+            <tr >
+              <td style="width:40%; font-size:14px; color:#008040" >Next Appoinment After</td>
+              <td style="width:10%;" >
              <div id="week_combo">
               <select name="next_week" id="next_week" >
                     <option  selected value=""></option>
@@ -1072,10 +1128,15 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                   </select>
                   
                   </div>
-                
+                  </td>   
+             <td style="font-size:14px; color:#008040"  >Weeks</td>           
+            </tr>
+            
+             
+            </table>
 
 		</br>
-        <a  data-role="button" id="btnTruckInfo" onClick="newapptSave();" >Save</a>
+        <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Save</a>
         
         
         </br></br></br> </br></br></br>
