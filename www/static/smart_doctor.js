@@ -1091,7 +1091,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										var time_hour_value=0
 										var apptime_ampm_value="AM"
 										
-										if ((time_hour > 12) && (time_min > 0)){
+										if ((time_hour >= 12) && (time_min > 0)){
 											time_hour_value=time_hour-12
 											apptime_ampm_value="PM"											
 										}
@@ -1118,9 +1118,9 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 													 reqStrFull = reqStrFull +'<tr >'
 													 reqStrFull = reqStrFull +'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
 													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'" min="1" max="12"></td>'
-													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'"  min="0" max="59"></td>'
-													if ((time_hour > 12) && (time_min > 0)){
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
+													if ((time_hour >= 12) && (time_min > 0)){
 			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
 													}
 													else{
@@ -1229,7 +1229,7 @@ function req_show(){
 		var time_hour_value=0
 		var apptime_ampm_value="AM"
 		
-		if ((time_hour => 12) && (time_min > 0)){
+		if ((time_hour >= 12) && (time_min > 0)){
 			time_hour_value=time_hour-12
 			apptime_ampm_value="PM"											
 		}
@@ -1273,10 +1273,10 @@ function req_show(){
 													  
 													  
 													
-													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'" min="1" max="12"></td>'
-													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'"  min="0" max="59"></td>'
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
 												//	alert (apptime_ampm)
-													if ((time_hour => 12) && (time_min > 0)){
+													if ((time_hour >= 12) && (time_min > 0)){
 			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
 													}
 													else{
