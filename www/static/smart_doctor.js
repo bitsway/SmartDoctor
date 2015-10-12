@@ -1198,7 +1198,7 @@ function req_show(){
 	
 	var reqStr=localStorage.reqStrFull;													
 	var reqStrArray = reqStr.split('<fdrd>');
-	var reqStrFull='var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
+	var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
 	//$("#error_request").text(localStorage.reqStrFull);
 	//alert (reqStrArray.length);
 	for(i=0; i < reqStrArray.length-1; i++){
