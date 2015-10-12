@@ -655,6 +655,8 @@ function page_schedule_show(){
 	
 	$("#scheduleChember").html(localStorage.chamber_show);
 	
+	//$("#error_schedule").html(localStorage.scheduleStr);
+	
 	var scheduleStr=localStorage.scheduleStr;
 	var scheduleArray = scheduleStr.split('fdfd');
 	
@@ -704,12 +706,15 @@ function page_schedule_show(){
 	var fri_max_patient=scheduleArray[35];
 
 	
-	
-	
+
 	
 	$("#row_id_schedule").val(row_id);
 	
+	//$("#sat_mor_from").attr('selectedIndex', sat_mor_from);
+	
+//	alert (sat_mor_from)
 	$("#sat_mor_from").val(sat_mor_from);
+//	alert ($("#sat_mor_from").val())
 	$("#sat_mor_to").val(sat_mor_to);
 	$("#sat_eve_from").val(sat_eve_from);
 	$("#sat_eve_to").val(sat_eve_to);
@@ -758,6 +763,9 @@ function page_schedule_show(){
 	
 	$("#all_button").show();
 	$("#wait_image_chamber_info").hide();
+	
+	//alert (sat_mor_from)
+	
 	
 	url = "#page_schedule_show";
 	$.mobile.navigate(url);
@@ -1067,7 +1075,9 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										var status=reqStrSingleArray[4];
             							
 										var apptime_date=row_id+'date'
-										var apptime_time=row_id+'time'
+										var apptime_hour=row_id+'time_hour'
+										var apptime_min=row_id+'time_min'
+										var apptime_ampm=row_id+'time_ampm'
 										
 										
 										var date_get="";
@@ -1075,22 +1085,30 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										if (app_time.length > 10){
 											var date_get=app_time.split(' ')[0]
 											var time_get=app_time.split(' ')[1]
+											var time_hour=time_get.split(':')[0]
+											var time_min=time_get.split(':')[1]
 										}
-										// alert (row_id)
+										var time_hour_value=0
+										var apptime_ampm_value="AM"
 										
-										reqStrFull = reqStrFull+'<tr ><td colspan="2" style="font-size:16px;">'+patinet_name+'</td>'
+										if ((time_hour > 12) && (time_min > 0)){
+											time_hour_value=time_hour-12
+											apptime_ampm_value="PM"											
+										}
+										else{
+											time_hour_value= time_hour
+										}
+										
+										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+patinet_name+'</td>'
 										if (status == 'SUBMITTED'){ 
 												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
 												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
 												  }
 												  else if (status == 'CONFIRMED'){ 
-												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30x" src="confirmed.png"></td>'
-												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+												   reqStrFull = reqStrFull + '<td rowspan="3" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30x" src="confirmed.png"></td>'
 												  }
 												  else{
-													 // reqStrFull = reqStrFull +'<td  width="50px" ><input  type="submit"  disabled="disabled" style="background: url(ok.png);"></td>' 														
 													reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30px" src="cancel.png"></td>'
-													//reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" src="ok.png"></td>' 
 													  }
 										
 										
@@ -1099,22 +1117,21 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 													
 													 reqStrFull = reqStrFull +'<tr >'
 													 reqStrFull = reqStrFull +'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-													 reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-												  //if (status == 'SUBMITTED'){ 
-//												   reqStrFull = reqStrFull + '<td width="25px" ><a   data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
-//												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
-//												  }
-//												  else if (status == 'CONFIRMED'){ 
-//												   reqStrFull = reqStrFull + '<td width="25px" ><a height="20px" width="25x" data-role="button" ><img height="25px" width="25x" src="confirmed.png"></a></td>'
-//												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
-//												  }
-//												  else{
-//													 // reqStrFull = reqStrFull +'<td  width="50px" ><input  type="submit"  disabled="disabled" style="background: url(ok.png);"></td>' 														
-//													reqStrFull = reqStrFull + '<td width="25px" ><a height="20px" width="25x" data-role="button" ><img height="25px" width="25px" src="cancel.png"></a></td>'
-//													//reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" src="ok.png"></td>' 
-//													  }
-													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#008A8A; font-size:1px" ><td>&nbsp;</td><td></td><td></td></tr>'  
-													  
+													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'" min="1" max="12"></td>'
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'"  min="0" max="59"></td>'
+													if ((time_hour > 12) && (time_min > 0)){
+			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
+													}
+													else{
+														reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
+													}
+												  	
+													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#E0EBEB; font-size:1px" ><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>'  
+													
+													
+														
+													
 									  
 										}
 							        
@@ -1196,7 +1213,9 @@ function req_show(){
 		var status=reqStrSingleArray[4];
 		
 		var apptime_date=row_id+'date'
-		var apptime_time=row_id+'time'
+		var apptime_hour=row_id+'time_hour'
+		var apptime_min=row_id+'time_min'
+		var apptime_ampm=row_id+'time_ampm'
 		
 		
 		var date_get="";
@@ -1204,22 +1223,37 @@ function req_show(){
 		if (app_time.length > 10){
 			var date_get=app_time.split(' ')[0]
 			var time_get=app_time.split(' ')[1]
+			var time_hour=time_get.split(':')[0]
+			var time_min=time_get.split(':')[1]
+		}
+		var time_hour_value=0
+		var apptime_ampm_value="AM"
+		
+		if ((time_hour => 12) && (time_min > 0)){
+			time_hour_value=time_hour-12
+			apptime_ampm_value="PM"											
+		}
+		else{
+			time_hour_value= time_hour
 		}
 		// alert (row_id)
 		
-		reqStrFull = reqStrFull+'<tr ><td colspan="2" style="font-size:16px;">'+patinet_name+'</td>'
+		
+		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+patinet_name+'</td>'
+		
+		
 										if (status == 'SUBMITTED'){ 
 												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
 												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
 												  }
 												  else if (status == 'CONFIRMED'){ 
 												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30x" src="confirmed.png"></td>'
-												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
+												   
 												  }
 												  else{
-													 // reqStrFull = reqStrFull +'<td  width="50px" ><input  type="submit"  disabled="disabled" style="background: url(ok.png);"></td>' 														
+													 										
 													reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><br>&nbsp;&nbsp;<img height="30px" width="30px" src="cancel.png"></td>'
-													//reqStrFull = reqStrFull +'<td   ><input  type="submit" value=" '+status+' " disabled="disabled" src="ok.png"></td>' 
+													
 													  }
 										
 										
@@ -1227,10 +1261,33 @@ function req_show(){
 										            reqStrFull = reqStrFull + ' </tr>'
 													
 													 reqStrFull = reqStrFull +'<tr >'
+													 
+													 
 													 reqStrFull = reqStrFull +'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-													 reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-
-													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#008A8A; font-size:1px" ><td>&nbsp;</td><td></td><td></td></tr>'  
+													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
+													//reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="text" value="'+time_get+'"></td>'
+												//	reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#008A8A; font-size:1px" ><td>&nbsp;</td><td></td><td></td></tr>'  
+													  
+													  
+													  
+													  
+													  
+													
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'" min="1" max="12"></td>'
+													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'"  min="0" max="59"></td>'
+												//	alert (apptime_ampm)
+													if ((time_hour => 12) && (time_min > 0)){
+			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
+													}
+													else{
+														reqStrFull = reqStrFull +'<td   > <select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
+													}
+												  	
+													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#E0EBEB; font-size:1px" ><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>'  
+													
+													  
+													  
+													  
 													  
 									  
 										}
@@ -1238,24 +1295,7 @@ function req_show(){
 									
 									reqStrFull = reqStrFull + '</table>'
 		
-		//reqStrFull = reqStrFull = reqStrFull+'<tr ><td colspan="3" style=" font-size:14px; color:#008040">'+patinet_name+'</td></tr>'
-//													+'<tr >'
-//													+'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
-//													+'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-//				  if (status == 'SUBMITTED'){ 
-//				   
-//				   reqStrFull = reqStrFull + '<td style="width:50%;" ><input type="submit" onClick="confirm_app('+ row_id+');" value=" Confirm "></td>'
-//				  }
-//				  else{
-//					reqStrFull = reqStrFull +'<td style="width:50%;" ><input type="submit" value=" '+status+' " disabled="disabled" ></td>' 
-//					  }
-//					reqStrFull = reqStrFull+'</tr>'  
-//					  
-//	  
-//		}
-//	
-//	
-//	reqStrFull = reqStrFull + '</table>'
+
 	
 	//alert (localStorage.reqStrFull);
 	localStorage.reqStrFull=reqStrFull;	
@@ -1274,12 +1314,24 @@ function req_show(){
 
 function confirm_app(row_id){
 	var apptime_date=row_id+'date'
-	var apptime_time=row_id+'time'
+	//var apptime_time=row_id+'time'
+	var apptime_hour=row_id+'time_hour'
+	var apptime_min=row_id+'time_min'
+	var apptime_ampm=row_id+'time_ampm'
 	
 	var apptime_date_val=$("#"+apptime_date).val()
-	var apptime_time_val=$("#"+apptime_time).val()
+	//var apptime_time_val=$("#"+apptime_time).val()
 	
-	var apptime=apptime_date_val+" "+apptime_time_val
+	var apptime_hour_val=$("#"+apptime_hour).val()
+	var apptime_min_val=$("#"+apptime_min).val()
+	var apptime_ampm_val=$("#"+apptime_ampm).val()
+	
+	if (apptime_ampm_val=="PM"){
+		apptime_hour_val=parseInt(apptime_hour_val)+12
+	}
+	//alert (apptime_ampm_val)
+	
+	var apptime=apptime_date_val+" "+apptime_hour_val+":"+apptime_min_val+":00"
 	
 	//alert (apptime);
 	
@@ -1464,27 +1516,18 @@ function page_con_appoinment_show(){
             							
 										var apptime_text=row_id+'time'
 										
-										var date_get="";
-										var time_get="";
-										if (app_time.length > 10){
-											date_get=app_time.split(' ')[0]
-											time_get=app_time.split(' ')[1]
-										}
-										var date_get_new=new Date(date_get)
+									
 										
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td style="width:60%; font-size:16px; color:#008040">'+patinet_name+'</td>'
-													
-										+'<td  style="width:60%; font-size:14px; color:#008040" >'+date_get_new.toString().substring(0, 10)+'</td>'									
-										+'<td   ><input style="font-size:14px;width=40px; color:#1D5C30;  background-color:#7BCCD2"  type="time" value="'+time_get+'" readonly="readonly"></td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+				
+										+'<td  style="width:60%; font-size:14px; color:#008040" >'+app_time+'</td>'	
+										+'</tr></table></li>'
+										
 										
 										+'</tr></table></li>'
-//													
-//													+'</tr></table></li>'
-										
-										//reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
 
 									
 									}
@@ -1599,44 +1642,16 @@ function page_con_appoinment_search(){
 										var app_time=reqStrSingleArray[3];
             							
 										var apptime_text=row_id+'time'
-										//reqConStrFull = reqConStrFull+'<input type="submit" style="width:50%; font-size:14px; color:#008040" onClick="page_appoinment_new()" value="'+patinet_name+'&nbsp;&nbsp;&nbsp;'+app_time +'">'
-//
-//									
-//									
-//									
-//							        reqConStrFull = reqConStrFull + '</table>'
 									
-									
-									
-									
-									
-									    var date_get="";
-										var time_get="";
-										if (app_time.length > 10){
-											date_get=app_time.split(' ')[0]
-											time_get=app_time.split(' ')[1]
-										}
-										var date_get_new=new Date(date_get)
-										//alert (date_get_new.toString().substring(0, 10))
-
-										
-										
-										
-										
-										
 										
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+				
+										+'<td  style="width:60%; font-size:14px; color:#008040" >'+app_time+'</td>'	
+										+'</tr></table></li>'
 										
-										
-										//+'<td  >'+date_get+'</td>'									
-//										+'<td   ><input style="font-size:14px;width=40px; color:#1D5C30; background-color:#EAF4F4"  type="time" value="'+time_get+'" readonly="readonly""></td>'
-//										
-//										+'</tr></table></li>'			
-										+'<td  ><input style="font-size:14px;width=40px; color:#1D5C30; background-color:#EAF4F4"  type="text" value="'+date_get_new.toString().substring(0, 10)+'" readonly="readonly"></td>'									
-										+'<td   ><input style="font-size:14px;width=40px; color:#1D5C30; background-color:#EAF4F4"  type="time" value="'+time_get+'" readonly="readonly""></td>'
 										
 										+'</tr></table></li>'
 									

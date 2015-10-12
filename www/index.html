@@ -13,8 +13,8 @@
         <script src="static/jquery.mobile-1.4.0.min.js"></script>
 		<script src="static/smart_doctor.js"></script>		
 		<script src="static/datetimepicker.js"></script>	
-		
 
+		
 	<style>
 	table.tbl_preview tr td { border:1px solid #5FAFAF; background-color:#EFF8F8;}
 	.ui-radio{ width:50%;}
@@ -31,6 +31,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
     </head>
 	
     <body>
+	
 		 <!--===================== pageSync ==================-->
 		<div data-theme="c" data-role="page" id="login">
             <div data-theme="c" data-role="header" data-position="fixed">				
@@ -66,6 +67,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 
 
 
+
 <!-- =====================Home page=============== -->
 		<div data-theme="c" data-role="page" id="pageHome">
 			<div data-role="panel" id="routePanel" data-display="overlay" style="width:60%; background-color:#FFF">
@@ -96,7 +98,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                 
                 <h3>Smart Doctor</h3>
             </div>
-            <div data-role="content" style="overflow:scroll; height:90%">                
+            <div data-role="content" style="overflow:scroll; height:90%">     
+			
+			           
                 <div data-role="fieldcontain" style="font-size:16px;">
                  <div id="error_home" style="color:#900"></div>	
                  
@@ -114,9 +118,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                                    
                 </div>
                  
-                </div>	
+          </div>	
                 <div data-theme="c" data-role="footer" data-position="fixed"></div>			
-            </div>
+    </div>
 
 			
 
@@ -146,7 +150,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
          <table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">
         	<tr >
               <td ><strong style="font-size:12px; color:#008040">Chamber Nme</strong></td>
-              </tr >
+           </tr >
               <tr >
               <td ><input id="new_chamber_name" name="new_chamber_name" type="text"  placeholder="Chamber Nme"></td>  
               </tr >
@@ -155,7 +159,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
             </tr>
          </table>
          
-         </div>
+      </div>
     </div><!--/cont-->
     
     <div data-theme="c" data-role="footer" data-position="fixed"></div>			
@@ -201,7 +205,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               <strong style="font-size:12px; color:#008040">Experience (Years) </strong>
               <input id="experience"  name="experience" type="number" >
             </tr>
-            </table>
+      </table>
 
         <br>
         <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
@@ -483,7 +487,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
               <font color="#990000" style="font-size:10px">Please type reserve serial no separated by coma (,).</br>Example: 1,3,4,11	 </font>
               </td>
             </tr>
-            </table>
+      </table>
 
 		</br>
         <a  data-role="button" id="btnSettings" onClick="page_settings_edit();" >Update Settings</a>
@@ -544,8 +548,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                  </select>                  
-				  </td>   
+                </select>                  
+			  </td>   
               <td  >
               	<select name="sat_mor_to" id="sat_mor_to" >
 					<option  value="0"></option>
@@ -559,8 +563,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>       <input name="sat_max_patient" type="hidden" id="sat_max_patient">      
-				   </td>
+                </select>       <input name="sat_max_patient" type="hidden" id="sat_max_patient">      
+		      </td>
                            
             </tr>
             
@@ -609,7 +613,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                  </select>                  </td>   
+                </select>                  </td>   
               <td  >
               	<select name="sun_mor_to" id="sun_mor_to" >
 					<option  value="0"></option>
@@ -623,8 +627,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>     <input name="sun_max_patient" type="hidden" id="sun_max_patient">         
-				  </td>
+                </select>     <input name="sun_max_patient" type="hidden" id="sun_max_patient">         
+			   </td>
                         
              </tr>
             
@@ -672,8 +676,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                    </select>                  
-					</td>   
+                </select>                  
+			   </td>   
               <td >
               	<select name="mon_mor_to" id="mon_mor_to" >
 					<option  value="0"></option>
@@ -687,8 +691,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>   <input name="mon_max_patient" type="hidden" id="mon_max_patient">          
-				  </td>
+                </select>   <input name="mon_max_patient" type="hidden" id="mon_max_patient">          
+			   </td>
              
                        
              </tr>
@@ -739,8 +743,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                  </select>                 
-				  </td>   
+                </select>                 
+			   </td>   
               <td >
               	<select name="tue_mor_to" id="tue_mor_to" >
 					<option  value="0"></option>
@@ -754,8 +758,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
                  <option  value="15">3 PM</option>
-                  </select>     <input name="tue_max_patient" type="hidden" id="tue_max_patient">        
-				   </td>
+                </select>     <input name="tue_max_patient" type="hidden" id="tue_max_patient">        
+			   </td>
                          
              </tr>
             
@@ -803,8 +807,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                  </select>                 
-				  </td>   
+                </select>                 
+			   </td>   
               <td>
               	<select name="wed_mor_to" id="wed_mor_to" >
 					<option  value="0"></option>
@@ -818,8 +822,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>              <input name="wed_max_patient" type="hidden" id="wed_max_patient">
-				  </td>
+                </select>              <input name="wed_max_patient" type="hidden" id="wed_max_patient">
+			   </td>
                           
              </tr>
             
@@ -868,8 +872,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                  </select>                  
-				  </td>   
+                </select>                  
+			   </td>   
               <td>
               	<select name="thu_mor_to" id="thu_mor_to" >
 					<option  value="0"></option>
@@ -883,8 +887,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>    <input name="thu_max_patient" type="hidden" id="thu_max_patient"   >       
-				  </td>
+                </select>    <input name="thu_max_patient" type="hidden" id="thu_max_patient"   >       
+			   </td>
                           
              </tr>
             
@@ -932,8 +936,8 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="10">10 AM</option>
                     <option  value="11">11 AM</option>
                     <option  value="12">12 AM</option>
-                  </select>                  
-				  </td>   
+                </select>                  
+			   </td>   
               <td >
               	<select name="fri_mor_to" id="fri_mor_to" >
 					<option  value="0"></option>
@@ -947,9 +951,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="13">1 PM</option>
                      <option  value="14">2 PM</option>
                      <option  value="15">3 PM</option>
-                  </select>      
+                </select>      
                   <input name="fri_max_patient" type="hidden" id="fri_max_patient">        
-				  </td>
+			   </td>
               
                          
              </tr>
@@ -987,7 +991,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                
               
              </tr>
-            </table>
+      </table>
 		<!--</div>-->
 			
 		</br>
@@ -1069,9 +1073,9 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
                     <option  value="4">4</option>
                     <option  value="4">6</option>
                   
-                  </select>
+               </select>
                   
-                  </div>
+      </div>
                 
 
 		</br>
