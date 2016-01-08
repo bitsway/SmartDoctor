@@ -85,7 +85,7 @@ function check_user() {
 	if (user_id=="" || user_id==undefined || user_pass=="" || user_pass==undefined){
 		url = "#login";      
 		$.mobile.navigate(url);
-		$("#error_login").html('Required User ID and PIN <br> '+'<font style="color:#0072A8">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');	
+		$("#error_login").html('Required User ID and PIN <br> '+'<font style="color:#004080">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');	
 	}else{
 		//-----------------
 			$("#wait_image_login").show();
@@ -162,7 +162,7 @@ function check_user() {
 									$("#wait_image_login").hide();
 									$("#loginButton").show();
 									
-									$("#error_login").html('Sync Failed. Invalid UserID or PIN'+'<br><font style="color:#0072A8">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');
+									$("#error_login").html('Sync Failed. Invalid UserID or PIN'+'<br><font style="color:#004080">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');
 								}
 													
 								
@@ -171,7 +171,7 @@ function check_user() {
 					  error: function(result) {					 
 						  $("#wait_image_login").hide();
 						  $("#loginButton").show();
-						  $("#error_login").html('Connection Timeout.'+'<br><font style="color:#0072A8">Please check you have active Internet Connection. </font>')
+						  $("#error_login").html('Connection Timeout.'+'<br><font style="color:#004080">Please check you have active Internet Connection. </font>')
 						  url = "#login";
 						  $.mobile.navigate(url);	
 					  }
@@ -210,7 +210,8 @@ function chember_show(){
 			
 			//alert (address)
 			chamberStrCreate =chamberStrCreate
-			+'<input style="border-bottom-style:solid; border-color:#CBE4E4;border-bottom-width:thin" type="submit" onClick="page_chamber_go('+chambers_id+');" value="'+chamber_name +'|' +chambers_id+'">'
+			+' <a id="new_chamber_add" data-role="button" id="btnQueue" onClick="page_chamber_go('+chambers_id+');"  style="color:#004080">' +chamber_name + '</a>'
+			//+'<input style="border-bottom-style:solid; border-color:#CBE4E4; border-bottom-width:thin; color:#004080" type="submit" onClick="page_chamber_go('+chambers_id+');" value="'+chamber_name +'|' +chambers_id+'">'
 			+'<input id="'+chambers_id+'" name="'+chambers_id+'" type="hidden" value="'+chamber_name +' | ' +chambers_id +'<br>' + address+ '">'
 			
 		}
@@ -373,7 +374,7 @@ function page_profile_edit(){
 function page_chamber_go(chambers_id){
 		var chamber_show =$("#"+chambers_id).val();
 		$('#chamber_id').html(chamber_show);
-		
+		//alert (localStorage.chamber_show)
 		//localStorage.chamber_show=chamber_show
 //		var chamber_show=localStorage.chamber_show;
 		var chamber_id_get=chamber_show.split('<br>')[0]
@@ -383,7 +384,8 @@ function page_chamber_go(chambers_id){
 		localStorage.chamber_name=chamber_name
 		
 		
-		chamber_show=localStorage.doc_name+'<br>'+localStorage.chamber_name+'<br>'+chamber_show.split('<br>')[1]+'<br>'+'ChamberCode: '+localStorage.user_id+localStorage.chamber_id
+		//chamber_show=localStorage.doc_name+'<br>'+localStorage.chamber_name+'<br>'+chamber_show.split('<br>')[1]+'<br>'+'ChamberCode: '+localStorage.user_id+localStorage.chamber_id
+		chamber_show=localStorage.doc_name+'<br>'+localStorage.chamber_name+'<br>'+'ChamberCode: '+localStorage.user_id+localStorage.chamber_id
 		localStorage.chamber_show=chamber_show
 		
 		
@@ -751,6 +753,7 @@ function page_schedule_show(){
 	$("#thu_mor_to").val(thu_mor_to);
 	$("#thu_eve_from").val(thu_eve_from);
 	$("#thu_eve_to").val(thu_eve_to);
+	//if (thu_max_patient==null){thu_max_patient=0}
 	$("#thu_max_patient").val(thu_max_patient);
 
 
@@ -758,6 +761,8 @@ function page_schedule_show(){
 	$("#fri_mor_to").val(fri_mor_to);
 	$("#fri_eve_from").val(fri_eve_from);
 	$("#fri_eve_to").val(fri_eve_to);
+	
+	//if (fri_max_patient==null ){fri_max_patient=0}
 	$("#fri_max_patient").val(fri_max_patient);
 	//alert("2")
 	
@@ -1238,8 +1243,8 @@ function req_show(){
 		}
 		// alert (row_id)
 		
-		
-		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+patinet_name+'</td>'
+		alert ('Nadira')
+		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px; color:#004080">'+patinet_name+'</td>'
 		
 		
 										if (status == 'SUBMITTED'){ 
@@ -1521,9 +1526,9 @@ function page_con_appoinment_show(){
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+patinet_name+'</td>'
 				
-										+'<td  style="width:60%; font-size:14px; color:#008040" >'+app_time+'</td>'	
+										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
 										
 										
@@ -1647,9 +1652,9 @@ function page_con_appoinment_search(){
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#008040">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+patinet_name+'</td>'
 				
-										+'<td  style="width:60%; font-size:14px; color:#008040" >'+app_time+'</td>'	
+										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
 										
 										
@@ -1783,7 +1788,7 @@ function req_con_show(){
 		
 		// alert (row_id)
 		
-		reqConStrFull = reqConStrFull+'<tr ><td style="width:50%;" ><strong style="font-size:18px; color:#008040">'+patinet_name+'</strong></td>'
+		reqConStrFull = reqConStrFull+'<tr ><td style="width:50%;" ><strong style="font-size:18px; color:#004080">'+patinet_name+'</strong></td>'
 													+'<td style="width:50%;" >  '+app_time +' </td>'
 												    +'<td style="width:50%;" ><input type="button" onClick="cancel_app();" value=" Cancel " ></td></tr>'
 					  
