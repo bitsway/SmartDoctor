@@ -1243,7 +1243,7 @@ function req_show(){
 		}
 		// alert (row_id)
 		
-		alert ('Nadira')
+		//alert ('Nadira')
 		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px; color:#004080">'+patinet_name+'</td>'
 		
 		
