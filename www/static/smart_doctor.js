@@ -96,7 +96,8 @@ function check_user() {
 			}
 			
 		//	$("#error_login").html(apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code);
-			//							
+			//	
+			//alert(apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code);						
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code,
@@ -569,7 +570,7 @@ function page_settings_edit(){
 	var blockedSL=$("#blockedSL").val();
 	var address=$("#address").val();
 	
-	
+		
 	
 	var thana="";
 	var area=areaDistrict.split('|')[1]
@@ -1037,7 +1038,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 			
 			
 			
-			
+			//alert(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
 			
 			$("#error_request").html('');	
 			$.ajax({
@@ -1072,13 +1073,14 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
-										
+										//alert(reqStrSingleArray);
 										var row_id=reqStrSingleArray[0];
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
 										var status=reqStrSingleArray[4];
-            							
+            							var serial_no=reqStrSingleArray[5];
+										
 										var apptime_date=row_id+'date'
 										var apptime_hour=row_id+'time_hour'
 										var apptime_min=row_id+'time_min'
@@ -1096,15 +1098,17 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										var time_hour_value=0
 										var apptime_ampm_value="AM"
 										
-										if ((time_hour >= 12) && (time_min > 0)){
+										if ((time_hour >= 12) && (time_min >= 0)){
 											time_hour_value=time_hour-12
-											apptime_ampm_value="PM"											
+											apptime_ampm_value="PM"	
+																	
 										}
 										else{
 											time_hour_value= time_hour
+											
 										}
 										
-										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+patinet_name+'</td>'
+										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+serial_no+ ' - ' +patinet_name+'</td>'
 										if (status == 'SUBMITTED'){ 
 												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
 												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
@@ -1129,7 +1133,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
 													}
 													else{
-														reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
+														reqStrFull = reqStrFull +'<td><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
 													}
 												  	
 													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#E0EBEB; font-size:1px" ><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>'  
@@ -1483,7 +1487,7 @@ function page_con_appoinment_show(){
 	
 	
 	//$("#error_request_show").html(apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
-										
+								
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
@@ -1518,6 +1522,7 @@ function page_con_appoinment_show(){
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
+										var serial_no=reqStrSingleArray[4];
             							
 										var apptime_text=row_id+'time'
 										
@@ -1526,7 +1531,7 @@ function page_con_appoinment_show(){
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+serial_no+' - '+patinet_name+'</td>'
 				
 										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
