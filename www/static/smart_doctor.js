@@ -1067,9 +1067,9 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									//var reqStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
 									var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
 									//alert (reqStrArray.length)
-									
+									var reqCount=0; // Faisal
 									for(i=0; i < reqStrArray.length-1; i++){
-										
+										reqCount+=1  //Faisal
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1079,7 +1079,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
 										var status=reqStrSingleArray[4];
-            							var serial_no=reqStrSingleArray[5];
+            							var serial_no=reqStrSingleArray[5]; // Faisal
 										
 										var apptime_date=row_id+'date'
 										var apptime_hour=row_id+'time_hour'
@@ -1108,7 +1108,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 											
 										}
 										
-										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+serial_no+ ' - ' +patinet_name+'</td>'
+										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+serial_no+' - '+patinet_name+'</td>' //Faisal
 										if (status == 'SUBMITTED'){ 
 												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
 												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
@@ -1129,8 +1129,8 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
-													if ((time_hour >= 12) && (time_min > 0)){
-			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
+													if ((time_hour >= 12) && (time_min >= 0)){
+			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>' // Faisal
 													}
 													else{
 														reqStrFull = reqStrFull +'<td><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
@@ -1150,7 +1150,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									//alert (localStorage.reqStrFull);
 									localStorage.reqStrFull=reqStrFull;
 									
-									//$("#reqList").html(localStorage.reqStrFull);	
+									$("#reqCount").html("Total:"+reqCount);	// Faisal
 									
 									$("#reqChember").html(localStorage.chamber_show);	
 									$("#reqList").empty();
@@ -1210,7 +1210,9 @@ function req_show(){
 	var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
 	//$("#error_request").text(localStorage.reqStrFull);
 	//alert (reqStrArray.length);
+	var reqCount=0; // Faisal
 	for(i=0; i < reqStrArray.length-1; i++){
+		reqCount+=1; // Faisal
 		//alert ("asas");
 		var reqStrSingle=reqStrArray[i];
 		var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1220,6 +1222,7 @@ function req_show(){
 		var patinet_mobile=reqStrSingleArray[2];
 		var app_time=reqStrSingleArray[3];
 		var status=reqStrSingleArray[4];
+		var serial_no=reqStrSingleArray[5]; // Faisal
 		
 		var apptime_date=row_id+'date'
 		var apptime_hour=row_id+'time_hour'
@@ -1238,7 +1241,7 @@ function req_show(){
 		var time_hour_value=0
 		var apptime_ampm_value="AM"
 		
-		if ((time_hour >= 12) && (time_min > 0)){
+		if ((time_hour >= 12) && (time_min >= 0)){
 			time_hour_value=time_hour-12
 			apptime_ampm_value="PM"											
 		}
@@ -1248,7 +1251,7 @@ function req_show(){
 		// alert (row_id)
 		
 		//alert ('Nadira')
-		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px; color:#004080">'+patinet_name+'</td>'
+		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px; color:#004080">'+serial_no+ ' - ' +patinet_name+'</td>'// Faisal
 		
 		
 										if (status == 'SUBMITTED'){ 
@@ -1285,7 +1288,7 @@ function req_show(){
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
 												//	alert (apptime_ampm)
-													if ((time_hour >= 12) && (time_min > 0)){
+													if ((time_hour >= 12) && (time_min >= 0)){
 			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
 													}
 													else{
@@ -1418,6 +1421,8 @@ function req_app_search(){
 		$("#btn_req_all").hide();
 		$("#wait_req_image").show();
 		
+		//alert(apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id);
+		
 		$.ajax({
 				 type: 'POST',
 				 url: apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id,
@@ -1511,9 +1516,10 @@ function page_con_appoinment_show(){
 
 									var reqConStrFull=''
 									
+									var confReqCount=0; //Faisal
 									
 									for(i=0; i < reqStrArray.length-1; i++){
-										
+										confReqCount+=1;  //Faisal
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1531,7 +1537,7 @@ function page_con_appoinment_show(){
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+serial_no+' - '+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+serial_no+ ' - ' +patinet_name+'</td>'
 				
 										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
@@ -1551,6 +1557,9 @@ function page_con_appoinment_show(){
 											
 									$("#all_button").show();
 									$("#wait_image_chamber_info").hide();
+									
+									
+									$("#confReqCount").html("Total:"+confReqCount);
 									
 									$("#btn_con_search").show();
 									$("#btn_con_all").show();
@@ -1638,10 +1647,11 @@ function page_con_appoinment_search(){
 									
 									var reqStrArray = reqStr.split('<fdrd>');
 									
-
 									var reqConStrFull=''
+									
+									var confReqCount=0; // Faisal
 									for(i=0; i < reqStrArray.length-1; i++){
-										
+										confReqCount+=1; // Faisal
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1650,14 +1660,15 @@ function page_con_appoinment_search(){
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
-            							
+            							var serial_no=reqStrSingleArray[4]; // Faisal
+										
 										var apptime_text=row_id+'time'
 									
 										
 										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+serial_no+ ' - ' +patinet_name+'</td>'
 				
 										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
@@ -1945,15 +1956,41 @@ function add_new_chamber(){
 	
 }
 function newapptSave(){
-	//alert ("ADASD")
+	
 	var next_week= $("#next_week").val();
-	if (next_week!=''){
-		$("#error_new_app").html('Saved Successfully');
-	}
-	else{
+	
+	if (next_week==''){
 		$("#error_new_app").html('Select Week');
+	}else{	
+		
+		alert(apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week);
+		
+		$.ajax({
+				 type: 'POST',
+				 url: apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week,
+				 
+				 success: function(result) {											
+							if (result==''){
+								$("#error_new_app").html('Sorry Network not available');
+								
+							}else{
+								$("#error_new_app").html("")
+								var resultArray = result.split('rdrd');
+								if (resultArray[0]=='Success'){													
+									
+									//Profile
+									var reqStr=resultArray[1];													
+									
+									var reqStrArray = reqStr.split('<fdrd>');
+							}
+			
+						}
+				 }
+		})
 	}
+	
 }
+
 //-------------Blank error msg
 function blank_error_msg(){
 	$("#error_login").html('');
