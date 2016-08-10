@@ -124,7 +124,7 @@
                         <input type="text" name="user_pass" id="user_pass"  value="" placeholder="PIN">
                    					
 				
-				<a data-role="button" id="loginButton" onClick="check_user();" style="color:#004080" >Sync</a>
+				<a data-role="button" id="loginButton" onClick="check_user();" style="color:#004080" >Login & Sync</a>
 				<div align="center"><img id="wait_image_login" style="" width="50px;" src="loading.gif" alt=""></div>
                                 
                 <br><br><br><br>
@@ -154,14 +154,14 @@
 				
                 
                 <div align="center">
-                <font style="font-size:25px; color:#004080; font-family:Arial, Helvetica, sans-serif"> SMART DOCTOR <br> <br> </font>
+                <font style="font-size:25px; color:#008A8A; font-family:Arial, Helvetica, sans-serif"> SMART DOCTOR <br> <br> </font>
                 
                 <img src="doctor.png"></div>
                
 				<ul data-role="listview">                    
                     <br><br>
                     <div style="background:#008A8A; height:1px"></div>
-                    <li style="background-color:#C2E1E2" ><a href="#login" ><img src="sync.png"></a></li> 
+                    <li style="background-color:#C2E1E2" ><a href="#login" ><img src="key1.png" style="margin-left:35px;"></a></li> 
                     <div style="background:#008A8A; height:1px"></div>
                 </ul>
                 
@@ -295,13 +295,15 @@
             </tr>
       </table>
 
-        <br>
+        </br>
         <!--<div align="center"><img id="wait_image_to_queue_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
         
     </div><!--/cont-->
     <a data-role="button" id="profile_edit" onClick="page_profile_edit();" style="color:#004080">Update Profile</a>
 	<div id="error_profile_edit" style="color:#900"></div>	
 	<div align="center"><img id="wait_image_profile" style="" width="50px;" src="loading.gif" alt=""></div>
+    
+    </br></br></br></br></br></br> 
 	
    <!-- ==========footer====== -->	
          <div  data-role="footer" data-position="fixed"><img src="logo_gp_1.png"  /></div>
@@ -597,7 +599,7 @@
 		<div align="center"><img id="wait_image_setting_edit" style="" width="50px;" src="loading.gif" alt=""></div>
         <div id="error_setings_chamber_1" style="color:#900"></div>
 		
-		</br></br></br></br> 
+		</br></br></br></br></br></br> 
     </div><!--/cont-->
     
    <!-- ==========footer====== -->	
@@ -1162,41 +1164,40 @@
     <div data-theme="d" data-role="header" data-position="fixed">
     <a  data-role="button" href="#" onClick="menuClick();" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a>
     <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right" onClick="blank_error_msg()"><img src="back.png"></a>
-        <h3>Appoinment</h3>
+        <h3>Next Appoinment</h3>
     </div>
     
-    <div data-role="content" style="overflow:scroll; height:90%">
+    <div data-role="content">
         <div id="error_new_app" style="color:#900"></div>	
         
+		<!--<strong style="font-size:18px; color:#004080">Patient</strong>-->
+        <div id="patientName" style="font-size:18px; color:#004080"></div>
         
-         
-		<strong style="font-size:18px; color:#004080">Patient</strong>
-        
-        
-        
-        </br>
        <font style="font-size:12px; color:#004080"> Next Appoinment After ( Weeks )</font> 
-             <div id="week_combo">
-              <select name="next_week" id="next_week" >
+             
+             
+             <li class="ui-field-contain">
+              <select name="next_week" id="next_week" data-native-menu="false">
                     <option  selected value=""></option>
                     <option  value="1">1</option>
                     <option  value="2">2</option>
                     <option  value="3">3</option>
                     <option  value="4">4</option>
-                    <option  value="4">6</option>
-                  
+                    <option  value="5">5</option>
+                  	<option  value="6">6</option>
                </select>
-                  
-      </div>
+               </li>
+      
                 
 
 		</br>
-        <a  data-role="button" id="btnTruckInfo" onClick="newapptSave();" >Save</a>
-        
+        <a  data-role="button" id="btnTruckInfo" onClick="newapptSave();" >Save Reminder</a>
+        <div id="success_app" style="color:#060"></div>	
         
         </br></br></br> </br></br></br>
         <!--<a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled / No Show</a>
         <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Block This Number</a>-->
+        <div id="nextAppList"></div>
     </div><!--/cont-->
     
     <!-- ==========footer====== -->	
