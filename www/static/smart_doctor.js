@@ -96,7 +96,8 @@ function check_user() {
 			}
 			
 		//	$("#error_login").html(apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code);
-			//							
+			//	
+			//alert(apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code);						
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'passwordCheck?doc_id='+user_id+'&password='+encodeURIComponent(user_pass)+'&sync_code='+localStorage.sync_code,
@@ -399,7 +400,7 @@ function page_chamber_go(chambers_id){
 		
 		//Settings, schedule and off day ready
 	//	$("#error_chamber_list").html(apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id);
-										
+			//alert(apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id);							
 			$.ajax({
 					 type: 'POST',
 					 url:apipath+'settingsReady?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chambers_id,
@@ -426,6 +427,7 @@ function page_chamber_go(chambers_id){
 									var offdayStr=resultArray[3];
 									
 									localStorage.settingsStr=settingsStr;
+									//alert(localStorage.settingsStr);
 									localStorage.scheduleStr=scheduleStr;
 									localStorage.offdayStr=offdayStr;
 									
@@ -506,10 +508,10 @@ function page_settings_show(){
 	thana=settingsArray[6];
 	district=settingsArray[7];
 	address=settingsArray[7];
+	block_serial=settingsArray[8];
 	
 	
-	
-	//alert(assistant_mobile1)
+	//alert(block_serial)
 	
 	$("#row_id").val(row_id);
 	$("#chamber_name_old").val(localStorage.chamber_name);
@@ -523,7 +525,7 @@ function page_settings_show(){
 	//$("#district").val(district);
 	//alert("2")
 	$("#address").val(address);
-	
+	$("#blockedSL").val(block_serial);
 	
 	
 	var area_show=localStorage.areaStr;
@@ -569,7 +571,7 @@ function page_settings_edit(){
 	var blockedSL=$("#blockedSL").val();
 	var address=$("#address").val();
 	
-	
+		
 	
 	var thana="";
 	var area=areaDistrict.split('|')[1]
@@ -1037,7 +1039,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 			
 			
 			
-			
+			//alert(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
 			
 			$("#error_request").html('');	
 			$.ajax({
@@ -1066,24 +1068,25 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									//var reqStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
 									var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
 									//alert (reqStrArray.length)
-									
+									var reqCount=0; // Faisal
 									for(i=0; i < reqStrArray.length-1; i++){
-										
+										reqCount+=1  //Faisal
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
-										
+										//alert(reqStrSingleArray);
 										var row_id=reqStrSingleArray[0];
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
 										var status=reqStrSingleArray[4];
-            							
+            							var serial_no=reqStrSingleArray[5]; // Faisal
+										//alert(app_time);
 										var apptime_date=row_id+'date'
 										var apptime_hour=row_id+'time_hour'
 										var apptime_min=row_id+'time_min'
 										var apptime_ampm=row_id+'time_ampm'
-										
+										//alert(apptime_hour);
 										
 										var date_get="";
 										var time_get="";
@@ -1092,19 +1095,24 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 											var time_get=app_time.split(' ')[1]
 											var time_hour=time_get.split(':')[0]
 											var time_min=time_get.split(':')[1]
+											//alert(time_hour);
+											
 										}
 										var time_hour_value=0
 										var apptime_ampm_value="AM"
 										
-										if ((time_hour >= 12) && (time_min > 0)){
+										if ((time_hour >= 12) && (time_min >= 0)){
 											time_hour_value=time_hour-12
-											apptime_ampm_value="PM"											
+											apptime_ampm_value="PM"	
+											
 										}
 										else{
 											time_hour_value= time_hour
+											//alert(time_hour_value);
+																						
 										}
 										
-										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+patinet_name+'</td>'
+										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+serial_no+' - '+patinet_name+'</td>' //Faisal
 										if (status == 'SUBMITTED'){ 
 												   reqStrFull = reqStrFull + '<td rowspan="2" width="25px" ><a  data-role="button" onClick="confirm_app('+ row_id+');"><img  height="25px" width="25px" src="ok.png"></a></td>'
 												   //reqStrFull = reqStrFull + '<td width="50px" ><input  type="submit" onClick="confirm_app('+ row_id+');" value="Confirm"></td>'
@@ -1125,11 +1133,11 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
-													if ((time_hour >= 12) && (time_min > 0)){
-			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
+													if ((time_hour >= 12) && (time_min >= 0)){
+			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>' // Faisal
 													}
 													else{
-														reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
+														reqStrFull = reqStrFull +'<td><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="AM">AM</option> <option  value="PM">PM</option></select> </td>'
 													}
 												  	
 													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#E0EBEB; font-size:1px" ><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>'  
@@ -1146,7 +1154,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									//alert (localStorage.reqStrFull);
 									localStorage.reqStrFull=reqStrFull;
 									
-									//$("#reqList").html(localStorage.reqStrFull);	
+									$("#reqCount").html("Total:"+reqCount);	// Faisal
 									
 									$("#reqChember").html(localStorage.chamber_show);	
 									$("#reqList").empty();
@@ -1206,7 +1214,9 @@ function req_show(){
 	var reqStrFull='<table  border="0" cellpadding="0" cellspacing="0" width="100%">'
 	//$("#error_request").text(localStorage.reqStrFull);
 	//alert (reqStrArray.length);
+	var reqCount=0; // Faisal
 	for(i=0; i < reqStrArray.length-1; i++){
+		reqCount+=1; // Faisal
 		//alert ("asas");
 		var reqStrSingle=reqStrArray[i];
 		var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1216,6 +1226,7 @@ function req_show(){
 		var patinet_mobile=reqStrSingleArray[2];
 		var app_time=reqStrSingleArray[3];
 		var status=reqStrSingleArray[4];
+		var serial_no=reqStrSingleArray[5]; // Faisal
 		
 		var apptime_date=row_id+'date'
 		var apptime_hour=row_id+'time_hour'
@@ -1234,7 +1245,7 @@ function req_show(){
 		var time_hour_value=0
 		var apptime_ampm_value="AM"
 		
-		if ((time_hour >= 12) && (time_min > 0)){
+		if ((time_hour >= 12) && (time_min >= 0)){
 			time_hour_value=time_hour-12
 			apptime_ampm_value="PM"											
 		}
@@ -1244,7 +1255,7 @@ function req_show(){
 		// alert (row_id)
 		
 		//alert ('Nadira')
-		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px; color:#004080">'+patinet_name+'</td>'
+		reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px; color:#004080">'+serial_no+ ' - ' +patinet_name+'</td>'// Faisal
 		
 		
 										if (status == 'SUBMITTED'){ 
@@ -1281,7 +1292,7 @@ function req_show(){
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
 													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
 												//	alert (apptime_ampm)
-													if ((time_hour >= 12) && (time_min > 0)){
+													if ((time_hour >= 12) && (time_min >= 0)){
 			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>'
 													}
 													else{
@@ -1414,6 +1425,8 @@ function req_app_search(){
 		$("#btn_req_all").hide();
 		$("#wait_req_image").show();
 		
+		//alert(apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id);
+		
 		$.ajax({
 				 type: 'POST',
 				 url: apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id,
@@ -1483,7 +1496,7 @@ function page_con_appoinment_show(){
 	
 	
 	//$("#error_request_show").html(apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
-										
+								
 			$.ajax({
 					 type: 'POST',
 					 url: apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id,
@@ -1507,9 +1520,10 @@ function page_con_appoinment_show(){
 
 									var reqConStrFull=''
 									
+									var confReqCount=0; //Faisal
 									
 									for(i=0; i < reqStrArray.length-1; i++){
-										
+										confReqCount+=1;  //Faisal
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1518,15 +1532,16 @@ function page_con_appoinment_show(){
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
+										var serial_no=reqStrSingleArray[4];
             							
 										var apptime_text=row_id+'time'
 										
 									
 										
-										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
+										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new(\''+reqStrSingleArray[1]+'\')">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+serial_no+ ' - ' +patinet_name+'</td>'
 				
 										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
@@ -1546,6 +1561,9 @@ function page_con_appoinment_show(){
 											
 									$("#all_button").show();
 									$("#wait_image_chamber_info").hide();
+									
+									
+									$("#confReqCount").html("Total:"+confReqCount);
 									
 									$("#btn_con_search").show();
 									$("#btn_con_all").show();
@@ -1633,10 +1651,11 @@ function page_con_appoinment_search(){
 									
 									var reqStrArray = reqStr.split('<fdrd>');
 									
-
 									var reqConStrFull=''
+									
+									var confReqCount=0; // Faisal
 									for(i=0; i < reqStrArray.length-1; i++){
-										
+										confReqCount+=1; // Faisal
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1645,14 +1664,15 @@ function page_con_appoinment_search(){
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
-            							
+            							var serial_no=reqStrSingleArray[4]; // Faisal
+										
 										var apptime_text=row_id+'time'
 									
 										
-										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new()">'
+										reqConStrFull = reqConStrFull+'<li class="ui-btn ui-shadow ui-corner-all " onClick="page_appoinment_new(\''+reqStrSingleArray[1]+'\')">'
 										+'<table  border="0" >'
 										
-										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+patinet_name+'</td>'
+										+'<tr ><td align="left" style="width:60%; font-size:14px; color:#004080">'+serial_no+ ' - ' +patinet_name+'</td>'
 				
 										+'<td  style="width:60%; font-size:14px; color:#004080" >'+app_time+'</td>'	
 										+'</tr></table></li>'
@@ -1807,7 +1827,9 @@ function req_con_show(){
 	
 }
 
-function page_appoinment_new(){
+function page_appoinment_new(patient_name){
+	localStorage.patient_name=patient_name;
+	//alert(localStorage.patient_name);
 	//$("#next_week").val("");
 	$("#error_new_app").html('');
 	var week_combo_show='<select name="next_week" id="next_week" >'
@@ -1816,8 +1838,11 @@ function page_appoinment_new(){
         week_combo_show=week_combo_show+'<option  value="2">2</option>'
         week_combo_show=week_combo_show+'<option  value="3">3</option>'
         week_combo_show=week_combo_show+'<option  value="4">4</option>'
-        week_combo_show=week_combo_show+'<option  value="4">6</option>'
+        week_combo_show=week_combo_show+'<option  value="5">5</option>'
+		week_combo_show=week_combo_show+'<option  value="6">6</option>'
         week_combo_show=week_combo_show+'</select>'
+	
+	$("#patientName").html(localStorage.patient_name);
 	
 	$("#week_combo").empty();
 	$("#week_combo").append(week_combo_show).trigger('create');
@@ -1940,15 +1965,43 @@ function add_new_chamber(){
 	
 }
 function newapptSave(){
-	//alert ("ADASD")
+	
 	var next_week= $("#next_week").val();
-	if (next_week!=''){
-		$("#error_new_app").html('Saved Successfully');
-	}
-	else{
+	
+	if (next_week==''){
 		$("#error_new_app").html('Select Week');
+	}else{	
+		
+//alert(apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week);
+		
+		$.ajax({
+				 type: 'POST',
+				 url: apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week,
+				 
+				 success: function(result) {											
+							if (result==''){
+								$("#error_new_app").html('Sorry Network not available');
+								
+							}else{
+								$("#success_app").html("Submit Successfully")
+								var resultArray = result.split('rdrd');
+								if (resultArray[0]=='Success'){													
+									
+									//Profile
+									var reqStr=resultArray[1];													
+									
+									var reqStrArray = reqStr.split('<fdrd>');
+									
+									//$("#success_app").html('Submit Successfully');
+							}
+			
+						}
+				 }
+		})
 	}
+	
 }
+
 //-------------Blank error msg
 function blank_error_msg(){
 	$("#error_login").html('');
