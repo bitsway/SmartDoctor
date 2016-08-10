@@ -1081,7 +1081,11 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										var app_time=reqStrSingleArray[3];
 										var status=reqStrSingleArray[4];
             							var serial_no=reqStrSingleArray[5]; // Faisal
+<<<<<<< HEAD
 										//alert(app_time);
+=======
+										
+>>>>>>> origin/master
 										var apptime_date=row_id+'date'
 										var apptime_hour=row_id+'time_hour'
 										var apptime_min=row_id+'time_min'
@@ -1104,12 +1108,20 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										if ((time_hour >= 12) && (time_min >= 0)){
 											time_hour_value=time_hour-12
 											apptime_ampm_value="PM"	
+<<<<<<< HEAD
 											
 										}
 										else{
 											time_hour_value= time_hour
 											//alert(time_hour_value);
 																						
+=======
+																	
+										}
+										else{
+											time_hour_value= time_hour
+											
+>>>>>>> origin/master
 										}
 										
 										reqStrFull = reqStrFull+'<tr ><td colspan="4" style="font-size:16px;">'+serial_no+' - '+patinet_name+'</td>' //Faisal
@@ -1972,7 +1984,11 @@ function newapptSave(){
 		$("#error_new_app").html('Select Week');
 	}else{	
 		
+<<<<<<< HEAD
 //alert(apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week);
+=======
+		alert(apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week);
+>>>>>>> origin/master
 		
 		$.ajax({
 				 type: 'POST',
@@ -1983,7 +1999,11 @@ function newapptSave(){
 								$("#error_new_app").html('Sorry Network not available');
 								
 							}else{
+<<<<<<< HEAD
 								$("#success_app").html("Submit Successfully")
+=======
+								$("#error_new_app").html("")
+>>>>>>> origin/master
 								var resultArray = result.split('rdrd');
 								if (resultArray[0]=='Success'){													
 									
@@ -1991,8 +2011,11 @@ function newapptSave(){
 									var reqStr=resultArray[1];													
 									
 									var reqStrArray = reqStr.split('<fdrd>');
+<<<<<<< HEAD
 									
 									//$("#success_app").html('Submit Successfully');
+=======
+>>>>>>> origin/master
 							}
 			
 						}
