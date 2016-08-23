@@ -85,7 +85,7 @@ function check_user() {
 	if (user_id=="" || user_id==undefined || user_pass=="" || user_pass==undefined){
 		url = "#login";      
 		$.mobile.navigate(url);
-		$("#error_login").html('Required User ID and PIN <br> '+'<font style="color:#004080">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');	
+		$("#error_login").html('Required User ID and PIN <br> '+'<font style="color:#004080">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">16435 </font> </font> </font>');	
 	}else{
 		//-----------------
 			$("#wait_image_login").show();
@@ -154,16 +154,19 @@ function check_user() {
 									}
 									
 									$("#wait_image_login").hide();
-									$("#loginButton").show();							
+									$("#loginButton").show();	
+									
+									$("#user_id").val(localStorage.user_id);
+									$("#user_pass").val(localStorage.user_pass);					
 									
 									$("#error_login").html("Synced Successfully");
-			
+									
 								}else {
 									
 									$("#wait_image_login").hide();
 									$("#loginButton").show();
 									
-									$("#error_login").html('Sync Failed. Invalid UserID or PIN'+'<br><font style="color:#004080">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">2765 </font> </font> </font>');
+									$("#error_login").html('Sync Failed. Invalid UserID or PIN'+'<br><font style="color:#004080">For UserID and PIN Code  <br> <font style="font-size:20px"> sms  <font style=" font-weight:bold">SD </font> to <font style=" font-weight:bold">16435 </font> </font> </font>');
 								}
 													
 								
@@ -438,9 +441,156 @@ function page_chamber_go(chambers_id){
 									
 									$("#chamber_id_all").html(localStorage.chamber_show);
 									
+									//class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow"
+									
+									/*var cmb_sat_mor_fr_str='<select name="sat_mor_from" id="sat_mor_from" ><option  value="0"></option><option  value="6">6 AM</option><option  value="7">7 AM</option><option  value="8">8 AM</option><option  value="9">9 AM</option><option  value="10">10 AM</option><option  value="11">11 AM</option><option  value="12">12 AM</option></select>'
+									
+									$("#cmb_sat_mor_fr").html(cmb_sat_mor_fr_str);
+									
+									
+									
+									var cmb_sat_mor_to_str='<select name="sat_mor_to" id="sat_mor_to" ><option  value="0"></option><option  value="6">6 AM</option><option value="7">7 AM</option><option  value="8">8 AM</option><option  value="9">9 AM</option><option  value="10">10 AM</option><option  value="11">11 AM</option><option  value="12">12 AM</option><option  value="13">1 PM</option><option  value="14">2 PM</option><option  value="15">3 PM</option></select>'
+									
+									$("#cmb_sat_mor_to").html(cmb_sat_mor_to_str);
+									
+									
+									var cmb_sat_eve_fr_str='<select name="sat_eve_from" id="sat_eve_from" ><option  value="0"></option><option  value="13">1 PM</option> <option  value="14">2 PM</option> <option  value="15">3 PM</option> <option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option> <option  value="19">7 PM</option><option  value="20">8 PM</option> <option  value="21">9 PM</option> <option  value="22">10 PM</option> <option  value="23">11 PM</option></select>'
+									
+									$("#cmb_sat_eve_fr").html(cmb_sat_eve_fr_str);
+									
+									
+									var cmb_sat_eve_to_str='<select name="sat_eve_to" id="sat_eve_to" ><option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option><option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option> <option  value="19">7 PM</option> <option  value="20">8 PM</option> <option  value="21">9 PM</option><option  value="22">10 PM</option> <option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_sat_eve_to").html(cmb_sat_eve_to_str);
+									
+									
+									var cmb_sun_mor_fr_str='<select name="sun_mor_from" id="sun_mor_from" ><option  value="0"></option><option  value="6">6 AM</option><option  value="7">7 AM</option> <option  value="8">8 AM</option><option  value="9">9 AM</option><option  value="10">10 AM</option> <option  value="11">11 AM</option><option  value="12">12 AM</option></select>'
+									
+									$("#cmb_sun_mor_fr").html(cmb_sun_mor_fr_str);
+									
+									
+									var cmb_sun_mor_to_str='<select name="sun_mor_to" id="sun_mor_to" ><option  value="0"></option><option  value="6">6 AM</option><option  value="7">7 AM</option><option  value="8">8 AM</option> <option  value="9">9 AM</option><option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option> <option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option> </select> '
+									
+									$("#cmb_sun_mor_to").html(cmb_sun_mor_to_str);
+									
+									
+									var cmb_sun_eve_fr_str='<select name="sun_eve_from" id="sun_eve_from" ><option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option> <option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option> <option  value="19">7 PM</option> <option  value="20">8 PM</option> <option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option></select>'
+									
+									$("#cmb_sun_eve_fr").html(cmb_sun_eve_fr_str);
+									
+									
+									var cmb_sun_eve_to_str='<select name="sun_eve_to" id="sun_eve_to" ><option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option><option  value="15">3 PM</option><option  value="16">4 PM</option> <option  value="17">5 PM</option><option  value="18">6 PM</option> <option  value="19">7 PM</option><option  value="20">8 PM</option><option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option></select>'
+									
+									$("#cmb_sun_eve_to").html(cmb_sun_eve_to_str);
+									
+									
+									var cmb_mon_mor_fr_str='<select name="mon_mor_from" id="mon_mor_from" ><option  value="0"></option> <option  value="6">6 AM</option><option  value="7">7 AM</option> <option  value="8">8 AM</option><option  value="9">9 AM</option> <option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option></select>'
+									
+									$("#cmb_mon_mor_fr").html(cmb_mon_mor_fr_str);
+									
+									
+									var cmb_mon_mor_to_str='<select name="mon_mor_to" id="mon_mor_to" ><option  value="0"></option><option  value="6">6 AM</option><option  value="7">7 AM</option><option  value="8">8 AM</option> <option  value="9">9 AM</option> <option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option><option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option></select> '
+									
+									
+									$("#cmb_mon_mor_to").html(cmb_mon_mor_to_str);
+									
+									
+									
+									var cmb_mon_eve_fr_str='<select name="mon_eve_from" id="mon_eve_from" ><option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option><option  value="16">4 PM</option><option  value="17">5 PM</option> <option  value="18">6 PM</option><option  value="19">7 PM</option><option  value="20">8 PM</option><option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option></select>'
+									
+									$("#cmb_mon_eve_fr").html(cmb_mon_eve_fr_str);
+									
+									
+									
+									var cmb_mon_eve_to_str='<select name="mon_eve_to" id="mon_eve_to" >	<option  value="0"></option> <option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option> <option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option><option  value="19">7 PM</option><option  value="20">8 PM</option><option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_mon_eve_to").html(cmb_mon_eve_to_str);
+									
+									
+									var cmb_tue_mor_fr_str='<select name="tue_mor_from" id="tue_mor_from" ><option  value="0"></option><option  value="6">6 AM</option><option  value="7">7 AM</option><option  value="8">8 AM</option> <option  value="9">9 AM</option><option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option></select>  '
+									
+									$("#cmb_tue_mor_fr").html(cmb_tue_mor_fr_str);
+									
+									
+									var cmb_tue_mor_to_str='<select name="tue_mor_to" id="tue_mor_to" ><option  value="0"></option> <option  value="6">6 AM</option><option  value="7">7 AM</option> <option  value="8">8 AM</option><option  value="9">9 AM</option> <option  value="10">10 AM</option> <option  value="11">11 AM</option><option  value="12">12 AM</option><option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option></select>'
+									
+									$("#cmb_tue_mor_to").html(cmb_tue_mor_to_str);
+									
+									
+									var cmb_tue_eve_fr_str='<select name="tue_eve_from" id="tue_eve_from" ><option  value="0"></option> <option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option> <option  value="16">4 PM</option><option  value="17">5 PM</option><option  value="18">6 PM</option><option  value="19">7 PM</option><option  value="20">8 PM</option><option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_tue_eve_fr").html(cmb_tue_eve_fr_str);
+									
+									
+									var cmb_tue_eve_to_str='<select name="tue_eve_to" id="tue_eve_to" ><option  value="0"></option> <option  value="13">1 PM</option><option  value="14">2 PM</option><option  value="15">3 PM</option> <option  value="16">4 PM</option> <option  value="17">5 PM</option><option  value="18">6 PM</option> <option  value="19">7 PM</option><option  value="20">8 PM</option> <option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option></select>'
+									
+									$("#cmb_tue_eve_to").html(cmb_tue_eve_to_str);
+									
+									
+									var cmb_wed_mor_fr_str='<select name="wed_mor_from" id="wed_mor_from" ><option  value="0"></option><option  value="6">6 AM</option> <option  value="7">7 AM</option><option  value="8">8 AM</option> <option  value="9">9 AM</option><option  value="10">10 AM</option><option  value="11">11 AM</option> <option  value="12">12 AM</option></select> '
+									
+									$("#cmb_wed_mor_fr").html(cmb_wed_mor_fr_str);
+									
+									
+									var cmb_wed_mor_to_str='<select name="wed_mor_to" id="wed_mor_to" ><option  value="0"></option><option  value="6">6 AM</option> <option  value="7">7 AM</option><option  value="8">8 AM</option> <option  value="9">9 AM</option><option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option> <option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option></select> '
+									
+									$("#cmb_wed_mor_to").html(cmb_wed_mor_to_str);
+									
+									
+									var cmb_wed_eve_fr_str=' <select name="wed_eve_from" id="wed_eve_from" ><option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option><option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option> <option  value="19">7 PM</option><option  value="20">8 PM</option> <option  value="21">9 PM</option><option  value="22">10 PM</option> <option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_wed_eve_fr").html(cmb_wed_eve_fr_str);
+									
+									
+									var cmb_wed_eve_to_str='<select name="wed_eve_to" id="wed_eve_to" ><option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option><option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option><option  value="19">7 PM</option> <option  value="20">8 PM</option> <option  value="21">9 PM</option><option  value="22">10 PM</option> <option  value="23">11 PM</option></select>'
+									
+									$("#cmb_wed_eve_to").html(cmb_wed_eve_to_str);
+									
+									
+									var cmb_thu_mor_fr_str='<select name="thu_mor_from" id="thu_mor_from" ><option  value="0"></option> <option  value="6">6 AM</option><option  value="7">7 AM</option> <option  value="8">8 AM</option> <option  value="9">9 AM</option> <option  value="10">10 AM</option> <option  value="11">11 AM</option><option  value="12">12 AM</option></select>'
+									
+									$("#cmb_thu_mor_fr").html(cmb_thu_mor_fr_str);
+									
+									
+									var cmb_thu_mor_to_str='<select name="thu_mor_to" id="thu_mor_to" ><option  value="0"></option> <option  value="6">6 AM</option> <option  value="7">7 AM</option><option  value="8">8 AM</option><option  value="9">9 AM</option><option  value="10">10 AM</option><option  value="11">11 AM</option> <option  value="12">12 AM</option> <option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option></select>'
+									
+									$("#cmb_thu_mor_to").html(cmb_thu_mor_to_str);
+									
+									
+									var cmb_thu_eve_fr_str='<select name="thu_eve_from" id="thu_eve_from" ><option  value="0"></option> <option  value="13">1 PM</option> <option  value="14">2 PM</option> <option  value="15">3 PM</option> <option  value="16">4 PM</option> <option  value="17">5 PM</option><option  value="18">6 PM</option><option  value="19">7 PM</option><option  value="20">8 PM</option> <option  value="21">9 PM</option><option  value="22">10 PM</option><option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_thu_eve_fr").html(cmb_thu_eve_fr_str);
+									
+									
+									var cmb_thu_eve_to_str='<select name="thu_eve_to" id="thu_eve_to" > <option  value="0"></option><option  value="13">1 PM</option><option  value="14">2 PM</option><option  value="15">3 PM</option> <option  value="16">4 PM</option><option  value="17">5 PM</option> <option  value="18">6 PM</option><option  value="19">7 PM</option> <option  value="20">8 PM</option> <option  value="21">9 PM</option><option  value="22">10 PM</option> <option  value="23">11 PM</option></select>'
+									
+									$("#cmb_thu_eve_to").html(cmb_thu_eve_to_str);
+									
+									
+									var cmb_fri_mor_fr_str='<select name="fri_mor_from" id="fri_mor_from" ><option  value="0"></option><option  value="6">6 AM</option><option  value="7">7 AM</option> <option  value="8">8 AM</option> <option  value="9">9 AM</option><option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option> </select> '
+									
+									$("#cmb_fri_mor_fr").html(cmb_fri_mor_fr_str);
+									
+									
+									var cmb_fri_mor_to_str='<select name="fri_mor_to" id="fri_mor_to" ><option  value="0"></option> <option  value="6">6 AM</option><option  value="7">7 AM</option><option  value="8">8 AM</option> <option  value="9">9 AM</option> <option  value="10">10 AM</option> <option  value="11">11 AM</option> <option  value="12">12 AM</option> <option  value="13">1 PM</option> <option  value="14">2 PM</option><option  value="15">3 PM</option></select>  '
+									
+									$("#cmb_fri_mor_to").html(cmb_fri_mor_to_str);
+									
+									
+									var cmb_fri_eve_fr_str='<select name="fri_eve_from" id="fri_eve_from" ><option  value="0"></option> <option  value="13">1 PM</option><option  value="14">2 PM</option> <option  value="15">3 PM</option> <option  value="16">4 PM</option> <option  value="17">5 PM</option> <option  value="18">6 PM</option> <option  value="19">7 PM</option> <option  value="20">8 PM</option> <option  value="21">9 PM</option><option  value="22">10 PM</option> <option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_fri_eve_fr").html(cmb_fri_eve_fr_str);
+									
+									
+									var cmb_fri_eve_to_str='<select name="fri_eve_to" id="fri_eve_to" ><option  value="0"></option><option  value="13">1 PM</option> <option  value="14">2 PM</option> <option  value="15">3 PM</option><option  value="16">4 PM</option><option  value="17">5 PM</option> <option  value="18">6 PM</option> <option  value="19">7 PM</option> <option  value="20">8 PM</option> <option  value="21">9 PM</option> <option  value="22">10 PM</option><option  value="23">11 PM</option> </select>'
+									
+									$("#cmb_fri_eve_to").html(cmb_fri_eve_to_str);
+									
+									*/
+									
 									url = "#page_chamber_go";
 									$.mobile.navigate(url);
-
+									
 									
 			
 								}else {
@@ -645,6 +795,9 @@ function page_settings_edit(){
 }
 
 function page_schedule_show(){
+	
+		
+		
 	$("#btnScheduleEdit").show();
 	$("#wait_image_sch_edit").hide();
 	
@@ -709,9 +862,6 @@ function page_schedule_show(){
 	var fri_eve_to=scheduleArray[34];
 	var fri_max_patient=scheduleArray[35];
 
-	
-
-	
 	$("#row_id_schedule").val(row_id);
 	
 	//$("#sat_mor_from").attr('selectedIndex', sat_mor_from);
@@ -774,14 +924,14 @@ function page_schedule_show(){
 	//alert (sat_mor_from)
 	
 	
-	url = "#page_schedule_show";
+	url = "#page_schedule_show";	
 	$.mobile.navigate(url);
+	
 	
 }
 function page_schedule_edit(){
 	$("#btnScheduleEdit").hide();
 	$("#wait_image_sch_edit").show();
-	
 	
 	
 	var row_id=$("#row_id_schedule").val();
@@ -791,27 +941,27 @@ function page_schedule_edit(){
 	var sat_eve_from=$("#sat_eve_from").val();
 	var sat_eve_to=$("#sat_eve_to").val();
 	var sat_max_patient=$("#sat_max_patient").val();
-
+	
 	var sun_mor_from=$("#sun_mor_from").val();
 	var sun_mor_to=$("#sun_mor_to").val();
 	var sun_eve_from=$("#sun_eve_from").val();
 	var sun_eve_to=$("#sun_eve_to").val();
 	var sun_max_patient=$("#sun_max_patient").val();
-
+	
 	var mon_mor_from=$("#mon_mor_from").val();
 	var mon_mor_to=$("#mon_mor_to").val();
 	var mon_eve_from=$("#mon_eve_from").val();
 	var mon_eve_to=$("#mon_eve_to").val();
 	var mon_max_patient=$("#mon_max_patient").val();
 	
-
+	
 	var tue_mor_from=$("#tue_mor_from").val();
 	var tue_mor_to=$("#tue_mor_to").val();
 	var tue_eve_from=$("#tue_eve_from").val();
 	var tue_eve_to=$("#tue_eve_to").val();
 	var tue_max_patient=$("#tue_max_patient").val();
-
-
+	
+	
 	var wed_mor_from=$("#wed_mor_from").val();
 	var wed_mor_to=$("#wed_mor_to").val();
 	var wed_eve_from=$("#wed_eve_from").val();
@@ -824,8 +974,8 @@ function page_schedule_edit(){
 	var thu_eve_from=$("#thu_eve_from").val();
 	var thu_eve_to=$("#thu_eve_to").val();
 	var thu_max_patient=$("#thu_max_patient").val();
-
-
+	
+	
 	var fri_mor_from=$("#fri_mor_from").val();
 	var fri_mor_to=$("#fri_mor_to").val();
 	var fri_eve_from=$("#fri_eve_from").val();
@@ -836,11 +986,11 @@ function page_schedule_edit(){
             +'fdfd'+sun_mor_from+'fdfd'+sun_mor_to+'fdfd'+sun_eve_from+'fdfd'+sun_eve_to+'fdfd'+sun_max_patient
             +'fdfd'+mon_mor_from+'fdfd'+mon_mor_to+'fdfd'+mon_eve_from+'fdfd'+mon_eve_to+'fdfd'+mon_max_patient
             +'fdfd'+tue_mor_from+'fdfd'+tue_mor_to+'fdfd'+tue_eve_from+'fdfd'+tue_eve_to+'fdfd'+tue_max_patient
-             +'fdfd'+wed_mor_from+'fdfd'+wed_mor_to+'fdfd'+wed_eve_from+'fdfd'+wed_eve_to+'fdfd'+wed_max_patient
+            +'fdfd'+wed_mor_from+'fdfd'+wed_mor_to+'fdfd'+wed_eve_from+'fdfd'+wed_eve_to+'fdfd'+wed_max_patient
             +'fdfd'+thu_mor_from+'fdfd'+thu_mor_to+'fdfd'+thu_eve_from+'fdfd'+thu_eve_to+'fdfd'+thu_max_patient
             +'fdfd'+fri_mor_from+'fdfd'+fri_mor_to+'fdfd'+fri_eve_from+'fdfd'+fri_eve_to+'fdfd'+fri_max_patient
 	//alert(submit_string)
-	//$("#error_schedule").html(apipath+'scheduleUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&submit_string='+submit_string);
+	//alert(apipath+'scheduleUpdate?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&submit_string='+submit_string);
 										
 			$.ajax({
 					 type: 'POST',
@@ -862,11 +1012,11 @@ function page_schedule_edit(){
 									
 									$("#error_schedule").html('Schedule Updated Succesfully');								
 									
+																							
 									$("#btnScheduleEdit").show();
 									$("#wait_image_sch_edit").hide();
 									
 									
-			
 								}else {
 									 
 									$("#btnScheduleEdit").show();
@@ -1029,6 +1179,8 @@ function addOffday(){
 
 
 function page_chember_req_show(){	//$("#error_request_show").html(apipath+'requestShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+chamber_id);
+			$("#dateShow").hide();
+			
 			$("#all_button").hide();
 			$("#wait_image_chamber_info").show();
 			
@@ -1060,9 +1212,15 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 								if (resultArray[0]=='Success'){													
 
 									//Profile
-									var reqStr=resultArray[1];													
+									var reqStr=resultArray[1];
+									localStorage.toDayCount=resultArray[2];													
+									var tomorrowCount=resultArray[3];
+									localStorage.currentDate=resultArray[4];
+									
+									$("#req_search").val(localStorage.currentDate)
 									
 									var reqStrArray = reqStr.split('<fdrd>');
+									
 									
 									
 									//var reqStrFull='<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; border-bottom:solid; border-bottom-color:#999; font-size:70%;">'
@@ -1071,6 +1229,7 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									var reqCount=0; // Faisal
 									for(i=0; i < reqStrArray.length-1; i++){
 										reqCount+=1  //Faisal
+										
 										var reqStrSingle=reqStrArray[i];
 										
 										var reqStrSingleArray = reqStrSingle.split('fdfd');
@@ -1129,10 +1288,10 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										            reqStrFull = reqStrFull + ' </tr>'
 													
 													 reqStrFull = reqStrFull +'<tr >'
-													 reqStrFull = reqStrFull +'<td  ><input style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
+													 reqStrFull = reqStrFull +'<td ><input readonly style="font-size:14px; width=50px;" id="'+ apptime_date +'" name="'+ apptime_date+'" type="date" value="'+date_get+'"></td>'
 													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
-													reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
+													reqStrFull = reqStrFull +'<td ><input readonly style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="number" value="'+time_hour_value+'"></td>'
+													reqStrFull = reqStrFull +'<td ><input readonly style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="number" value="'+time_min+'" ></td>'
 													if ((time_hour >= 12) && (time_min >= 0)){
 			reqStrFull = reqStrFull +'<td   ><select name="'+ apptime_ampm +'" id="'+ apptime_ampm +'" ><option  value="PM">PM</option><option  value="AM">AM</option> </select> </td>' // Faisal
 													}
@@ -1154,7 +1313,12 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 									//alert (localStorage.reqStrFull);
 									localStorage.reqStrFull=reqStrFull;
 									
-									$("#reqCount").html("Total:"+reqCount);	// Faisal
+									
+									$("#reqCountToday").html("Today:"+localStorage.toDayCount);
+									$("#reqCountTomorrow").html("Tomorrow:"+tomorrowCount);
+									$("#reqCountTotal").html("Total:"+reqCount);	// Faisal
+									
+									
 									
 									$("#reqChember").html(localStorage.chamber_show);	
 									$("#reqList").empty();
@@ -1354,7 +1518,7 @@ function confirm_app(row_id){
 	var chamber_show=localStorage.chamber_show;
 	var chamber_id=chamber_show.split('|')[1]
 	
-//$("#error_request").html(apipath+'confirm_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&chamber_id='+localStorage.chamber_id+'&apptime='+apptime);
+//alert(apipath+'confirm_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&row_id='+row_id+'&chamber_id='+localStorage.chamber_id+'&apptime='+apptime);
 										
 	$.ajax({
 			 type: 'POST',
@@ -1404,6 +1568,7 @@ function req_app_search_all(){
 		$("#btn_req_search").hide();
 		$("#btn_req_all").hide();
 		$("#wait_req_image").show();
+		$("#dateShow").hide();
 		 page_chember_req_show();
 }
 
@@ -1411,12 +1576,15 @@ function req_app_search_all(){
 
 function req_app_search(){
 	$("#error_request").html("");
-	var req_search=$("#req_search").val()
+	$("#dateShow").show();
+	
+	localStorage.req_search=$("#req_search").val()
+	
 	
 	
 	
 	//$("#error_request").html(apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id);
-	if (req_search.length < 10){
+	if (localStorage.req_search.length < 10){
 		$("#error_request").html('Please select a date.');
 		
 	}
@@ -1425,11 +1593,11 @@ function req_app_search(){
 		$("#btn_req_all").hide();
 		$("#wait_req_image").show();
 		
-		//alert(apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id);
+		//alert(apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+localStorage.req_search+'&chamber_id='+localStorage.chamber_id);
 		
 		$.ajax({
 				 type: 'POST',
-				 url: apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+req_search+'&chamber_id='+localStorage.chamber_id,
+				 url: apipath+'search_req_app?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&req_search='+localStorage.req_search+'&chamber_id='+localStorage.chamber_id,
 				 
 				 success: function(result) {											
 						if (result==''){
@@ -1443,13 +1611,19 @@ function req_app_search(){
 							if (result.split('rdrd')[0]=='Success'){													
 								$("#error_request").html('');
 								localStorage.reqStrFull=result.split('rdrd')[1]
+								localStorage.reqCountSearch=result.split('rdrd')[2]
+								//alert(localStorage.reqCountSearch);
+																
 								
-								//alert (localStorage.chamber_show);
 								req_show();
 	
 								$("#btn_req_search").show();
 								$("#btn_req_all").show();
 								$("#wait_req_image").hide();
+								
+								
+								
+								$("#dateShow").html(localStorage.req_search+" : "+localStorage.reqCountSearch);
 								
 							}else {
 								 
@@ -1513,7 +1687,12 @@ function page_con_appoinment_show(){
 								if (resultArray[0]=='Success'){													
 
 									//Profile
-									var reqStr=resultArray[1];													
+									var reqStr=resultArray[1];	
+									localStorage.confTtodayCount=resultArray[2];	
+									var confTomorrowCount=resultArray[3];	
+									localStorage.confCurrentDate=resultArray[4];
+									
+									$("#searchConfirm").val(localStorage.confCurrentDate);												
 									
 									var reqStrArray = reqStr.split('<fdrd>');
 									
@@ -1563,7 +1742,10 @@ function page_con_appoinment_show(){
 									$("#wait_image_chamber_info").hide();
 									
 									
-									$("#confReqCount").html("Total:"+confReqCount);
+									$("#confReqCountToday").html("Today:"+localStorage.confTtodayCount);
+									$("#confReqCountTomorrow").html("Tomorrow:"+confTomorrowCount);
+									$("#confReqCountTotal").html("Total:"+confReqCount);
+									
 									
 									$("#btn_con_search").show();
 									$("#btn_con_all").show();
@@ -1613,15 +1795,18 @@ function page_con_appoinment_search_all(){
 	$("#btn_con_search").hide();
 	$("#btn_con_all").hide();
 	$("#wait_con_image").show();
+	
+	$("#confDateShow").hide();
 	page_con_appoinment_show();
 }
 
 function page_con_appoinment_search(){
+	$("#confDateShow").show();
 	
 	$("#reqConChember").html(localStorage.chamber_show);
-	var searchConfirm = $("#searchConfirm").val();
+	localStorage.searchConfirm = $("#searchConfirm").val();
 	
-	if (searchConfirm.length < 10){
+	if (localStorage.searchConfirm.length < 10){
 		$("#error_con_list").html("Please Enter a Date")
 	}
 	else{
@@ -1632,10 +1817,10 @@ function page_con_appoinment_search(){
 			$("#btn_con_search").hide();
 			$("#btn_con_all").hide();
 			$("#wait_con_image").show();
-			
+			//alert(apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+localStorage.searchConfirm);
 			$.ajax({
 					 type: 'POST',
-					 url: apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+searchConfirm,
+					 url: apipath+'confirmedShowSearch?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id+'&searchConfirm='+localStorage.searchConfirm,
 					 
 					 success: function(result) {											
 							if (result==''){
@@ -1647,7 +1832,9 @@ function page_con_appoinment_search(){
 								if (resultArray[0]=='Success'){													
 									
 									//Profile
-									var reqStr=resultArray[1];													
+									var reqStr=resultArray[1];	
+									localStorage.reqConfCountSearch=resultArray[2];	
+									//alert(localStorage.reqConfCountSearch);									
 									
 									var reqStrArray = reqStr.split('<fdrd>');
 									
@@ -1685,9 +1872,12 @@ function page_con_appoinment_search(){
 									localStorage.reqConStrFull=reqConStrFull;
 									
 									
+									$("#confDateShow").html(localStorage.searchConfirm+" : "+localStorage.reqConfCountSearch)
+									
 									$("#reqConList").empty();
 									$("#reqConList").append(localStorage.reqConStrFull).trigger('create');
-																
+									
+									//$("#error_con_list").html('Appoinment not Available.');							
 									
 									$("#btn_con_search").show();
 									$("#btn_con_all").show();
@@ -1705,6 +1895,7 @@ function page_con_appoinment_search(){
 									
 									$("#error_login").html("Sync Failed. Authorization or Network Error.");
 									//$('#syncBasic').show();
+									
 								}
 													
 								
@@ -1978,24 +2169,37 @@ function newapptSave(){
 				 type: 'POST',
 				 url: apipath+'next_appoinment?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&next_week='+next_week,
 				 
-				 success: function(result) {											
-							if (result==''){
+				 success: function(result) {	
+				 			if (result=='Success'){
+								
+								$("#next_week").val("");
+								
+								$("#success_new_app").html('Submit Successfully');
+								$("#btnTruckInfo").show();
+							}else{
+								$("#error_new_app").html('Sorry Network not available');
+								$("#btnTruckInfo").show();
+							}
+							/*if (result==''){
 								$("#error_new_app").html('Sorry Network not available');
 								
 							}else{
-								$("#success_app").html("Submit Successfully")
+								
 								var resultArray = result.split('rdrd');
 								if (resultArray[0]=='Success'){													
 									
+									
+									$("#success_app").html('Submit Successfully');
 									//Profile
 									var reqStr=resultArray[1];													
 									
 									var reqStrArray = reqStr.split('<fdrd>');
 									
-									//$("#success_app").html('Submit Successfully');
+									
 							}
+							
 			
-						}
+						}*/
 				 }
 		})
 	}

@@ -372,12 +372,19 @@
 		<br>
 		<div id="error_request" style="color:#900"></div>	
          <strong style="font-size:12px; color:#004080">Select Date</strong>
-         <input name="req_search" style="font-size:14px; color:004080" id="req_search" type="date">
+         <input name="req_search" style="font-size:14px; color:004080" id="req_search" type="date" >
               <a id="btn_req_search" data-role="button" onClick="req_app_search();"  style="color:#004080">Search</a>
 			  <a id="btn_req_all" data-role="button" onClick="req_app_search_all();"  style="color:#004080">Show All</a>  
 			  <img id="wait_req_image" style="" width="50px;" src="loading.gif" alt="">
-			        
-			  <div id="reqCount" style="float:right;"></div>
+			  
+              <table width="100%" style="border-bottom:1px solid #0CF; margin-bottom:15px;">
+              	<tr>
+                	<td><div id="reqCountToday" ></div></td>
+                    <td><div id="reqCountTomorrow" ></div></td>
+                    <td><div id="reqCountTotal" style="float:right;"></div></td>
+                </tr>
+              </table>
+              <div id="dateShow"></div>
         </br>
 
 
@@ -414,7 +421,15 @@
          <a id="btn_con_all" data-role="button" onClick="page_con_appoinment_search_all();" style="color:#004080">Show All</a>
 		 <img id="wait_con_image" style="" width="50px;" src="loading.gif" alt="">
 		 
-         <div id="confReqCount" style="float:right;"></div>
+         <table width="100%" style="border-bottom:1px solid #0CF; margin-bottom:15px;">
+              	<tr>
+                	<td><div id="confReqCountToday" ></div></td>
+                    <td><div id="confReqCountTomorrow" ></div></td>
+                    <td><div id="confReqCountTotal" style="float:right;"></div></td>
+                </tr>
+              </table>
+         	<div id="confDateShow"></div>
+         
         </br>
 			<div id="reqConList"></div>
 			
@@ -647,18 +662,20 @@
             <tr >
               <td  style="font-size:15px; color:#004080">SAT </td>
               <td >
-              	<select name="sat_mor_from" id="sat_mor_from" >
-					<option  value="0"></option>
-                    <option  value="6">6 AM</option>
-                    <option  value="7">7 AM</option>
-                    <option  value="8">8 AM</option>
-                    <option  value="9">9 AM</option>
-                    <option  value="10">10 AM</option>
-                    <option  value="11">11 AM</option>
-                    <option  value="12">12 AM</option>
-                </select>                  
+              <!--<div id="cmb_sat_mor_fr"></div>-->
+              <select name="sat_mor_from" id="sat_mor_from" >
+              	<option  value="0"></option>
+                <option  value="6">6 AM</option>
+                <option  value="7">7 AM</option>
+                <option  value="8">8 AM</option>
+                <option  value="9">9 AM</option>
+                <option  value="10">10 AM</option>
+                <option  value="11">11 AM</option>
+                <option  value="12">12 AM</option>
+                </select>     
 			  </td>   
               <td  >
+              <!--<div id="cmb_sat_mor_to" ></div>-->
               	<select name="sat_mor_to" id="sat_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -678,7 +695,9 @@
             
              <tr >
                <td  >&nbsp;</td>
-               <td  ><select name="sat_eve_from" id="sat_eve_from" >
+               <td  >
+               <!--<div id="cmb_sat_eve_fr" ></div>-->
+               <select name="sat_eve_from" id="sat_eve_from" >
 			   	 <option  value="0"></option>
                  <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -693,7 +712,9 @@
                  <option  value="23">11 PM</option>
                </select>
 			   </td>
-               <td  ><select name="sat_eve_to" id="sat_eve_to" >
+               <td  >
+               <!--<div id="cmb_sat_eve_to" ></div>-->
+               <select name="sat_eve_to" id="sat_eve_to" >
 			   	  <option  value="0"></option>	
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -712,6 +733,7 @@
              <tr >
               <td  style="font-size:15px; color:#004080">SUN</td>
               <td  >
+             <!-- <div id="cmb_sun_mor_fr" ></div>-->
               	<select name="sun_mor_from" id="sun_mor_from" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -723,6 +745,7 @@
                     <option  value="12">12 AM</option>
                 </select>                  </td>   
               <td  >
+              <!--<div id="cmb_sun_mor_to" ></div>-->
               	<select name="sun_mor_to" id="sun_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -742,7 +765,9 @@
             
              <tr >
                <td  >&nbsp;</td>
-               <td  ><select name="sun_eve_from" id="sun_eve_from" >
+               <td  >
+               <!--<div id="cmb_sun_eve_fr" ></div>-->
+               <select name="sun_eve_from" id="sun_eve_from" >
 			   	<option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -756,7 +781,9 @@
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-               <td ><select name="sun_eve_to" id="sun_eve_to" >
+               <td >
+               <!--<div id="cmb_sun_eve_to" ></div>-->
+               <select name="sun_eve_to" id="sun_eve_to" >
 			   	<option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -775,6 +802,7 @@
              <tr >
               <td style="font-size:15px; color:#004080">MON</td>
               <td  >
+              <!--<div id="cmb_mon_mor_fr" ></div>-->
               	<select name="mon_mor_from" id="mon_mor_from" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -787,6 +815,7 @@
                 </select>                  
 			   </td>   
               <td >
+             <!-- <div id="cmb_mon_mor_to" ></div>-->
               	<select name="mon_mor_to" id="mon_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -807,7 +836,9 @@
             
              <tr >
                <td >&nbsp;</td>
-               <td ><select name="mon_eve_from" id="mon_eve_from" >
+               <td >
+               <!-- <div id="cmb_mon_eve_fr" ></div>-->
+               <select name="mon_eve_from" id="mon_eve_from" >
 			   	<option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -822,7 +853,9 @@
                  <option  value="23">11 PM</option>
                </select>
 			   </td>
-               <td ><select name="mon_eve_to" id="mon_eve_to" >
+               <td >
+               <!--<div id="cmb_mon_eve_to" ></div>-->
+               <select name="mon_eve_to" id="mon_eve_to" >
 			   	<option  value="0"></option>
                  <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -842,6 +875,7 @@
              <tr >
               <td style="font-size:15px; color:#004080">TUE</td>
               <td >
+              <!--<div id="cmb_tue_mor_fr" ></div>-->
               	<select name="tue_mor_from" id="tue_mor_from" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -854,6 +888,7 @@
                 </select>                 
 			   </td>   
               <td >
+              <!--<div id="cmb_tue_mor_to" ></div>-->
               	<select name="tue_mor_to" id="tue_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -873,7 +908,9 @@
             
              <tr >
                <td>&nbsp;</td>
-               <td><select name="tue_eve_from" id="tue_eve_from" >
+               <td>
+               <!--<div id="cmb_tue_eve_fr" ></div>-->
+               <select name="tue_eve_from" id="tue_eve_from" >
 			   	<option  value="0"></option>
                  <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -887,7 +924,9 @@
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-               <td><select name="tue_eve_to" id="tue_eve_to" >
+               <td>
+              <!-- <div id="cmb_tue_eve_to" ></div>-->
+               <select name="tue_eve_to" id="tue_eve_to" >
 			   	  <option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -906,6 +945,7 @@
              <tr >
               <td style="font-size:15px; color:#004080">WED</td>
               <td>
+              <!--<div id="cmb_wed_mor_fr" ></div>-->
               	<select name="wed_mor_from" id="wed_mor_from" >
 					<option  value="0"></option>
                    <option  value="6">6 AM</option>
@@ -918,6 +958,7 @@
                 </select>                 
 			   </td>   
               <td>
+              <!--<div id="cmb_wed_mor_to" ></div>-->
               	<select name="wed_mor_to" id="wed_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -937,7 +978,9 @@
             
              <tr >
                <td>&nbsp;</td>
-               <td ><select name="wed_eve_from" id="wed_eve_from" >
+               <td >
+               <!--<div id="cmb_wed_eve_fr" ></div>-->
+               <select name="wed_eve_from" id="wed_eve_from" >
 			   		<option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -951,7 +994,9 @@
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-               <td><select name="wed_eve_to" id="wed_eve_to" >
+               <td>
+              <!-- <div id="cmb_wed_eve_to" ></div>-->
+               <select name="wed_eve_to" id="wed_eve_to" >
 			   		<option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -971,6 +1016,7 @@
              <tr >
               <td style="font-size:15px; color:#004080">THU</td>
               <td >
+             <!-- <div id="cmb_thu_mor_fr" ></div>-->
               	<select name="thu_mor_from" id="thu_mor_from" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -983,6 +1029,7 @@
                 </select>                  
 			   </td>   
               <td>
+              <!--<div id="cmb_thu_mor_to" ></div>-->
               	<select name="thu_mor_to" id="thu_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -1002,7 +1049,9 @@
             
              <tr >
                <td >&nbsp;</td>
-               <td ><select name="thu_eve_from" id="thu_eve_from" >
+               <td >
+               <!--<div id="cmb_thu_eve_fr" ></div>-->
+               <select name="thu_eve_from" id="thu_eve_from" >
 			   		<option  value="0"></option>
                   <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -1016,7 +1065,9 @@
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-               <td ><select name="thu_eve_to" id="thu_eve_to" >
+               <td >
+               <!--<div id="cmb_thu_eve_to" ></div>-->
+               <select name="thu_eve_to" id="thu_eve_to" >
 			   	  <option  value="0"></option>
                  <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -1035,6 +1086,7 @@
              <tr >
               <td style="font-size:15px; color:#004080">FRI</td>
               <td >
+              <!--<div id="cmb_fri_mor_fr" ></div>-->
               	<select name="fri_mor_from" id="fri_mor_from" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -1047,6 +1099,7 @@
                 </select>                  
 			   </td>   
               <td >
+              <!--<div id="cmb_fri_mor_to" ></div>-->
               	<select name="fri_mor_to" id="fri_mor_to" >
 					<option  value="0"></option>
                     <option  value="6">6 AM</option>
@@ -1067,7 +1120,9 @@
              </tr>
              <tr >
                <td >&nbsp;</td>
-               <td ><select name="fri_eve_from" id="fri_eve_from" >
+               <td >
+                <!--<div id="cmb_fri_eve_fr" ></div>-->
+               <select name="fri_eve_from" id="fri_eve_from" >
 			   	<option  value="0"></option>
                  <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -1081,7 +1136,9 @@
                  <option  value="22">10 PM</option>
                  <option  value="23">11 PM</option>
                </select></td>
-               <td ><select name="fri_eve_to" id="fri_eve_to" >
+               <td >
+               <!--<div id="cmb_fri_eve_to" ></div>-->
+               <select name="fri_eve_to" id="fri_eve_to" >
 			   		<option  value="0"></option>
                  <option  value="13">1 PM</option>
                  <option  value="14">2 PM</option>
@@ -1168,36 +1225,36 @@
     </div>
     
     <div data-role="content">
-        <div id="error_new_app" style="color:#900"></div>	
         
 		<!--<strong style="font-size:18px; color:#004080">Patient</strong>-->
-        <div id="patientName" style="font-size:18px; color:#004080"></div>
+        <div id="patientName" style="font-size:20px; color:#004080; "></div>
         
-       <font style="font-size:12px; color:#004080"> Next Appoinment After ( Weeks )</font> 
-             
-             
-             <li class="ui-field-contain">
-              <select name="next_week" id="next_week" data-native-menu="false">
-                    <option  selected value=""></option>
-                    <option  value="1">1</option>
-                    <option  value="2">2</option>
-                    <option  value="3">3</option>
-                    <option  value="4">4</option>
-                    <option  value="5">5</option>
-                  	<option  value="6">6</option>
-               </select>
-               </li>
-      
-                
-
+        <div>       
+        	<div style="float:left; padding-top:20px;" >Next Appoinment After</div>                  
+                      <div style="width:100px; float:left; margin:0px 5px;"><select name="next_week" id="next_week" data-native-menu="false" style="50px;">
+                            <option selected value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                       </select></div>
+                     
+              <div style="width:100px; float:left; padding-top:20px;"> Weeks</div>
+         </div>
+         
 		</br>
+        <div style="clear:both"></div>
         <a  data-role="button" id="btnTruckInfo" onClick="newapptSave();" >Save Reminder</a>
-        <div id="success_app" style="color:#060"></div>	
+        <div id="success_new_app" style="color:#060"></div>	
+        <div id="error_new_app" style="color:#900"></div>	
         
-        </br></br></br> </br></br></br>
+        </br>
         <!--<a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Cancelled / No Show</a>
         <a  data-role="button" id="btnTruckInfo" onClick="truckInfoSubmit();" >Block This Number</a>-->
         <div id="nextAppList"></div>
+        <div id="">Patient will received sms alert reminding to confirm next appoinment.</div>
     </div><!--/cont-->
     
     <!-- ==========footer====== -->	
