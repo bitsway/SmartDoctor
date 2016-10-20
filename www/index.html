@@ -92,6 +92,7 @@
 
 		}
 
+
     </script>
 
     </head>
@@ -119,9 +120,9 @@
 
                     
                      <font style="font-size:15px; color:#004080">UserID</font>					
-                        <input name="user_id" id="user_id"  value="" type="text" placeholder="UserID">
+                        <input name="user_id" id="user_id"  value="" type="number" placeholder="UserID">
                        <font style="font-size:15px; color:#004080">PIN</font>
-                        <input type="text" name="user_pass" id="user_pass"  value="" placeholder="PIN">
+                        <input type="number" name="user_pass" id="user_pass"  value="" placeholder="PIN">
                    					
 				
 				<a data-role="button" id="loginButton" onClick="check_user();" style="color:#004080" >Login & Sync</a>
@@ -320,17 +321,15 @@
     </div>
     
     <div data-role="content" style="overflow:scroll; height:90%">
-        <div id="error_request_show" style="color:#900"></div>	
+        <div id="error_request_show" style="color:#900; "></div>	
         
         <div id="chamber_id_all"  style="font-size:18px; color:#004080">	</div>
         
         
 		 <div id="all_button">
+        <a data-role="button" onClick="page_con_appoinment_show()" style=" height:50px; color:#004080; font-size:17px;">Confirmed </br>Appoinments</a> 
+         
         <a data-role="button" onClick="page_chember_req_show()" style="color:#004080">All Request</a>
-        
-        <a data-role="button" onClick="page_con_appoinment_show()" style="color:#004080">Confirmed Appoinments</a>
-        
-        
         
         </br>
          
@@ -375,7 +374,7 @@
          <input name="req_search" style="font-size:14px; color:004080" id="req_search" type="date" >
               <a id="btn_req_search" data-role="button" onClick="req_app_search();"  style="color:#004080">Search</a>
 			  <a id="btn_req_all" data-role="button" onClick="req_app_search_all();"  style="color:#004080">Show All</a>  
-			  <img id="wait_req_image" style="" width="50px;" src="loading.gif" alt="">
+			  <img id="wait_req_image"  width="50px;" src="loading.gif" alt="">
 			  
               <table width="100%" style="border-bottom:1px solid #0CF; margin-bottom:15px;">
               	<tr>
@@ -386,7 +385,6 @@
               </table>
               <div id="dateShow"></div>
         </br>
-
 
 		<div id="reqList"></div>
 	
