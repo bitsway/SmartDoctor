@@ -424,9 +424,7 @@ function page_chamber_go(chambers_id){
 								//alert (result);
 								if (resultArray[0]=='Success'){													
 									
-									
-									
-									
+																		
 									//Profile
 									var settingsStr=resultArray[1];
 									var scheduleStr=resultArray[2];
@@ -443,6 +441,7 @@ function page_chamber_go(chambers_id){
 									$("#new_chamber_add").show();
 									
 									$("#chamber_id_all").html(localStorage.chamber_show);
+									
 									
 									//class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-shadow"
 									
@@ -590,6 +589,7 @@ function page_chamber_go(chambers_id){
 									$("#cmb_fri_eve_to").html(cmb_fri_eve_to_str);
 									
 									*/
+									
 									
 									url = "#page_chamber_go";
 									$.mobile.navigate(url);
@@ -1285,16 +1285,16 @@ function page_chember_req_show(){	//$("#error_request_show").html(apipath+'reque
 										            reqStrFull = reqStrFull + ' </tr>'
 													
 													 reqStrFull = reqStrFull +'<tr >'
-													 reqStrFull = reqStrFull +'<td style="border-right:1px solid #FFF;background-color:#00ccff">'+date_get+'</td>'
+													 reqStrFull = reqStrFull +'<td style="border-right:1px solid #FFF;background-color:#00ccff"><input id="'+ apptime_date +'" name="'+ apptime_date+'" type="hidden" value="'+date_get+'">'+date_get+'</td>'
 													// reqStrFull = reqStrFull +'<td   ><input style="font-size:14px;width=40px" id="'+ apptime_time +'" name="'+ apptime_time+'" type="time" value="'+time_get+'"></td>'
-													reqStrFull = reqStrFull +'<td style="border-right:1px solid #FFF;background-color:#00ccff">'+time_hour_value+'</td>'
-													reqStrFull = reqStrFull +'<td style="border-right:1px solid #FFF;background-color:#00ccff">'+time_min+'</td>'
+													reqStrFull = reqStrFull +'<td style="border-right:1px solid #FFF;background-color:#00ccff"><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="hidden" value="'+time_hour_value+'">'+time_hour_value+'</td>'
+													reqStrFull = reqStrFull +'<td style="border-right:1px solid #FFF;background-color:#00ccff"><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="hidden" value="'+time_min+'" >'+time_min+'</td>'
 													
 													if ((time_hour >= 12) && (time_min >= 0)){
-			reqStrFull = reqStrFull +'<td  style="background-color:#00ccff" >PM </td>' // Faisal
+			reqStrFull = reqStrFull +'<td  style="background-color:#00ccff" > <input style="font-size:14px;width=40px" id="'+ apptime_ampm +'" name="'+ apptime_ampm+'" type="hidden" value="PM" > PM </td>' // Faisal
 													}
 													else{
-														reqStrFull = reqStrFull +'<td style="background-color:#00ccff">AM </td>'
+														reqStrFull = reqStrFull +'<td style="background-color:#00ccff"><input style="font-size:14px;width=40px" id="'+ apptime_ampm +'" name="'+ apptime_ampm+'" type="hidden" value="AM" > AM </td>'
 													}
 												  	
 													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#E0EBEB; font-size:1px" ><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>'  
@@ -1443,18 +1443,18 @@ function req_show(){
 													 reqStrFull = reqStrFull +'<tr >'
 													 
 													 
-													 reqStrFull = reqStrFull +'<td  style="border-right:1px solid #FFF;background-color:#00ccff">'+date_get+'</td>'
+													 reqStrFull = reqStrFull +'<td  style="border-right:1px solid #FFF;background-color:#00ccff"><input id="'+ apptime_date +'" name="'+ apptime_date+'" type="hidden" value="'+date_get+'">'+date_get+'</td>'
 																									  
 													  
 													
-													reqStrFull = reqStrFull +'<td  style="border-right:1px solid #FFF;background-color:#00ccff" >'+time_hour_value+'</td>'
-													reqStrFull = reqStrFull +'<td  style="border-right:1px solid #FFF;background-color:#00ccff" >'+time_min+'</td>'
+													reqStrFull = reqStrFull +'<td  style="border-right:1px solid #FFF;background-color:#00ccff" ><input style="font-size:14px;width=40px" id="'+ apptime_hour +'" name="'+ apptime_hour+'" type="hidden" value="'+time_hour_value+'">'+time_hour_value+'</td>'
+													reqStrFull = reqStrFull +'<td  style="border-right:1px solid #FFF;background-color:#00ccff" ><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="hidden" value="'+time_min+'" >'+time_min+'</td>'
 												//	alert (apptime_ampm)
 													if ((time_hour >= 12) && (time_min >= 0)){
-			reqStrFull = reqStrFull +'<td style="background-color:#00ccff" >AM </td>'
+			reqStrFull = reqStrFull +'<td style="background-color:#00ccff" > <input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="hidden" value="AM" > AM </td>'
 													}
 													else{
-														reqStrFull = reqStrFull +'<td  style="background-color:#00ccff"> PM</td>'
+														reqStrFull = reqStrFull +'<td  style="background-color:#00ccff"><input style="font-size:14px;width=40px" id="'+ apptime_min +'" name="'+ apptime_min+'" type="hidden" value="PM" > PM</td>'
 													}
 												  	
 													reqStrFull = reqStrFull+'</tr>  <tr style="background-color:#E0EBEB; font-size:1px" ><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>'  
@@ -1492,7 +1492,7 @@ function confirm_app(row_id){
 	var apptime_hour=row_id+'time_hour'
 	var apptime_min=row_id+'time_min'
 	var apptime_ampm=row_id+'time_ampm'
-	
+	//alert (apptime_min);
 	var apptime_date_val=$("#"+apptime_date).val()
 	//var apptime_time_val=$("#"+apptime_time).val()
 	
@@ -1507,7 +1507,7 @@ function confirm_app(row_id){
 	
 	var apptime=apptime_date_val+" "+apptime_hour_val+":"+apptime_min_val+":00"
 	
-	//alert (apptime);
+	
 	
 	var chamber_show=localStorage.chamber_show;
 	var chamber_id=chamber_show.split('|')[1]
@@ -1636,7 +1636,7 @@ function req_app_search(){
 				  error: function(result) {					 
 					  $("#wait_image_login").hide();
 					  $("#loginButton").show();
-					
+					  
 					  $("#btn_req_search").show();
 					  $("#btn_req_all").show();
 					  $("#wait_req_image").hide();
@@ -1658,11 +1658,7 @@ function page_con_appoinment_show(){
 	
 	$("#all_button").hide();
 	$("#wait_image_chamber_info").show();
-	
-	
-	
-	
-	
+		
 	//$("#error_request_show").html(apipath+'confirmedShow?doc_id='+localStorage.user_id+'&password='+localStorage.user_pass+'&sync_code='+localStorage.sync_code+'&chamber_id='+localStorage.chamber_id);
 								
 			$.ajax({
@@ -1705,6 +1701,7 @@ function page_con_appoinment_show(){
 										var patinet_name=reqStrSingleArray[1];
 										var patinet_mobile=reqStrSingleArray[2];
 										var app_time=reqStrSingleArray[3];
+										
 										var serial_no=reqStrSingleArray[4];
             							
 										var apptime_text=row_id+'time'
