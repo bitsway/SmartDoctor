@@ -1,6 +1,6 @@
 
 //online
-var apipath="http://eapps001.cloudapp.net/smart_doctor/syncmobile/";
+var apipath="http://e3.businesssolutionapps.com/smart_doctor/syncmobile/";
 
 //local
 //var apipath="http://127.0.0.1:8000/smart_doctor/syncmobile/";
